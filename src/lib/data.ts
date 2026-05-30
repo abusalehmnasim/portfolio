@@ -9,7 +9,7 @@ export const siteConfig = {
     "Data-Driven Problem Solver",
     "Research and Policy Contributor",
   ],
-  url: "https://abusalehnasim.me",
+  url: "https://nasimabeer.me",
   description:
     "Portfolio of Abu Saleh M Nasim — finance undergraduate at BUP and pre-articled Chartered Accountancy student combining finance, data analytics, machine learning, and policy research.",
   email: "nasimabeer7@gmail.com",
