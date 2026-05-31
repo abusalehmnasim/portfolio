@@ -239,23 +239,23 @@ export const philosophyIntro =
 
 export const philosophy: Principle[] = [
   {
-    title: "Compound everything.",
-    body: "Skills, relationships, reading, savings. The math is the same — small, consistent inputs, an honest time horizon, and patience.",
+    title: "Progress that leaves people behind is not progress at all",
+    body: "I believe that true growth is never an isolated achievement; it is built on mutual support, empathy, and collaboration. A thriving community relies on the understanding that we are deeply interconnected. In my work and life, I focus on creating value that extends beyond individual gain, ensuring that knowledge, opportunities, and resources are shared to cultivate a more equitable and supportive environment for everyone.",
   },
   {
-    title: "Numbers tell stories. Stories drive decisions.",
-    body: "A model that doesn't translate into a clear narrative isn't finished. The work is the explanation.",
+    title: "When the obvious path is blurred, perception must go deeper",
+    body: "Living with a condition that obscures the center of my physical vision has profoundly shaped how I interact with the world. It has taught me that true clarity is not always about what is right in front of you. When the center fades, you learn to adapt, to look at the periphery, and to rely on insight and intuition. This translates into how I solve problems: I do not just look at the surface; I navigate complex systems by finding alternative perspectives and uncovering what others might miss.",
   },
   {
-    title: "Strong opinions, loosely held.",
-    body: "Have a view. Test it against the next piece of evidence. Be willing to change it without ego.",
+    title: "Identity is preserved through the refusal to be silenced",
+    body: "I come from a land born out of an uncompromising demand for a voice, a language, and the right to exist. The history of my people is one of enduring immense hardship, weathering both historical storms and systemic oppression, and relentlessly rebuilding. This legacy is ingrained in my philosophy. It teaches me that resilience is not merely about surviving adversity; it is about standing firm in your identity, honoring the sacrifices of the past, and pushing forward against any odds",
   },
   {
-    title: "Show your working.",
-    body: "Transparency beats polish. A messy assumption page is more trustworthy than a clean answer with no audit trail.",
+    title: "We are caretakers of our skills, time, and resources.",
+    body: "I hold the conviction that our abilities and knowledge carry an inherent responsibility. This principle of stewardship demands that we act with unwavering integrity and a deep sense of accountability. We are entrusted with our talents not merely for self-service, but to utilize them to uphold fairness, act justly, and ultimately leave our environment and our community better than we found them.",
   },
   {
-    title: "Reversible decisions, fast. Irreversible ones, slow.",
+    title: "Information is power, and the truth belongs to everyone.",
     body: "Move quickly on small bets where the cost of being wrong is low. Slow down — way down — on the few that you can't undo.",
   },
 ];
