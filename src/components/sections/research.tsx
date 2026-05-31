@@ -77,11 +77,11 @@ export function Research() {
 
           {/* Title + subtitle */}
           <header className="relative mt-6">
-            <h3 className="font-serif text-2xl leading-[1.15] tracking-tight sm:text-3xl lg:text-[2.1rem]">
+            <h3 className="text-2xl font-semibold leading-[1.15] tracking-tight sm:text-3xl lg:text-[2.1rem]">
               {publication.title}
             </h3>
             {publication.subtitle && (
-              <p className="mt-2 font-serif text-lg italic leading-snug text-muted-foreground sm:text-xl">
+              <p className="mt-2 text-lg font-medium leading-snug text-muted-foreground sm:text-xl">
                 {publication.subtitle}
               </p>
             )}
@@ -114,7 +114,7 @@ export function Research() {
               </span>
               <span className="h-px flex-1 bg-border/60" />
             </div>
-            <p className="mt-4 text-pretty font-serif text-[1.05rem] leading-[1.65] text-foreground/90 sm:text-[1.1rem]">
+            <p className="mt-4 text-pretty text-[0.975rem] leading-[1.7] text-foreground/85 sm:text-base">
               {publication.abstract}
             </p>
           </div>
