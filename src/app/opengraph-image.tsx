@@ -8,7 +8,7 @@ export const contentType = "image/png";
 
 const PAPER = "#F3ECD7";
 const INK = "#1F1F58";
-const PINK = "#F45EA0";
+const PINK = "#EB4763";
 
 export default async function Image() {
   return new ImageResponse(

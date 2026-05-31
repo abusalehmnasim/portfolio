@@ -15,21 +15,21 @@
 
     --border: 240 55% 22%;          /* borders take the ink color     */
     --input: 240 55% 22%;
-    --ring: 335 95% 60%;
+    --ring: 350 80% 60%;
 
     --card: 42 38% 96%;             /* slightly brighter cream cards  */
     --card-foreground: 240 55% 14%;
 
-    --primary: 335 95% 60%;         /* #F45EA0 fluorescent pink       */
+    --primary: 350 80% 60%;         /* #EB4763 burgundy rose          */
     --primary-foreground: 42 38% 92%;
 
     --secondary: 195 80% 60%;       /* #45B6E0 sky blue (rarely used) */
     --secondary-foreground: 42 38% 92%;
 
-    --accent: 335 95% 60%;
+    --accent: 350 80% 60%;
     --accent-foreground: 42 38% 92%;
 
-    --destructive: 335 95% 50%;
+    --destructive: 350 80% 50%;
     --destructive-foreground: 42 38% 92%;
 
     --radius: 0;
@@ -47,21 +47,21 @@
 
     --border: 42 40% 92%;
     --input: 42 40% 92%;
-    --ring: 335 95% 70%;
+    --ring: 350 80% 70%;
 
     --card: 240 22% 10%;
     --card-foreground: 42 40% 92%;
 
-    --primary: 335 95% 70%;
+    --primary: 350 80% 70%;
     --primary-foreground: 240 30% 6%;
 
     --secondary: 195 90% 70%;
     --secondary-foreground: 240 30% 6%;
 
-    --accent: 335 95% 70%;
+    --accent: 350 80% 70%;
     --accent-foreground: 240 30% 6%;
 
-    --destructive: 335 95% 60%;
+    --destructive: 350 80% 60%;
     --destructive-foreground: 240 30% 6%;
   }
 
