@@ -17,8 +17,8 @@ export default async function Image() {
           flexDirection: "column",
           justifyContent: "space-between",
           padding: 80,
-          background: "#FAF7F2",
-          color: "#141414",
+          background: "#FFFFFF",
+          color: "#171717",
           fontFamily: "Georgia, serif",
         }}
       >
@@ -31,7 +31,7 @@ export default async function Image() {
             fontSize: 16,
             letterSpacing: 4,
             textTransform: "uppercase",
-            color: "#A4231F",
+            color: "#BE1B1B",
           }}
         >
           <span>Personal Portfolio · Vol. I</span>
@@ -39,7 +39,7 @@ export default async function Image() {
             style={{
               flex: 1,
               height: 1,
-              background: "#C8C0B0",
+              background: "#D9D9D9",
             }}
           />
           <span style={{ color: "#666" }}>Dhaka, BD</span>
@@ -61,7 +61,7 @@ export default async function Image() {
             style={{
               fontSize: 30,
               lineHeight: 1.4,
-              color: "#3A3A38",
+              color: "#404040",
               maxWidth: 980,
               fontFamily: "system-ui, sans-serif",
             }}
@@ -84,12 +84,12 @@ export default async function Image() {
         >
           <div style={{ display: "flex", gap: 24 }}>
             <span>One paper on SSRN</span>
-            <span style={{ color: "#A4231F" }}>·</span>
+            <span style={{ color: "#BE1B1B" }}>·</span>
             <span>Two projects on GitHub</span>
-            <span style={{ color: "#A4231F" }}>·</span>
+            <span style={{ color: "#BE1B1B" }}>·</span>
             <span>Class of 2027</span>
           </div>
-          <div style={{ color: "#141414" }}>nasimabeer.me</div>
+          <div style={{ color: "#171717" }}>nasimabeer.me</div>
         </div>
       </div>
     ),
