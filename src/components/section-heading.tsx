@@ -4,63 +4,50 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
+  number?: string;
   eyebrow?: string;
-  title: string;
+  title?: string;
   description?: string;
-  align?: "left" | "center";
   className?: string;
 }
 
+/**
+ * Editorial section heading: §NN — LABEL across a hairline rule,
+ * followed by an optional serif title and lead description.
+ */
 export function SectionHeading({
+  number,
   eyebrow,
   title,
   description,
-  align = "center",
   className,
 }: SectionHeadingProps) {
   return (
-    <div
-      className={cn(
-        "mb-14 flex flex-col gap-3",
-        align === "center" ? "items-center text-center" : "items-start",
-        className
-      )}
+    <motion.div
+      initial={{ opacity: 0, y: 8 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: "-80px" }}
+      transition={{ duration: 0.4 }}
+      className={cn("mb-10 sm:mb-12", className)}
     >
-      {eyebrow && (
-        <motion.span
-          initial={{ opacity: 0, y: 10 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.4 }}
-          className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/50 px-3 py-1 text-xs font-medium uppercase tracking-[0.18em] text-muted-foreground backdrop-blur"
-        >
-          <span className="h-1 w-1 rounded-full bg-primary" />
+      <div className="flex items-center gap-4">
+        <span className="section-label whitespace-nowrap">
+          {number && <span className="text-foreground/70">§{number}</span>}
+          {number && eyebrow && <span className="mx-2 text-border">·</span>}
           {eyebrow}
-        </motion.span>
+        </span>
+        <span className="hairline" />
+      </div>
+      {title && (
+        <h2 className="serif-display mt-6 text-balance text-[2rem] leading-[1.1] sm:text-[2.5rem]">
+          {title}
+        </h2>
       )}
-      <motion.h2
-        initial={{ opacity: 0, y: 12 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-80px" }}
-        transition={{ duration: 0.5, delay: 0.05 }}
-        className="text-balance text-3xl font-semibold tracking-tight sm:text-4xl"
-      >
-        {title}
-      </motion.h2>
       {description && (
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className={cn(
-            "text-pretty text-base text-muted-foreground sm:text-lg",
-            align === "center" ? "max-w-2xl" : "max-w-3xl"
-          )}
-        >
+        <p className="mt-3 max-w-prose text-pretty text-[1.0625rem] leading-[1.6] text-muted-foreground sm:text-lg">
           {description}
-        </motion.p>
+        </p>
       )}
-    </div>
+    </motion.div>
   );
 }

@@ -1,11 +1,9 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Instrument_Serif } from "next/font/google";
+import { Inter, Source_Serif_4 } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
-import { Grain } from "@/components/effects/grain";
-import { SpotlightCursor } from "@/components/effects/spotlight-cursor";
 import { siteConfig, publication } from "@/lib/data";
 import "./globals.css";
 
@@ -15,9 +13,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const serif = Instrument_Serif({
+const serif = Source_Serif_4({
   subsets: ["latin"],
-  weight: "400",
+  weight: ["400", "600"],
+  style: ["normal", "italic"],
   variable: "--font-serif",
   display: "swap",
 });
@@ -37,7 +36,6 @@ export const metadata: Metadata = {
     "ICAB",
     "Data Analyst",
     "Financial Modeling",
-    "Machine Learning",
     "Policy Research",
     "Dhaka",
     "Bangladesh",
@@ -74,8 +72,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0b1220" },
+    { media: "(prefers-color-scheme: light)", color: "#FAF7F2" },
+    { media: "(prefers-color-scheme: dark)", color: "#161312" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -154,13 +152,11 @@ export default function RootLayout({
       <body className="min-h-screen bg-background font-sans antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
+          defaultTheme="light"
           enableSystem
           disableTransitionOnChange
         >
           <ScrollProgress />
-          <SpotlightCursor />
-          <Grain />
           <Navbar />
           <main>{children}</main>
           <Footer />

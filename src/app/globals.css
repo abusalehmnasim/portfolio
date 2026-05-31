@@ -4,59 +4,63 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    /* Light — warm paper */
+    --paper: 38 33% 96%;            /* #FAF7F2  page background       */
+    --background: 38 33% 96%;
+    --foreground: 30 8% 12%;        /* near-black warm text          */
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --muted: 38 20% 90%;            /* a touch darker than paper     */
+    --muted-foreground: 30 5% 38%;  /* secondary copy                */
 
-    --primary: 221 83% 53%;
-    --primary-foreground: 210 40% 98%;
+    --border: 30 8% 78%;            /* visible hairline rules        */
+    --input: 30 8% 78%;
+    --ring: 4 68% 42%;
 
-    --secondary: 210 40% 96%;
-    --secondary-foreground: 222 47% 11%;
+    --card: 38 33% 96%;             /* no card surface — same as bg  */
+    --card-foreground: 30 8% 12%;
 
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --primary: 4 68% 38%;           /* #A4231F  editorial deep red   */
+    --primary-foreground: 38 33% 96%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 0 0% 100%;
+    --secondary: 38 20% 90%;
+    --secondary-foreground: 30 8% 12%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 4 68% 38%;
+    --accent-foreground: 38 33% 96%;
 
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 221 83% 53%;
+    --destructive: 4 68% 38%;
+    --destructive-foreground: 38 33% 96%;
 
-    --radius: 0.875rem;
+    --radius: 0.125rem;             /* near-square corners           */
   }
 
   .dark {
-    --background: 222 47% 5%;
-    --foreground: 210 40% 98%;
+    /* Dark — newspaper at night */
+    --paper: 30 8% 8%;              /* warm near-black               */
+    --background: 30 8% 8%;
+    --foreground: 38 22% 88%;       /* warm off-white text           */
 
-    --card: 222 47% 7%;
-    --card-foreground: 210 40% 98%;
+    --muted: 30 8% 14%;
+    --muted-foreground: 38 8% 60%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 222 47% 5%;
+    --border: 30 8% 22%;
+    --input: 30 8% 22%;
+    --ring: 4 70% 60%;
 
-    --secondary: 217 33% 13%;
-    --secondary-foreground: 210 40% 98%;
+    --card: 30 8% 8%;
+    --card-foreground: 38 22% 88%;
 
-    --muted: 217 33% 13%;
-    --muted-foreground: 215 20% 65%;
+    --primary: 4 70% 62%;
+    --primary-foreground: 30 8% 8%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 222 47% 5%;
+    --secondary: 30 8% 14%;
+    --secondary-foreground: 38 22% 88%;
 
-    --destructive: 0 63% 31%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 4 70% 62%;
+    --accent-foreground: 30 8% 8%;
 
-    --border: 217 33% 18%;
-    --input: 217 33% 18%;
-    --ring: 217 91% 60%;
+    --destructive: 4 70% 62%;
+    --destructive-foreground: 30 8% 8%;
   }
 
   * {
@@ -67,45 +71,68 @@
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1, "ss01" 1;
+    font-feature-settings: "kern", "liga", "calt", "onum";
   }
 
   ::selection {
-    @apply bg-primary/20 text-foreground;
+    @apply bg-primary/15 text-foreground;
+  }
+
+  /* Inline link treatment — sober editorial underline */
+  a.editorial,
+  .prose-editorial a {
+    @apply text-primary underline decoration-primary/40 underline-offset-[3px] transition-colors;
+    text-decoration-thickness: 1px;
+  }
+  a.editorial:hover,
+  .prose-editorial a:hover {
+    @apply decoration-primary;
   }
 }
 
 @layer components {
-  .glass {
-    @apply backdrop-blur-xl bg-white/60 dark:bg-white/5 border border-white/20 dark:border-white/10;
+  /* The narrow editorial column — single-column reading width */
+  .editorial-container {
+    @apply mx-auto max-w-3xl px-6 sm:px-8;
+  }
+  .editorial-wide {
+    @apply mx-auto max-w-5xl px-6 sm:px-8;
   }
 
-  .glass-card {
-    @apply relative rounded-2xl backdrop-blur-xl bg-white/70 dark:bg-white/[0.04] border border-black/5 dark:border-white/10 shadow-[0_1px_0_0_rgba(255,255,255,0.05)_inset,0_8px_30px_-12px_rgba(0,0,0,0.08)] dark:shadow-[0_1px_0_0_rgba(255,255,255,0.04)_inset,0_8px_30px_-12px_rgba(0,0,0,0.5)];
+  /* Section spacing */
+  .editorial-section {
+    @apply py-16 sm:py-20;
   }
 
-  .gradient-text {
-    @apply bg-gradient-to-r from-primary via-accent to-primary bg-[length:200%_auto] bg-clip-text text-transparent animate-gradient-shift;
+  /* Hairline horizontal rule */
+  .hairline {
+    @apply h-px w-full bg-border;
   }
 
-  .grid-bg {
-    background-image:
-      linear-gradient(to right, hsl(var(--border) / 0.4) 1px, transparent 1px),
-      linear-gradient(to bottom, hsl(var(--border) / 0.4) 1px, transparent 1px);
-    background-size: 56px 56px;
-    mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+  /* Serif display type for headlines (Source Serif 4) */
+  .serif-display {
+    @apply font-serif font-normal tracking-tight;
+    font-feature-settings: "kern", "liga", "onum";
   }
 
-  .section-padding {
-    @apply py-24 sm:py-32;
+  /* Small caps section label (eyebrow) */
+  .section-label {
+    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground;
   }
 
-  .container-tight {
-    @apply container max-w-5xl;
+  /* Body prose */
+  .body-prose {
+    @apply text-[1.0625rem] leading-[1.7] text-foreground/85 sm:text-[1.125rem];
+  }
+
+  /* Drop cap for lead paragraphs */
+  .dropcap::first-letter {
+    @apply float-left mr-3 mt-1 font-serif font-normal text-[3.8rem] leading-[0.9] text-foreground;
   }
 }
 
@@ -118,17 +145,17 @@
   }
 }
 
-/* Custom scrollbar */
+/* Minimal scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
 }
 ::-webkit-scrollbar-track {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--muted-foreground) / 0.3);
-  border-radius: 9999px;
+  background: hsl(var(--border));
+  border-radius: 0;
 }
 ::-webkit-scrollbar-thumb:hover {
   background: hsl(var(--muted-foreground) / 0.5);

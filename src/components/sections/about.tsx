@@ -1,115 +1,44 @@
-"use client";
-
-import { motion } from "framer-motion";
-import {
-  BarChart3,
-  BookOpen,
-  Briefcase,
-  Cpu,
-  LineChart,
-  ScrollText,
-} from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { interests } from "@/lib/data";
 
-const focus = [
-  { icon: Briefcase, label: "Finance" },
-  { icon: ScrollText, label: "Accounting" },
-  { icon: BarChart3, label: "Analytics" },
-  { icon: Cpu, label: "Technology" },
-  { icon: BookOpen, label: "Research" },
-];
-
-const interestIcons: Record<string, typeof LineChart> = {
-  "Financial Analysis": LineChart,
-  "Capital Markets": BarChart3,
-  "Data Analytics": BarChart3,
-  "Machine Learning": Cpu,
-  "Economic Research": BookOpen,
-  "Public Policy": ScrollText,
-};
-
 export function About() {
   return (
-    <section id="about" className="section-padding">
-      <div className="container-tight">
-        <SectionHeading
-          eyebrow="About"
-          title="A bit about me."
-          description="BBA Finance at Bangladesh University of Professionals. Pre-articled CA student at ICAB. Most of my time goes to coursework and exam prep — but I keep a research paper, a side project, or both running in the background."
-        />
+    <section id="about" className="editorial-section">
+      <div className="editorial-wide">
+        <SectionHeading number="01" eyebrow="About" />
 
-        <div className="grid gap-10 lg:grid-cols-5">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5 }}
-            className="glass-card lg:col-span-3 p-8"
-          >
-            <h3 className="text-base font-semibold tracking-tight">
-              The longer version
-            </h3>
-            <div className="mt-4 space-y-4 text-pretty text-sm leading-relaxed text-muted-foreground sm:text-base">
-              <p>
-                Most of my classroom hours are in financial statements,
-                valuation, audit, and reporting standards. CA has been a slow,
-                heavy grind — and the reason I now read annual reports for fun.
-              </p>
-              <p>
-                On my own time I build things in Python, SQL, and Power BI. The
-                two projects below started from &ldquo;I want to know,&rdquo;
-                not &ldquo;I want to learn&rdquo; — one tries to predict the
-                DSE, the other maps every restaurant in Dhaka I could find.
-              </p>
-              <p>
-                I recently started writing — first paper out on SSRN, on
-                customer loyalty in Bangladeshi grocery retail. I&apos;m also a
-                Policy Envoy with the Youth Policy Forum, which mostly means I
-                read more about public policy than I get to act on.
-              </p>
-            </div>
+        <div className="grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+          <div className="space-y-5 body-prose">
+            <p>
+              Most of my classroom hours are in financial statements,
+              valuation, audit, and reporting standards. The CA programme has
+              been a slow, heavy grind — and the reason I now read annual
+              reports for fun.
+            </p>
+            <p>
+              On my own time I build things in Python, SQL, and Power BI. The
+              two projects below began from &ldquo;I want to know,&rdquo; not
+              &ldquo;I want to learn&rdquo;: one tries to forecast the Dhaka
+              Stock Exchange with XGBoost; the other maps every restaurant in
+              Dhaka I could find from open-source geographic data.
+            </p>
+            <p>
+              I&apos;ve recently started writing — a first paper on customer
+              loyalty in Bangladeshi organised grocery retail is open on SSRN.
+              I&apos;m also a Policy Envoy with the Youth Policy Forum, which
+              mostly means I read more about public policy than I get to act
+              on.
+            </p>
+          </div>
 
-            <div className="mt-7 flex flex-wrap gap-2">
-              {focus.map((f) => (
-                <span
-                  key={f.label}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-xs font-medium backdrop-blur"
-                >
-                  <f.icon className="h-3.5 w-3.5 text-primary" />
-                  {f.label}
-                </span>
+          <aside>
+            <p className="section-label">Interests</p>
+            <ul className="mt-4 space-y-1.5 text-[1.0625rem] leading-relaxed text-foreground/85">
+              {interests.map((item) => (
+                <li key={item}>{item}</li>
               ))}
-            </div>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true, margin: "-80px" }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="glass-card lg:col-span-2 p-8"
-          >
-            <h3 className="text-base font-semibold tracking-tight">
-              Areas of interest
-            </h3>
-            <ul className="mt-5 space-y-3">
-              {interests.map((item) => {
-                const Icon = interestIcons[item] ?? LineChart;
-                return (
-                  <li
-                    key={item}
-                    className="flex items-center gap-3 rounded-lg border border-border/40 bg-background/40 px-3 py-2.5 text-sm backdrop-blur transition-colors hover:border-primary/40 hover:bg-primary/[0.04]"
-                  >
-                    <span className="flex h-8 w-8 items-center justify-center rounded-md bg-primary/10 text-primary">
-                      <Icon className="h-4 w-4" />
-                    </span>
-                    {item}
-                  </li>
-                );
-              })}
             </ul>
-          </motion.div>
+          </aside>
         </div>
       </div>
     </section>

@@ -1,54 +1,53 @@
 import Link from "next/link";
-import { Github, Linkedin, Mail } from "lucide-react";
 import { siteConfig } from "@/lib/data";
 
 export function Footer() {
   const year = new Date().getFullYear();
   return (
-    <footer className="border-t border-border/60 bg-background/50">
-      <div className="container flex flex-col items-center justify-between gap-4 py-10 sm:flex-row">
-        <div className="flex flex-col items-center gap-2 sm:items-start">
+    <footer className="mt-24 border-t border-border">
+      <div className="editorial-wide flex flex-col gap-4 py-10 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-1">
           <p className="text-sm text-muted-foreground">
-            © {year} {siteConfig.name} · Dhaka
+            © {year} {siteConfig.name} · Dhaka, Bangladesh
           </p>
           <Link
             href="/now"
-            className="inline-flex items-center gap-1.5 text-xs text-muted-foreground transition-colors hover:text-foreground"
+            className="text-xs text-muted-foreground transition-colors hover:text-foreground"
           >
-            <span className="relative flex h-1.5 w-1.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/70" />
-              <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
-            </span>
             What I&apos;m up to → /now
           </Link>
         </div>
-        <div className="flex items-center gap-3">
+        <nav className="flex flex-wrap items-center gap-x-5 gap-y-2 text-sm">
+          <a
+            href={`mailto:${siteConfig.email}`}
+            className="text-muted-foreground transition-colors hover:text-foreground"
+          >
+            Email
+          </a>
           <a
             href={siteConfig.socials.github}
             target="_blank"
             rel="noreferrer"
-            aria-label="GitHub"
-            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            <Github className="h-4 w-4" />
+            GitHub
           </a>
           <a
             href={siteConfig.socials.linkedin}
             target="_blank"
             rel="noreferrer"
-            aria-label="LinkedIn"
-            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            <Linkedin className="h-4 w-4" />
+            LinkedIn
           </a>
           <a
-            href={`mailto:${siteConfig.email}`}
-            aria-label="Email"
-            className="rounded-md p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+            href="/cv.pdf"
+            download
+            className="text-muted-foreground transition-colors hover:text-foreground"
           >
-            <Mail className="h-4 w-4" />
+            CV
           </a>
-        </div>
+        </nav>
       </div>
     </footer>
   );

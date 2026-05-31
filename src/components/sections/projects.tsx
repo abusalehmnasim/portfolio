@@ -1,110 +1,72 @@
-"use client";
-
 import Image from "next/image";
-import { motion } from "framer-motion";
-import { ArrowUpRight, Github } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
-import { Badge } from "@/components/ui/badge";
-import { Tilt } from "@/components/ui/tilt";
 import { projects } from "@/lib/data";
 
 export function Projects() {
   return (
-    <section id="projects" className="section-padding bg-muted/30">
-      <div className="container">
+    <section id="projects" className="editorial-section">
+      <div className="editorial-wide">
         <SectionHeading
+          number="04"
           eyebrow="Projects"
-          title="Things I've built."
           description="Two side projects. Both started as questions I couldn't answer in Excel."
         />
 
-        <div className="grid gap-6 md:grid-cols-2">
-          {projects.map((p, i) => (
-            <motion.div
+        <div className="space-y-16">
+          {projects.map((p, idx) => (
+            <article
               key={p.title}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: i * 0.08 }}
+              className="grid gap-8 lg:grid-cols-[1fr_1.1fr] lg:gap-12"
             >
-            <Tilt max={6}>
-            <article className="glass-card group relative flex flex-col overflow-hidden">
-              <div
-                className={`relative aspect-[16/9] w-full overflow-hidden border-b border-border/40 bg-gradient-to-br ${p.accent}`}
-              >
-                {p.image ? (
+              {p.image && (
+                <figure className="relative aspect-[4/3] w-full overflow-hidden border border-border bg-muted">
                   <Image
                     src={p.image}
                     alt={p.title}
                     fill
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                    className="object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    sizes="(max-width: 1024px) 100vw, 480px"
+                    className="object-cover"
                   />
-                ) : (
-                  <div className="absolute inset-0 grid-bg opacity-40" />
-                )}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-background/30 via-transparent to-transparent" />
-                <span className="pointer-events-none absolute bottom-3 left-3 rounded-full border border-border/60 bg-background/80 px-2.5 py-1 text-[10px] font-medium uppercase tracking-wider backdrop-blur">
-                  {p.tech[0]}
-                </span>
-              </div>
-
-              <div className="flex flex-1 flex-col p-6">
-                <div className="flex items-start justify-between gap-3">
-                  <h3 className="text-lg font-semibold tracking-tight">
-                    {p.title}
-                  </h3>
-                  <a
-                    href={p.github}
-                    target="_blank"
-                    rel="noreferrer"
-                    aria-label={`Open ${p.title} on GitHub`}
-                    className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-                  >
-                    <Github className="h-4 w-4" />
-                  </a>
-                </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                </figure>
+              )}
+              <div>
+                <p className="section-label">
+                  Project · 0{idx + 1}
+                </p>
+                <h3 className="serif-display mt-3 text-2xl leading-tight sm:text-[1.75rem]">
+                  {p.title}
+                </h3>
+                <p className="mt-4 max-w-prose text-[1.0625rem] leading-relaxed text-foreground/85">
                   {p.description}
                 </p>
 
-                <div className="mt-5">
-                  <h4 className="text-xs font-medium uppercase tracking-wider text-muted-foreground">
-                    Highlights
-                  </h4>
-                  <ul className="mt-2 space-y-1.5 text-sm">
-                    {p.highlights.map((h) => (
-                      <li key={h} className="flex gap-2">
-                        <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/70" />
-                        <span className="text-muted-foreground">{h}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {p.tech.map((t) => (
-                    <Badge key={t} variant="outline">
-                      {t}
-                    </Badge>
+                <ul className="mt-5 max-w-prose space-y-1 text-[0.95rem] leading-relaxed text-foreground/80">
+                  {p.highlights.map((h) => (
+                    <li key={h} className="flex gap-3">
+                      <span className="mt-2.5 h-px w-3 shrink-0 bg-border" />
+                      <span>{h}</span>
+                    </li>
                   ))}
-                </div>
+                </ul>
 
-                <div className="mt-6 flex items-center justify-between border-t border-border/40 pt-4">
+                <p className="mt-5 font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                  {p.tech.join(" · ")}
+                </p>
+
+                <p className="mt-6">
                   <a
                     href={p.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 text-sm font-medium text-primary hover:underline"
+                    className="editorial inline-flex items-center gap-1.5"
                   >
-                    View on GitHub
+                    View code on GitHub
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
-                </div>
+                </p>
               </div>
             </article>
-            </Tilt>
-            </motion.div>
           ))}
         </div>
       </div>

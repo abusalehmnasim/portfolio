@@ -1,61 +1,42 @@
-"use client";
-
-import { motion } from "framer-motion";
-import { Award } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { experience } from "@/lib/data";
 
 export function Experience() {
   return (
-    <section id="experience" className="section-padding">
-      <div className="container-tight">
+    <section id="experience" className="editorial-section">
+      <div className="editorial-wide">
         <SectionHeading
+          number="03"
           eyebrow="Roles"
-          title="Clubs, committees, the occasional forum."
-          description="Some of this is from school. Most of it taught me how to run a room and a calendar."
+          description="Clubs, committees, the occasional forum. Most of this is from school. The pattern goes back further than the CV does."
         />
 
-        <ol className="relative space-y-6 border-l border-border/70 pl-6 sm:pl-10">
+        <dl className="divide-y divide-border border-y border-border">
           {experience.map((item, i) => (
-            <motion.li
+            <div
               key={`${item.role}-${item.org}`}
-              initial={{ opacity: 0, x: -16 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true, margin: "-80px" }}
-              transition={{ duration: 0.5, delay: i * 0.06 }}
-              className="relative"
+              className="grid gap-4 py-7 sm:grid-cols-[140px_1fr] sm:gap-10"
             >
-              <span className="absolute -left-[37px] sm:-left-[49px] top-3 flex h-6 w-6 items-center justify-center rounded-full border border-border/70 bg-background ring-4 ring-background">
-                <span className="h-2 w-2 rounded-full bg-primary" />
-              </span>
-
-              <div className="glass-card p-6">
-                <div className="flex flex-wrap items-start justify-between gap-3">
-                  <div>
-                    <h3 className="text-base font-semibold tracking-tight">
-                      {item.role}
-                    </h3>
-                    <p className="mt-0.5 text-sm text-muted-foreground">
-                      {item.org}
-                    </p>
-                  </div>
-                  <span className="inline-flex items-center gap-1.5 rounded-full border border-border/60 bg-background/60 px-2.5 py-0.5 text-xs font-medium text-foreground/80">
-                    <Award className="h-3 w-3 text-primary" />
-                    {item.period}
-                  </span>
-                </div>
-                <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
+              <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:pt-1.5">
+                {item.period}
+              </dt>
+              <dd>
+                <p className="serif-display text-xl leading-snug sm:text-2xl">
+                  {item.role}
+                </p>
+                <p className="mt-1 text-sm text-muted-foreground">{item.org}</p>
+                <ul className="mt-3 max-w-prose space-y-1 text-[0.95rem] leading-relaxed text-foreground/80">
                   {item.points.map((p) => (
-                    <li key={p} className="flex gap-2.5">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-primary/70" />
+                    <li key={p} className="flex gap-3">
+                      <span className="mt-2.5 h-px w-3 shrink-0 bg-border" />
                       <span>{p}</span>
                     </li>
                   ))}
                 </ul>
-              </div>
-            </motion.li>
+              </dd>
+            </div>
           ))}
-        </ol>
+        </dl>
       </div>
     </section>
   );
