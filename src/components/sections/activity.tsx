@@ -6,9 +6,9 @@ export function Activity() {
     <section id="activity" className="section-padding">
       <div className="container-tight">
         <SectionHeading
-          eyebrow="Open Source"
-          title="Live coding activity."
-          description="A real-time look at the last 12 months of public contributions on GitHub — pulled live, not a screenshot."
+          eyebrow="GitHub"
+          title="Last 12 months of commits."
+          description="Pulled live from the GitHub API. Not a screenshot."
         />
         <GitHubHeatmap username="abusalehmnasim" />
       </div>

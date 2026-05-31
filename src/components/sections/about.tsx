@@ -35,8 +35,8 @@ export function About() {
       <div className="container-tight">
         <SectionHeading
           eyebrow="About"
-          title="Bridging finance, data, and policy."
-          description="I'm a finance undergraduate at Bangladesh University of Professionals and a pre-articled Chartered Accountancy student. I work at the intersection of finance, analytics, technology, and research — turning raw data and complex problems into clear, decision-ready insight."
+          title="A bit about me."
+          description="BBA Finance at Bangladesh University of Professionals. Pre-articled CA student at ICAB. Most of my time goes to coursework and exam prep — but I keep a research paper, a side project, or both running in the background."
         />
 
         <div className="grid gap-10 lg:grid-cols-5">
@@ -48,26 +48,25 @@ export function About() {
             className="glass-card lg:col-span-3 p-8"
           >
             <h3 className="text-base font-semibold tracking-tight">
-              How I work
+              The longer version
             </h3>
             <div className="mt-4 space-y-4 text-pretty text-sm leading-relaxed text-muted-foreground sm:text-base">
               <p>
-                My academic background in finance and chartered accountancy
-                gives me a strong grounding in financial statements, valuation,
-                and the corporate reporting standards that drive real business
-                decisions.
+                Most of my classroom hours are in financial statements,
+                valuation, audit, and reporting standards. CA has been a slow,
+                heavy grind — and the reason I now read annual reports for fun.
               </p>
               <p>
-                Alongside this, I build practical projects in Python, SQL, and
-                Power BI — applying machine learning to financial markets,
-                automating data pipelines, and shipping dashboards that answer
-                specific questions for stakeholders.
+                On my own time I build things in Python, SQL, and Power BI. The
+                two projects below started from &ldquo;I want to know,&rdquo;
+                not &ldquo;I want to learn&rdquo; — one tries to predict the
+                DSE, the other maps every restaurant in Dhaka I could find.
               </p>
               <p>
-                Through my work with the Youth Policy Forum and as a published
-                research author, I&apos;ve learned to translate quantitative
-                analysis into the kind of arguments that support sound policy
-                and informed leadership.
+                I recently started writing — first paper out on SSRN, on
+                customer loyalty in Bangladeshi grocery retail. I&apos;m also a
+                Policy Envoy with the Youth Policy Forum, which mostly means I
+                read more about public policy than I get to act on.
               </p>
             </div>
 

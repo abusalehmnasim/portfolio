@@ -2,12 +2,12 @@ export const siteConfig = {
   name: "Abu Saleh M Nasim",
   shortName: "Nasim",
   tagline:
-    "Finance Undergraduate · Chartered Accountancy Student · Data Analyst · Researcher",
+    "BBA Finance at BUP · CA student at ICAB · sometimes writing, sometimes coding",
   rotatingTaglines: [
-    "Finance & Analytics Enthusiast",
-    "Future Chartered Accountant",
-    "Data-Driven Problem Solver",
-    "Research and Policy Contributor",
+    "BBA Finance at BUP",
+    "CA student at ICAB",
+    "Python, SQL, Excel — in that order of headache",
+    "One paper on SSRN, working on the next",
   ],
   url: "https://nasimabeer.me",
   description:
@@ -30,10 +30,10 @@ export const stats: Array<{
   numeric?: number;
   suffix?: string;
 }> = [
-  { value: "CA", label: "Certificate Level Cleared" },
-  { value: "2", label: "Major Data Projects", numeric: 2 },
-  { value: "4+", label: "Leadership Positions", numeric: 4, suffix: "+" },
-  { value: "1", label: "Published Research Author", numeric: 1 },
+  { value: "CA", label: "Certificate level cleared" },
+  { value: "2", label: "Projects on GitHub", numeric: 2 },
+  { value: "4+", label: "Clubs and roles", numeric: 4, suffix: "+" },
+  { value: "1", label: "Paper on SSRN", numeric: 1 },
 ];
 
 export const education = [

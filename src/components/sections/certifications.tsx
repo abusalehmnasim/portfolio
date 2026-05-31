@@ -12,7 +12,7 @@ export function Certifications() {
       <div className="container-tight">
         <SectionHeading
           eyebrow="Certifications"
-          title="Verified credentials."
+          title="Things I've finished."
         />
 
         <div className="grid gap-6 md:grid-cols-2">

@@ -61,8 +61,8 @@ export function Contact() {
       <div className="container-tight">
         <SectionHeading
           eyebrow="Contact"
-          title="Let's connect."
-          description="I'm open to internships, research collaborations, and conversations about finance, analytics, and policy. The fastest way to reach me is email."
+          title="Get in touch."
+          description="Email is fastest. Especially if you're hiring an intern, building something interesting, or want to argue about Bangladeshi capital markets."
         />
 
         <div className="grid gap-6 lg:grid-cols-5">
@@ -191,7 +191,7 @@ export function Contact() {
             </div>
             <div className="flex items-center justify-between gap-3 pt-1">
               <p className="text-xs text-muted-foreground">
-                Submitting opens your email client with the message pre-filled.
+                Opens your email client with the message pre-filled.
               </p>
               <Button type="submit">
                 {sent ? (

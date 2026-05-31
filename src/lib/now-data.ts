@@ -132,7 +132,7 @@ export interface FavouriteGroup {
 }
 
 export const favouritesIntro =
-  "Things I never get tired of. If any of these spark something, we'll get along.";
+  "If you recognise any of these, we'll probably get on.";
 
 export const favourites: FavouriteGroup[] = [
   {
@@ -235,7 +235,7 @@ export interface Principle {
 }
 
 export const philosophyIntro =
-  "Operating principles I keep coming back to — in finance, in code, and in life.";
+  "A few things I try to keep in mind.";
 
 export const philosophy: Principle[] = [
   {

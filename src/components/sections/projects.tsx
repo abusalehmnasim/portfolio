@@ -14,8 +14,8 @@ export function Projects() {
       <div className="container">
         <SectionHeading
           eyebrow="Projects"
-          title="Selected work."
-          description="Hands-on projects where I combine financial intuition with data engineering and machine learning."
+          title="Things I've built."
+          description="Two side projects. Both started as questions I couldn't answer in Excel."
         />
 
         <div className="grid gap-6 md:grid-cols-2">

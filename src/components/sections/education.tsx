@@ -11,8 +11,7 @@ export function Education() {
       <div className="container-tight">
         <SectionHeading
           eyebrow="Education"
-          title="Academic foundation."
-          description="A combination of an undergraduate finance program and a professional chartered accountancy track."
+          title="Where I'm studying."
         />
 
         <div className="grid gap-6 md:grid-cols-2">

@@ -41,9 +41,9 @@ export function Research() {
     <section id="research" className="section-padding">
       <div className="container-tight">
         <SectionHeading
-          eyebrow="Research & Publications"
-          title="Published research."
-          description="Working at the intersection of finance, retail, and emerging-market policy. Open-access on SSRN."
+          eyebrow="Research"
+          title="One paper, so far."
+          description="Open-access on SSRN. The current one is on grocery retail in Bangladesh; the next will probably be on capital markets."
         />
 
         <motion.article

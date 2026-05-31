@@ -10,9 +10,9 @@ export function Experience() {
     <section id="experience" className="section-padding">
       <div className="container-tight">
         <SectionHeading
-          eyebrow="Experience & Leadership"
-          title="A track record of leading and contributing."
-          description="From school science clubs to national policy forums, I've consistently taken on roles that build initiative, communication, and organizational skill."
+          eyebrow="Roles"
+          title="Clubs, committees, the occasional forum."
+          description="Some of this is from school. Most of it taught me how to run a room and a calendar."
         />
 
         <ol className="relative space-y-6 border-l border-border/70 pl-6 sm:pl-10">

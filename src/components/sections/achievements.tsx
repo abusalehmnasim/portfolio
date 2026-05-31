@@ -10,8 +10,8 @@ export function Achievements() {
     <section id="achievements" className="section-padding bg-muted/30">
       <div className="container-tight">
         <SectionHeading
-          eyebrow="Achievements"
-          title="Recognition along the way."
+          eyebrow="Wins"
+          title="A few I'm proud of."
         />
 
         <div className="grid gap-5 sm:grid-cols-2">

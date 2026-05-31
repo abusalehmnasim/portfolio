@@ -3,7 +3,7 @@
 import * as React from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowDown, Download, Mail, Sparkles } from "lucide-react";
+import { ArrowDown, Download, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Magnetic } from "@/components/ui/magnetic";
 import { Counter } from "@/components/ui/counter";
@@ -43,8 +43,11 @@ export function Hero() {
               transition={{ duration: 0.5 }}
               className="inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/60 px-3 py-1 text-xs font-medium text-muted-foreground backdrop-blur"
             >
-              <Sparkles className="h-3 w-3 text-primary" />
-              Available for internships & research collaborations
+              <span className="relative flex h-1.5 w-1.5">
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/70" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
+              </span>
+              Looking for a 2026 internship
             </motion.div>
 
             <motion.h1
@@ -63,9 +66,9 @@ export function Hero() {
               transition={{ duration: 0.6, delay: 0.1 }}
               className="mx-auto mt-5 max-w-xl text-pretty text-base text-muted-foreground sm:text-lg lg:mx-0"
             >
-              Finance undergraduate and Chartered Accountancy student combining
-              business knowledge with data analytics, financial modeling,
-              machine learning, and policy research.
+              Studying finance at BUP. Training to be a Chartered Accountant
+              at ICAB. On the side, I write about Bangladeshi markets and
+              build small things in Python and SQL.
             </motion.p>
 
             <div className="mt-5 flex h-7 items-center justify-center lg:justify-start">

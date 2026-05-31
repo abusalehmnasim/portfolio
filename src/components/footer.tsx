@@ -9,7 +9,7 @@ export function Footer() {
       <div className="container flex flex-col items-center justify-between gap-4 py-10 sm:flex-row">
         <div className="flex flex-col items-center gap-2 sm:items-start">
           <p className="text-sm text-muted-foreground">
-            © {year} {siteConfig.name}. Crafted with care in Dhaka.
+            © {year} {siteConfig.name} · Dhaka
           </p>
           <Link
             href="/now"
@@ -19,7 +19,7 @@ export function Footer() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500/70" />
               <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-500" />
             </span>
-            What I&apos;m focused on right now → /now
+            What I&apos;m up to → /now
           </Link>
         </div>
         <div className="flex items-center gap-3">

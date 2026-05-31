@@ -18,8 +18,7 @@ export function Skills() {
       <div className="container">
         <SectionHeading
           eyebrow="Skills"
-          title="A versatile toolkit."
-          description="Domain knowledge in finance and accounting, paired with practical analytics, programming, and research skills."
+          title="What I work with."
         />
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
