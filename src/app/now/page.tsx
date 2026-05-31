@@ -242,12 +242,12 @@ export default function NowPage() {
               >
                 <span
                   aria-hidden
-                  className="absolute -left-2 -top-4 select-none font-serif text-[7rem] leading-none text-primary/15"
+                  className="absolute -left-2 -top-4 select-none text-[7rem] font-semibold leading-none text-primary/15"
                 >
                   &ldquo;
                 </span>
                 <blockquote className="relative">
-                  <p className="font-serif text-2xl leading-tight tracking-tight text-foreground sm:text-[1.6rem]">
+                  <p className="text-xl font-semibold leading-tight tracking-tight text-foreground sm:text-2xl">
                     {p.title}
                   </p>
                   <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
