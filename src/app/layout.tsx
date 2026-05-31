@@ -6,7 +6,7 @@ import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { Grain } from "@/components/effects/grain";
 import { SpotlightCursor } from "@/components/effects/spotlight-cursor";
-import { siteConfig } from "@/lib/data";
+import { siteConfig, publication } from "@/lib/data";
 import "./globals.css";
 
 const inter = Inter({
@@ -107,6 +107,39 @@ const jsonLd = {
   sameAs: [siteConfig.socials.github, siteConfig.socials.linkedin],
 };
 
+const publicationJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  headline: publication.subtitle
+    ? `${publication.title}: ${publication.subtitle}`
+    : publication.title,
+  name: publication.title,
+  alternativeHeadline: publication.subtitle,
+  abstract: publication.abstract,
+  datePublished: publication.postedDate,
+  dateCreated: publication.writtenDate,
+  author: publication.authors.map((name) => ({
+    "@type": "Person",
+    name,
+    url: siteConfig.url,
+  })),
+  keywords: publication.keywords.join(", "),
+  inLanguage: "en",
+  identifier: [
+    { "@type": "PropertyValue", propertyID: "DOI", value: publication.doi },
+  ],
+  url: publication.url,
+  sameAs: [publication.url, publication.doiUrl],
+  isPartOf: {
+    "@type": "Periodical",
+    name: publication.venue,
+  },
+  publisher: {
+    "@type": "Organization",
+    name: "Social Science Research Network",
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
@@ -135,6 +168,12 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(publicationJsonLd),
+          }}
         />
       </body>
     </html>

@@ -137,12 +137,34 @@ export const projects = [
 ];
 
 export const publication = {
-  title: "Research Publication on SSRN",
+  title:
+    "Retail Strategy and Customer Loyalty in Bangladesh's Modern Grocery Sector",
+  subtitle:
+    "A Theoretical Framework for Shwapno's Sustainable Market Leadership",
+  authors: ["Abu Saleh M Nasim"],
   venue: "Social Science Research Network (SSRN)",
+  // ISO dates so we can format consistently
+  postedDate: "2026-04-24",
+  writtenDate: "2026-04-21",
+  pages: 19,
   abstract:
-    "Peer-accessible research paper contributing to discourse on finance, economics, and policy. Published on the Social Science Research Network.",
+    "This paper develops a theoretical framework for understanding customer loyalty in Bangladesh's organized grocery retail sector, using Shwapno — the country's dominant grocery chain — as its empirical anchor. Drawing on the research methodology framework of Sekaran and Bougie (2016), the study identifies service quality, service innovation, and brand trust as independent variables; perceived value-for-money (PVM) as a mediating variable; and socioeconomic status (SES) as a moderating variable. Six hypotheses are proposed and grounded in established retail theory, including SERVQUAL (Parasuraman, Zeithaml & Berry, 1988), Zeithaml's value model (1988), and Morgan and Hunt's Commitment-Trust Theory (1994). The framework extends Western retail theory to an emerging-market context characterized by SES heterogeneity, high price sensitivity, and a transitioning retail landscape. Findings from this theoretical analysis suggest that the mediated pathway — service innovation driving loyalty through perceived value — is likely the most consequential, with SES amplifying this relationship among lower- and middle-income consumers. Theoretical and practical contributions for emerging-market retail management are discussed.",
+  keywords: [
+    "customer loyalty",
+    "service quality",
+    "brand trust",
+    "perceived value-for-money",
+    "organized retail",
+    "Bangladesh",
+    "Shwapno",
+    "socioeconomic status",
+  ],
   url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6618879",
+  doi: "10.2139/ssrn.6618879",
+  doiUrl: "https://dx.doi.org/10.2139/ssrn.6618879",
   badge: "SSRN",
+  citation:
+    "Nasim, Abu Saleh M, Retail Strategy and Customer Loyalty in Bangladesh's Modern Grocery Sector: A Theoretical Framework for Shwapno's Sustainable Market Leadership (April 21, 2026). Available at SSRN: https://ssrn.com/abstract=6618879 or https://dx.doi.org/10.2139/ssrn.6618879",
 };
 
 export const skillGroups = [
