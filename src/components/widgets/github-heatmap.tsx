@@ -11,7 +11,7 @@ interface ApiResponse {
   contributions: Contribution[];
 }
 
-// Editorial palette — muted accent ramp.
+// Riso pink ink ramp
 const LEVEL_CLASSES: Record<number, string> = {
   0: "bg-muted",
   1: "bg-primary/25",
@@ -36,7 +36,7 @@ async function fetchContributions(username: string): Promise<ApiResponse | null>
 function chunkByWeek(contribs: Contribution[]): Contribution[][] {
   if (contribs.length === 0) return [];
   const firstDate = new Date(contribs[0].date);
-  const firstDay = firstDate.getUTCDay(); // 0=Sun
+  const firstDay = firstDate.getUTCDay();
   const padded: (Contribution | null)[] = [
     ...Array(firstDay).fill(null),
     ...contribs,
@@ -53,15 +53,15 @@ export async function GitHubHeatmap({ username }: { username: string }) {
 
   if (!data) {
     return (
-      <div className="border border-border p-8 text-center">
-        <p className="text-sm text-muted-foreground">
+      <div className="border-[2.5px] border-current p-8 text-center">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
           Live GitHub activity is temporarily unavailable.
         </p>
         <a
           href={`https://github.com/${username}`}
           target="_blank"
           rel="noreferrer"
-          className="editorial mt-2 inline-block text-sm"
+          className="mt-3 inline-block font-mono text-sm font-bold uppercase tracking-[0.16em] text-primary underline decoration-2 underline-offset-4"
         >
           View on GitHub →
         </a>
@@ -75,26 +75,32 @@ export async function GitHubHeatmap({ username }: { username: string }) {
   const lastYearTotal = lastYearKey ? data.total[lastYearKey] : total;
 
   return (
-    <div>
-      <div className="flex flex-wrap items-baseline justify-between gap-3 border-b border-border pb-3">
-        <p className="text-[0.95rem] text-foreground/85">
-          <span className="serif-display text-xl text-foreground">
+    <div
+      className="relative border-[3px] border-current bg-card p-6 sm:p-8"
+      style={{ boxShadow: "8px 8px 0 0 hsl(var(--primary))" }}
+    >
+      <div className="flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-dashed border-current pb-4">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground/80">
+          <span
+            data-text={lastYearTotal.toLocaleString()}
+            className="riso-misregister riso-display mr-2 text-3xl"
+          >
             {lastYearTotal.toLocaleString()}
           </span>{" "}
-          contributions in the last year
+          commits this year
         </p>
         <a
           href={`https://github.com/${username}`}
           target="_blank"
           rel="noreferrer"
-          className="editorial inline-flex items-center gap-1 text-xs"
+          className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-[0.16em] text-primary underline decoration-2 underline-offset-4"
         >
-          github.com/{username}
+          @{username}
           <ArrowUpRight className="h-3 w-3" />
         </a>
       </div>
 
-      <div className="overflow-x-auto pt-5">
+      <div className="overflow-x-auto pt-6">
         <div className="flex gap-[3px]">
           {weeks.map((week, wi) => (
             <div key={wi} className="flex flex-col gap-[3px]">
@@ -104,7 +110,7 @@ export async function GitHubHeatmap({ username }: { username: string }) {
                   return (
                     <span
                       key={di}
-                      className="h-[11px] w-[11px] bg-transparent"
+                      className="h-[12px] w-[12px] bg-transparent"
                     />
                   );
                 }
@@ -112,19 +118,19 @@ export async function GitHubHeatmap({ username }: { username: string }) {
                   <span
                     key={di}
                     title={`${day.count} contributions on ${day.date}`}
-                    className={`h-[11px] w-[11px] ${LEVEL_CLASSES[day.level]}`}
+                    className={`h-[12px] w-[12px] ${LEVEL_CLASSES[day.level]}`}
                   />
                 );
               })}
             </div>
           ))}
         </div>
-        <div className="mt-4 flex items-center justify-end gap-1.5 font-mono text-[10px] uppercase tracking-wider text-muted-foreground">
+        <div className="mt-4 flex items-center justify-end gap-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground/70">
           <span>Less</span>
           {[0, 1, 2, 3, 4].map((lvl) => (
             <span
               key={lvl}
-              className={`h-[11px] w-[11px] ${LEVEL_CLASSES[lvl]}`}
+              className={`h-[12px] w-[12px] ${LEVEL_CLASSES[lvl]}`}
             />
           ))}
           <span>More</span>

@@ -5,10 +5,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { ThemeToggle } from "@/components/theme-toggle";
-import { siteConfig } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
-// Curated, lean nav — only the essentials.
 const items = [
   { label: "About", href: "/#about" },
   { label: "Projects", href: "/#projects" },
@@ -32,42 +30,50 @@ export function Navbar() {
   return (
     <header
       className={cn(
-        "fixed inset-x-0 top-0 z-50 transition-all duration-300",
+        "fixed inset-x-0 top-0 z-50 transition-all duration-200",
         scrolled
-          ? "border-b border-border bg-background/85 backdrop-blur"
+          ? "border-b-[2px] border-current bg-background/95 backdrop-blur"
           : "bg-transparent"
       )}
     >
-      <div className="editorial-wide flex h-14 items-center justify-between">
+      <div className="riso-container flex h-16 items-center justify-between">
         <Link
           href="/"
-          className="font-serif text-base tracking-tight text-foreground transition-opacity hover:opacity-70"
+          aria-label="Home"
+          className="group inline-flex items-center gap-2"
         >
-          {siteConfig.name}
+          <span
+            className="flex h-9 w-9 items-center justify-center border-[2.5px] border-current font-display text-lg font-bold leading-none"
+            style={{ boxShadow: "3px 3px 0 0 hsl(var(--primary))" }}
+          >
+            N
+          </span>
+          <span className="font-mono text-xs uppercase tracking-[0.2em]">
+            nasimabeer.me
+          </span>
         </Link>
 
-        <nav className="hidden items-center gap-6 md:flex">
+        <nav className="hidden items-center gap-5 md:flex">
           {items.map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="font-mono text-xs uppercase tracking-[0.18em] text-foreground/75 transition-colors hover:text-primary"
             >
               {item.label}
             </Link>
           ))}
-          <span className="h-4 w-px bg-border" />
           <ThemeToggle />
         </nav>
 
         <div className="flex items-center gap-2 md:hidden">
           <ThemeToggle />
           <button
-            className="rounded-sm p-1.5 text-muted-foreground transition-colors hover:text-foreground"
+            className="border-[2px] border-current p-1.5"
             onClick={() => setOpen((v) => !v)}
             aria-label="Toggle menu"
           >
-            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+            {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
           </button>
         </div>
       </div>
@@ -79,15 +85,15 @@ export function Navbar() {
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
             transition={{ duration: 0.18 }}
-            className="overflow-hidden border-t border-border bg-background md:hidden"
+            className="overflow-hidden border-t-2 border-current bg-background md:hidden"
           >
-            <div className="editorial-wide flex flex-col gap-1 py-4">
+            <div className="riso-container flex flex-col gap-1 py-4">
               {items.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
-                  className="py-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
+                  className="py-2 font-mono text-xs uppercase tracking-[0.18em] text-foreground/75 transition-colors hover:text-primary"
                 >
                   {item.label}
                 </Link>

@@ -7,7 +7,7 @@ const config: Config = {
     container: {
       center: true,
       padding: "1.5rem",
-      screens: { "2xl": "1080px" },
+      screens: { "2xl": "1180px" },
     },
     extend: {
       colors: {
@@ -17,6 +17,8 @@ const config: Config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         paper: "hsl(var(--paper))",
+        ink: "hsl(var(--ink))",
+        accent: "hsl(var(--accent))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -28,10 +30,6 @@ const config: Config = {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
-        },
-        accent: {
-          DEFAULT: "hsl(var(--accent))",
-          foreground: "hsl(var(--accent-foreground))",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -49,17 +47,25 @@ const config: Config = {
       },
       fontFamily: {
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
-        mono: [
-          "ui-monospace",
-          "SFMono-Regular",
-          "Menlo",
-          "Monaco",
-          "monospace",
+        display: [
+          "var(--font-display)",
+          "Space Grotesk",
+          "system-ui",
+          "sans-serif",
         ],
+        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
       },
       maxWidth: {
-        prose: "60ch",
+        prose: "62ch",
+      },
+      keyframes: {
+        wobble: {
+          "0%,100%": { transform: "rotate(-0.6deg)" },
+          "50%": { transform: "rotate(0.6deg)" },
+        },
+      },
+      animation: {
+        wobble: "wobble 4s ease-in-out infinite",
       },
     },
   },

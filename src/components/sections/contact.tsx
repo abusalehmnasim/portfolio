@@ -35,46 +35,41 @@ const rows: Array<{
     href: siteConfig.socials.linkedin,
     external: true,
   },
-  {
-    label: "SSRN",
-    value: "ssrn.com/author/abusalehmnasim",
-    href: "https://papers.ssrn.com/sol3/cf_dev/AbsByAuth.cfm?per_id=8052891",
-    external: true,
-  },
 ];
 
 export function Contact() {
   return (
-    <section id="contact" className="editorial-section">
-      <div className="editorial-wide">
+    <section id="contact" className="riso-section">
+      <div className="riso-container">
         <SectionHeading
           number="10"
           eyebrow="Contact"
+          title="Get in touch."
           description="Email is the fastest way. Especially if you're hiring an intern, building something interesting, or want to argue about Bangladeshi capital markets."
         />
 
-        <dl className="divide-y divide-border border-y border-border">
+        <dl className="divide-y-2 divide-dashed divide-current border-y-2 border-current">
           {rows.map((row) => (
             <div
               key={row.label}
-              className="grid grid-cols-[110px_1fr] gap-6 py-4 sm:grid-cols-[180px_1fr] sm:gap-10"
+              className="grid grid-cols-[110px_1fr] gap-6 py-5 sm:grid-cols-[200px_1fr] sm:gap-10"
             >
-              <dt className="font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground sm:pt-1">
+              <dt className="riso-eyebrow text-foreground sm:pt-1">
                 {row.label}
               </dt>
-              <dd className="text-[1.0625rem] text-foreground/85">
+              <dd className="text-[1.0625rem]">
                 {row.href ? (
                   <a
                     href={row.href}
                     target={row.external ? "_blank" : undefined}
                     rel={row.external ? "noreferrer" : undefined}
-                    className="editorial inline-flex items-center gap-1.5"
+                    className="inline-flex items-center gap-1.5 font-bold text-primary underline decoration-2 underline-offset-4 transition-colors hover:text-foreground"
                   >
                     {row.value}
                     {row.external && <ArrowUpRight className="h-3 w-3" />}
                   </a>
                 ) : (
-                  row.value
+                  <span className="text-foreground/85">{row.value}</span>
                 )}
               </dd>
             </div>

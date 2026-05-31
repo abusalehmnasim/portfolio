@@ -1,5 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="2" fill="#FFFFFF"/>
-  <text x="50%" y="56%" text-anchor="middle" font-family="Georgia, serif"
-        font-size="44" font-weight="400" fill="#BE1B1B" dominant-baseline="middle">N</text>
+  <rect width="64" height="64" fill="#F3ECD7"/>
+  <!-- pink offset background -->
+  <text x="52%" y="60%" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif"
+        font-size="44" font-weight="700" fill="#F45EA0" dominant-baseline="middle">N</text>
+  <!-- ink overlay -->
+  <text x="50%" y="58%" text-anchor="middle" font-family="'Space Grotesk', Arial, sans-serif"
+        font-size="44" font-weight="700" fill="#1F1F58" dominant-baseline="middle">N</text>
+  <!-- chunky border -->
+  <rect x="2" y="2" width="60" height="60" fill="none" stroke="#1F1F58" stroke-width="3"/>
 </svg>

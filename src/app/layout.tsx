@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Source_Serif_4 } from "next/font/google";
+import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
@@ -13,11 +13,17 @@ const inter = Inter({
   display: "swap",
 });
 
-const serif = Source_Serif_4({
+const display = Space_Grotesk({
   subsets: ["latin"],
-  weight: ["400", "600"],
-  style: ["normal", "italic"],
-  variable: "--font-serif",
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-display",
+  display: "swap",
+});
+
+const mono = Space_Mono({
+  subsets: ["latin"],
+  weight: ["400", "700"],
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -72,8 +78,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
-    { media: "(prefers-color-scheme: dark)", color: "#0A0A0A" },
+    { media: "(prefers-color-scheme: light)", color: "#F3ECD7" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B0B17" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -147,7 +153,7 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${serif.variable}`}
+      className={`${inter.variable} ${display.variable} ${mono.variable}`}
     >
       <body className="min-h-screen bg-background font-sans antialiased">
         <ThemeProvider
@@ -160,6 +166,7 @@ export default function RootLayout({
           <Navbar />
           <main>{children}</main>
           <Footer />
+          <div aria-hidden className="paper-grain" />
         </ThemeProvider>
         <script
           type="application/ld+json"

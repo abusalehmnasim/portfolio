@@ -4,63 +4,65 @@
 
 @layer base {
   :root {
-    /* Light — pure white page, deep red ink */
-    --paper: 0 0% 100%;             /* #FFFFFF                       */
-    --background: 0 0% 100%;
-    --foreground: 0 0% 9%;          /* #171717  near-black text      */
+    /* Riso palette — cream paper + federal blue + fluorescent pink */
+    --paper: 42 38% 92%;            /* #F3ECD7 cream                  */
+    --background: 42 38% 92%;
+    --ink: 240 55% 22%;             /* #1F1F58 federal blue           */
+    --foreground: 240 55% 14%;      /* near-black with blue undertone */
 
-    --muted: 0 0% 96%;              /* #F5F5F5  subtle surface       */
-    --muted-foreground: 0 0% 38%;   /* secondary copy                */
+    --muted: 42 28% 86%;
+    --muted-foreground: 240 25% 30%;
 
-    --border: 0 0% 86%;             /* visible hairline rules        */
-    --input: 0 0% 86%;
-    --ring: 0 78% 42%;
+    --border: 240 55% 22%;          /* borders take the ink color     */
+    --input: 240 55% 22%;
+    --ring: 335 95% 60%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 9%;
+    --card: 42 38% 96%;             /* slightly brighter cream cards  */
+    --card-foreground: 240 55% 14%;
 
-    --primary: 0 78% 42%;           /* #BE1B1B  editorial red        */
-    --primary-foreground: 0 0% 100%;
+    --primary: 335 95% 60%;         /* #F45EA0 fluorescent pink       */
+    --primary-foreground: 42 38% 92%;
 
-    --secondary: 0 0% 96%;
-    --secondary-foreground: 0 0% 9%;
+    --secondary: 195 80% 60%;       /* #45B6E0 sky blue (rarely used) */
+    --secondary-foreground: 42 38% 92%;
 
-    --accent: 0 78% 42%;
-    --accent-foreground: 0 0% 100%;
+    --accent: 335 95% 60%;
+    --accent-foreground: 42 38% 92%;
 
-    --destructive: 0 78% 42%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 335 95% 50%;
+    --destructive-foreground: 42 38% 92%;
 
-    --radius: 0.125rem;             /* near-square corners           */
+    --radius: 0;
   }
 
   .dark {
-    /* Dark — black page, bright red ink */
-    --paper: 0 0% 4%;               /* #0A0A0A  near-black           */
-    --background: 0 0% 4%;
-    --foreground: 0 0% 96%;         /* #F5F5F5  near-white text      */
+    /* Riso at night — black paper + bright pink + electric blue */
+    --paper: 240 30% 6%;            /* #0B0B17                        */
+    --background: 240 30% 6%;
+    --ink: 42 40% 92%;
+    --foreground: 42 40% 92%;
 
-    --muted: 0 0% 10%;
-    --muted-foreground: 0 0% 62%;
+    --muted: 240 22% 12%;
+    --muted-foreground: 42 25% 70%;
 
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 0 80% 60%;
+    --border: 42 40% 92%;
+    --input: 42 40% 92%;
+    --ring: 335 95% 70%;
 
-    --card: 0 0% 4%;
-    --card-foreground: 0 0% 96%;
+    --card: 240 22% 10%;
+    --card-foreground: 42 40% 92%;
 
-    --primary: 0 80% 60%;           /* brighter red on black         */
-    --primary-foreground: 0 0% 4%;
+    --primary: 335 95% 70%;
+    --primary-foreground: 240 30% 6%;
 
-    --secondary: 0 0% 10%;
-    --secondary-foreground: 0 0% 96%;
+    --secondary: 195 90% 70%;
+    --secondary-foreground: 240 30% 6%;
 
-    --accent: 0 80% 60%;
-    --accent-foreground: 0 0% 4%;
+    --accent: 335 95% 70%;
+    --accent-foreground: 240 30% 6%;
 
-    --destructive: 0 80% 60%;
-    --destructive-foreground: 0 0% 4%;
+    --destructive: 335 95% 60%;
+    --destructive-foreground: 240 30% 6%;
   }
 
   * {
@@ -70,69 +72,138 @@
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "kern", "liga", "calt", "onum";
+    font-feature-settings: "kern", "liga", "ss01";
   }
 
   ::selection {
-    @apply bg-primary/15 text-foreground;
-  }
-
-  /* Inline link treatment — sober editorial underline */
-  a.editorial,
-  .prose-editorial a {
-    @apply text-primary underline decoration-primary/40 underline-offset-[3px] transition-colors;
-    text-decoration-thickness: 1px;
-  }
-  a.editorial:hover,
-  .prose-editorial a:hover {
-    @apply decoration-primary;
+    @apply bg-primary text-primary-foreground;
   }
 }
 
 @layer components {
-  /* The narrow editorial column — single-column reading width */
-  .editorial-container {
+  .riso-container {
+    @apply mx-auto max-w-6xl px-6 sm:px-8;
+  }
+  .riso-narrow {
     @apply mx-auto max-w-3xl px-6 sm:px-8;
   }
-  .editorial-wide {
-    @apply mx-auto max-w-5xl px-6 sm:px-8;
+
+  .riso-section {
+    @apply py-16 sm:py-24;
   }
 
-  /* Section spacing */
-  .editorial-section {
-    @apply py-16 sm:py-20;
+  /* Display headline with two-color split (the Riso misregistration trick) */
+  .riso-display {
+    @apply font-display font-bold tracking-tight uppercase;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
   }
 
-  /* Hairline horizontal rule */
-  .hairline {
-    @apply h-px w-full bg-border;
+  .riso-misregister {
+    position: relative;
+    color: hsl(var(--ink));
+  }
+  .riso-misregister::before {
+    content: attr(data-text);
+    position: absolute;
+    inset: 0;
+    color: hsl(var(--primary));
+    transform: translate(0.18em, 0.16em);
+    z-index: -1;
+    mix-blend-mode: multiply;
   }
 
-  /* Serif display type for headlines (Source Serif 4) */
-  .serif-display {
-    @apply font-serif font-normal tracking-tight;
-    font-feature-settings: "kern", "liga", "onum";
+  /* Stamp = chunky border + hard offset shadow, no gradient */
+  .riso-stamp {
+    @apply relative inline-flex items-center gap-2 border-[2.5px] border-current px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider;
+    box-shadow: 4px 4px 0 0 hsl(var(--ink));
+    transition: transform 0.12s ease, box-shadow 0.12s ease;
+  }
+  .riso-stamp:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 0 hsl(var(--ink));
+  }
+  .riso-stamp:active {
+    transform: translate(2px, 2px);
+    box-shadow: 0 0 0 0 hsl(var(--ink));
+  }
+  .riso-stamp--pink {
+    color: hsl(var(--primary));
+  }
+  .riso-stamp--pink:hover,
+  .riso-stamp--pink:active {
+    box-shadow: 4px 4px 0 0 hsl(var(--primary));
+  }
+  .riso-stamp--pink:hover {
+    box-shadow: 6px 6px 0 0 hsl(var(--primary));
+  }
+  .riso-stamp--pink:active {
+    box-shadow: 0 0 0 0 hsl(var(--primary));
   }
 
-  /* Small caps section label (eyebrow) */
-  .section-label {
-    @apply font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground;
+  /* Pill/tag — flat fill, no shadow */
+  .riso-tag {
+    @apply inline-flex items-center border-[1.5px] border-current px-2 py-0.5 font-mono text-[11px] uppercase tracking-wider;
   }
 
-  /* Body prose */
-  .body-prose {
-    @apply text-[1.0625rem] leading-[1.7] text-foreground/85 sm:text-[1.125rem];
+  /* Section eyebrow */
+  .riso-eyebrow {
+    @apply font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-primary;
   }
 
-  /* Drop cap for lead paragraphs */
-  .dropcap::first-letter {
-    @apply float-left mr-3 mt-1 font-serif font-normal text-[3.8rem] leading-[0.9] text-foreground;
+  /* Card with chunky offset shadow */
+  .riso-card {
+    @apply relative border-[2.5px] border-current bg-card text-card-foreground;
+    box-shadow: 6px 6px 0 0 hsl(var(--ink));
+  }
+  .riso-card--pink {
+    box-shadow: 6px 6px 0 0 hsl(var(--primary));
+  }
+
+  /* Hairline divider with dashed style */
+  .riso-divider {
+    @apply h-0 border-t-2 border-dashed border-current opacity-60;
+  }
+
+  /* Halftone dot pattern overlay */
+  .halftone {
+    background-image: radial-gradient(
+      circle,
+      hsl(var(--ink) / 0.85) 1.2px,
+      transparent 1.5px
+    );
+    background-size: 7px 7px;
+    background-position: 0 0;
+  }
+  .halftone-pink {
+    background-image: radial-gradient(
+      circle,
+      hsl(var(--primary) / 0.85) 1.2px,
+      transparent 1.5px
+    );
+    background-size: 7px 7px;
+  }
+  .halftone-pink-loose {
+    background-image: radial-gradient(
+      circle,
+      hsl(var(--primary) / 0.7) 1.5px,
+      transparent 2px
+    );
+    background-size: 14px 14px;
+  }
+
+  /* Treat photographs to feel printed: lower saturation + contrast boost */
+  .riso-photo {
+    filter: grayscale(0.15) contrast(1.08) saturate(0.85);
+  }
+
+  /* Hand-set body prose */
+  .prose-riso {
+    @apply text-[1.05rem] leading-[1.65] text-foreground/90 sm:text-[1.125rem];
   }
 }
 
@@ -145,6 +216,22 @@
   }
 }
 
+/* Stronger Riso paper grain — fixed to viewport, mix-blend-multiply */
+.paper-grain {
+  pointer-events: none;
+  position: fixed;
+  inset: 0;
+  z-index: 55;
+  opacity: 0.13;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.85 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 240px 240px;
+}
+.dark .paper-grain {
+  mix-blend-mode: screen;
+  opacity: 0.05;
+}
+
 /* Minimal scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
@@ -154,9 +241,6 @@
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
+  background: hsl(var(--ink));
   border-radius: 0;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--muted-foreground) / 0.5);
 }

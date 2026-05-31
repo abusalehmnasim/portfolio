@@ -4,35 +4,42 @@ import { certifications } from "@/lib/data";
 
 export function Certifications() {
   return (
-    <section id="certifications" className="editorial-section">
-      <div className="editorial-wide">
-        <SectionHeading number="08" eyebrow="Certifications" />
+    <section id="certifications" className="riso-section">
+      <div className="riso-container">
+        <SectionHeading
+          number="08"
+          eyebrow="Certifications"
+          title="Things I've finished."
+        />
 
-        <div className="divide-y divide-border border-y border-border">
+        <div className="grid gap-10 lg:gap-12">
           {certifications.map((c) => (
             <article
               key={c.title}
-              className="grid gap-6 py-7 sm:grid-cols-[200px_1fr] sm:gap-10"
+              className="grid gap-6 sm:grid-cols-[240px_1fr] sm:gap-10"
             >
-              {c.image ? (
-                <figure className="relative aspect-[16/10] w-full border border-border bg-muted">
-                  <Image
-                    src={c.image}
-                    alt={`${c.title} certificate`}
-                    fill
-                    sizes="200px"
-                    className="object-contain p-1.5"
-                  />
+              {c.image && (
+                <figure
+                  className="relative border-[3px] border-current bg-card"
+                  style={{ boxShadow: "6px 6px 0 0 hsl(var(--primary))" }}
+                >
+                  <div className="relative aspect-[16/10] w-full overflow-hidden">
+                    <Image
+                      src={c.image}
+                      alt={`${c.title} certificate`}
+                      fill
+                      sizes="240px"
+                      className="object-contain p-2"
+                    />
+                  </div>
                 </figure>
-              ) : (
-                <div />
               )}
               <div>
-                <p className="serif-display text-xl leading-snug sm:text-2xl">
+                <p className="riso-eyebrow text-foreground">{c.issuer}</p>
+                <h3 className="riso-display mt-2 text-2xl sm:text-3xl">
                   {c.title}
-                </p>
-                <p className="mt-1 text-sm text-muted-foreground">{c.issuer}</p>
-                <p className="mt-3 max-w-prose text-[0.95rem] leading-relaxed text-foreground/80">
+                </h3>
+                <p className="mt-4 max-w-prose text-[1rem] leading-relaxed text-foreground/85">
                   {c.description}
                 </p>
               </div>

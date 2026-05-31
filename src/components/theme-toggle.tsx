@@ -17,16 +17,16 @@ export function ThemeToggle() {
       type="button"
       aria-label="Toggle theme"
       onClick={() => setTheme(isDark ? "light" : "dark")}
-      className="inline-flex h-8 w-8 items-center justify-center text-muted-foreground transition-colors hover:text-foreground"
+      className="inline-flex h-8 w-8 items-center justify-center border-[2px] border-current text-foreground/75 transition-colors hover:text-primary"
     >
       {mounted ? (
         isDark ? (
-          <Sun className="h-4 w-4" />
+          <Sun className="h-3.5 w-3.5" />
         ) : (
-          <Moon className="h-4 w-4" />
+          <Moon className="h-3.5 w-3.5" />
         )
       ) : (
-        <div className="h-4 w-4" />
+        <div className="h-3.5 w-3.5" />
       )}
     </button>
   );

@@ -11,10 +11,6 @@ interface SectionHeadingProps {
   className?: string;
 }
 
-/**
- * Editorial section heading: §NN — LABEL across a hairline rule,
- * followed by an optional serif title and lead description.
- */
 export function SectionHeading({
   number,
   eyebrow,
@@ -28,23 +24,26 @@ export function SectionHeading({
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
       transition={{ duration: 0.4 }}
-      className={cn("mb-10 sm:mb-12", className)}
+      className={cn("mb-10 sm:mb-14", className)}
     >
-      <div className="flex items-center gap-4">
-        <span className="section-label whitespace-nowrap">
-          {number && <span className="text-foreground/70">§{number}</span>}
-          {number && eyebrow && <span className="mx-2 text-border">·</span>}
-          {eyebrow}
-        </span>
-        <span className="hairline" />
+      <div className="flex items-baseline gap-3">
+        {number && (
+          <span className="riso-eyebrow">№ {number}</span>
+        )}
+        {eyebrow && <span className="riso-eyebrow">{eyebrow}</span>}
+        <span className="riso-divider flex-1" />
       </div>
+
       {title && (
-        <h2 className="serif-display mt-6 text-balance text-[2rem] leading-[1.1] sm:text-[2.5rem]">
+        <h2
+          data-text={title}
+          className="riso-misregister riso-display mt-6 text-balance text-[2.25rem] sm:text-[3rem]"
+        >
           {title}
         </h2>
       )}
       {description && (
-        <p className="mt-3 max-w-prose text-pretty text-[1.0625rem] leading-[1.6] text-muted-foreground sm:text-lg">
+        <p className="mt-4 max-w-prose text-pretty text-[1.0625rem] leading-[1.6] text-foreground/85 sm:text-lg">
           {description}
         </p>
       )}

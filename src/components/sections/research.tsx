@@ -28,71 +28,72 @@ export function Research() {
   const written = longDate.format(new Date(publication.writtenDate));
 
   return (
-    <section id="research" className="editorial-section">
-      <div className="editorial-wide">
+    <section id="research" className="riso-section">
+      <div className="riso-container">
         <SectionHeading
           number="06"
           eyebrow="Research"
-          description="One paper, so far. The current one is on grocery retail in Bangladesh; the next is in draft, on capital markets."
+          title="One paper, so far."
+          description="The current one is on grocery retail in Bangladesh. The next is on capital markets — in draft."
         />
 
-        <article className="border-t border-border pt-8">
+        <article
+          className="relative border-[3px] border-current bg-card p-6 sm:p-10"
+          style={{ boxShadow: "10px 10px 0 0 hsl(var(--primary))" }}
+        >
           {/* Metadata strip */}
-          <div className="flex flex-wrap items-center gap-x-4 gap-y-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground">
-            <span className="text-primary">SSRN</span>
-            <span>·</span>
-            <span>Posted {posted}</span>
-            <span>·</span>
-            <span>{publication.pages} pp.</span>
-            <span>·</span>
-            <span>DOI {publication.doi}</span>
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 font-mono text-[11px] font-bold uppercase tracking-[0.18em]">
+            <span className="riso-tag border-primary text-primary">SSRN</span>
+            <span className="text-foreground/60">/</span>
+            <span className="text-foreground/85">Posted {posted}</span>
+            <span className="text-foreground/60">/</span>
+            <span className="text-foreground/85">{publication.pages} pp.</span>
+            <span className="text-foreground/60">/</span>
+            <span className="text-foreground/85">DOI {publication.doi}</span>
           </div>
 
-          {/* Title — serif display */}
-          <h3 className="serif-display mt-5 text-balance text-[1.9rem] leading-[1.1] sm:text-[2.4rem]">
+          {/* Title */}
+          <h3 className="riso-display mt-6 text-[1.9rem] leading-[1.02] sm:text-[2.6rem]">
             {publication.title}
-            {publication.subtitle && (
-              <>
-                <span className="text-muted-foreground">: </span>
-                <em className="italic text-foreground/85">
-                  {publication.subtitle}
-                </em>
-              </>
-            )}
           </h3>
+          {publication.subtitle && (
+            <p className="mt-3 font-display text-lg font-medium leading-snug text-primary sm:text-xl">
+              {publication.subtitle}
+            </p>
+          )}
 
-          {/* Byline */}
-          <p className="mt-5 text-sm text-foreground/85">
+          <p className="mt-5 font-mono text-xs uppercase tracking-[0.16em] text-foreground/75">
             By{" "}
-            <span className="font-medium text-foreground">
+            <span className="font-bold text-foreground">
               {publication.authors.join(", ")}
             </span>
-            <span className="text-muted-foreground"> · written {written}</span>
+            <span className="text-foreground/60"> · written {written}</span>
           </p>
 
-          {/* Abstract */}
           <div className="mt-8">
-            <p className="section-label">Abstract</p>
-            <p className="dropcap mt-3 max-w-prose text-[1.0625rem] leading-[1.75] text-foreground/85 sm:text-[1.125rem]">
+            <p className="riso-eyebrow text-foreground">Abstract</p>
+            <p className="mt-3 max-w-prose text-[1rem] leading-[1.7] text-foreground/85 sm:text-[1.0625rem]">
               {publication.abstract}
             </p>
           </div>
 
-          {/* Keywords as inline comma-separated text */}
           <div className="mt-8">
-            <p className="section-label">Keywords</p>
-            <p className="mt-2 text-[0.95rem] italic text-foreground/75">
-              {publication.keywords.join(", ")}.
-            </p>
+            <p className="riso-eyebrow text-foreground">Keywords</p>
+            <ul className="mt-3 flex flex-wrap gap-2">
+              {publication.keywords.map((kw) => (
+                <li key={kw}>
+                  <span className="riso-tag">{kw}</span>
+                </li>
+              ))}
+            </ul>
           </div>
 
-          {/* Actions as inline links */}
-          <p className="mt-10 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm">
+          <div className="mt-10 flex flex-wrap items-center gap-3 border-t-2 border-dashed border-current pt-6">
             <a
               href={publication.url}
               target="_blank"
               rel="noreferrer"
-              className="editorial inline-flex items-center gap-1.5"
+              className="riso-stamp riso-stamp--pink"
             >
               Read on SSRN
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -101,7 +102,7 @@ export function Research() {
               href={publication.doiUrl}
               target="_blank"
               rel="noreferrer"
-              className="editorial inline-flex items-center gap-1.5"
+              className="riso-stamp"
             >
               Open DOI
               <ArrowUpRight className="h-3.5 w-3.5" />
@@ -109,28 +110,27 @@ export function Research() {
             <button
               type="button"
               onClick={copyCitation}
-              className="editorial inline-flex items-center gap-1.5"
-              aria-label="Copy suggested citation"
+              className="riso-stamp"
             >
               {copied ? (
                 <>
                   <Check className="h-3.5 w-3.5" />
-                  Citation copied
+                  Copied
                 </>
               ) : (
                 <>
                   <Copy className="h-3.5 w-3.5" />
-                  Copy citation
+                  Cite
                 </>
               )}
             </button>
-          </p>
+          </div>
 
-          <details className="mt-6 border-t border-border pt-4">
-            <summary className="cursor-pointer font-mono text-[11px] uppercase tracking-[0.18em] text-muted-foreground transition-colors hover:text-foreground">
+          <details className="mt-6">
+            <summary className="cursor-pointer font-mono text-[11px] font-bold uppercase tracking-[0.18em] text-foreground/70 transition-colors hover:text-primary">
               Suggested citation
             </summary>
-            <p className="mt-3 max-w-prose font-mono text-xs leading-relaxed text-muted-foreground">
+            <p className="mt-3 max-w-prose font-mono text-xs leading-relaxed text-foreground/70">
               {publication.citation}
             </p>
           </details>
