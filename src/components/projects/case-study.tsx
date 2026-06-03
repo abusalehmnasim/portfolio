@@ -176,7 +176,7 @@ ${detail.results
           </pre>
           {detail.resultsCaveat && (
             <p className="mt-4 max-w-prose font-mono text-[0.85rem] leading-relaxed text-foreground/75">
-              <span className="text-amber">// caveat:</span>{" "}
+              <span className="text-amber">{"// caveat:"}</span>{" "}
               {detail.resultsCaveat}
             </p>
           )}
