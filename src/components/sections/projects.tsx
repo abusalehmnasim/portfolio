@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { projects } from "@/lib/data";
@@ -100,17 +101,24 @@ export function Projects() {
                   ))}
                 </p>
 
-                <p className="mt-6">
+                <div className="mt-6 flex flex-wrap items-center gap-3">
+                  <Link
+                    href={`/projects/${p.slug}`}
+                    className="inline-flex items-center gap-1.5 border border-phosphor px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-phosphor transition-colors hover:bg-phosphor hover:text-background"
+                  >
+                    read case study
+                    <ArrowUpRight className="h-3.5 w-3.5" />
+                  </Link>
                   <a
                     href={p.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 border border-phosphor px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-phosphor transition-colors hover:bg-phosphor hover:text-background"
+                    className="inline-flex items-center gap-1.5 border border-foreground/40 px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-foreground/85 transition-colors hover:border-amber hover:text-amber"
                   >
                     git clone
                     <ArrowUpRight className="h-3.5 w-3.5" />
                   </a>
-                </p>
+                </div>
               </div>
             </article>
           ))}

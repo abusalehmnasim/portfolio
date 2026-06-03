@@ -99,6 +99,7 @@ export const experience = [
 
 export const projects = [
   {
+    slug: "dhaka-restaurants",
     title: "Dhaka Restaurant Directory",
     description:
       "Full-stack data analytics project that ingests open-source geographic data, cleans it through an automated pipeline, and serves a live, interactive directory of Dhaka restaurants.",
@@ -112,8 +113,11 @@ export const projects = [
       "https://github.com/abusalehmnasim/dhaka-restaurant-directory",
     image: "/images/project-dhaka-restaurant.png",
     accent: "from-emerald-500/20 via-teal-500/10 to-sky-500/20",
+    status: "Maintained",
+    period: "Jan 2026 – Apr 2026",
   },
   {
+    slug: "dse-prediction",
     title: "DSE Market Prediction",
     description:
       "Machine learning project that forecasts Dhaka Stock Exchange movements using XGBoost on engineered financial features, with rigorous backtesting and feature analysis.",
@@ -133,6 +137,8 @@ export const projects = [
       "https://github.com/abusalehmnasim/DSE-Market-Prediction-XGBoost",
     image: "/images/project-dse-prediction.png",
     accent: "from-indigo-500/20 via-violet-500/10 to-fuchsia-500/20",
+    status: "Active · v2 in progress",
+    period: "Mar 2026 – ongoing",
   },
 ];
 

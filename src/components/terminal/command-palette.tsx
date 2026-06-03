@@ -90,6 +90,24 @@ export function CommandPalette() {
         keywords: "current focus monthly",
       },
       {
+        id: "projects-index",
+        label: "Open /projects index",
+        action: () => (window.location.href = "/projects"),
+        keywords: "list portfolio",
+      },
+      {
+        id: "case-dse",
+        label: "Case study · DSE Market Prediction",
+        action: () => (window.location.href = "/projects/dse-prediction"),
+        keywords: "xgboost machine learning forecast",
+      },
+      {
+        id: "case-restaurants",
+        label: "Case study · Dhaka Restaurant Directory",
+        action: () => (window.location.href = "/projects/dhaka-restaurants"),
+        keywords: "osm openstreetmap python directory",
+      },
+      {
         id: "cv",
         label: "Download CV (PDF)",
         action: () => window.open("/cv.pdf", "_blank"),
