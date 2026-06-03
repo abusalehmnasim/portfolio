@@ -3,39 +3,40 @@ import { education } from "@/lib/data";
 
 export function Education() {
   return (
-    <section id="education" className="riso-section">
-      <div className="riso-container">
+    <section id="education" className="term-section">
+      <div className="term-container">
         <SectionHeading
           number="02"
-          eyebrow="Education"
+          cmd="education"
           title="Where I'm studying."
         />
 
-        <dl className="divide-y-2 divide-dashed divide-current border-y-2 border-current">
-          {education.map((item) => (
-            <div
+        <ul className="divide-y divide-border border-y border-border font-mono">
+          {education.map((item, i) => (
+            <li
               key={item.institution}
-              className="grid gap-4 py-7 sm:grid-cols-[160px_1fr] sm:gap-10"
+              className="grid gap-3 py-6 sm:grid-cols-[80px_180px_1fr] sm:gap-6"
             >
-              <dt>
-                <span className="riso-tag border-primary text-primary">
-                  {item.period}
-                </span>
-              </dt>
-              <dd>
-                <p className="font-display text-xl font-bold uppercase tracking-tight sm:text-2xl">
+              <span className="text-xs text-dim">
+                [{String(i + 1).padStart(2, "0")}]
+              </span>
+              <span className="text-xs uppercase tracking-wider text-amber">
+                {item.period}
+              </span>
+              <div>
+                <p className="text-base font-semibold text-foreground sm:text-lg">
                   {item.institution}
                 </p>
-                <p className="mt-1 font-mono text-xs uppercase tracking-[0.16em] text-foreground/70">
+                <p className="mt-1 text-xs uppercase tracking-wider text-foreground/70">
                   {item.degree} · {item.field}
                 </p>
-                <p className="mt-3 max-w-prose text-[1rem] leading-relaxed text-foreground/85">
+                <p className="mt-3 max-w-prose text-sm leading-relaxed text-foreground/80">
                   {item.description}
                 </p>
-              </dd>
-            </div>
+              </div>
+            </li>
           ))}
-        </dl>
+        </ul>
       </div>
     </section>
   );

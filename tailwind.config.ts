@@ -16,9 +16,10 @@ const config: Config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        paper: "hsl(var(--paper))",
-        ink: "hsl(var(--ink))",
-        accent: "hsl(var(--accent))",
+        terminal: "hsl(var(--terminal))",
+        phosphor: "hsl(var(--phosphor))",
+        amber: "hsl(var(--amber))",
+        dim: "hsl(var(--dim))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -30,6 +31,10 @@ const config: Config = {
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
+        },
+        accent: {
+          DEFAULT: "hsl(var(--accent))",
+          foreground: "hsl(var(--accent-foreground))",
         },
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -46,26 +51,31 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        display: [
-          "var(--font-display)",
-          "Space Grotesk",
-          "system-ui",
-          "sans-serif",
-        ],
         mono: ["var(--font-mono)", "ui-monospace", "monospace"],
+        sans: ["var(--font-sans)", "system-ui", "sans-serif"],
+        serif: ["var(--font-serif)", "Georgia", "serif"],
       },
       maxWidth: {
-        prose: "62ch",
+        prose: "70ch",
       },
       keyframes: {
-        wobble: {
-          "0%,100%": { transform: "rotate(-0.6deg)" },
-          "50%": { transform: "rotate(0.6deg)" },
+        blink: {
+          "0%,49%": { opacity: "1" },
+          "50%,100%": { opacity: "0" },
+        },
+        marquee: {
+          "0%": { transform: "translateX(0)" },
+          "100%": { transform: "translateX(-50%)" },
+        },
+        scanline: {
+          "0%": { transform: "translateY(-100%)" },
+          "100%": { transform: "translateY(100vh)" },
         },
       },
       animation: {
-        wobble: "wobble 4s ease-in-out infinite",
+        blink: "blink 1.05s steps(1,end) infinite",
+        "marquee-slow": "marquee 80s linear infinite",
+        scanline: "scanline 8s linear infinite",
       },
     },
   },

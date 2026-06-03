@@ -11,13 +11,22 @@ interface ApiResponse {
   contributions: Contribution[];
 }
 
-// Riso pink ink ramp
-const LEVEL_CLASSES: Record<number, string> = {
-  0: "bg-muted",
-  1: "bg-primary/25",
-  2: "bg-primary/50",
-  3: "bg-primary/75",
-  4: "bg-primary",
+// ASCII shading by level (Unicode block characters).
+const GLYPH: Record<number, string> = {
+  0: "·",
+  1: "░",
+  2: "▒",
+  3: "▓",
+  4: "█",
+};
+
+// Phosphor intensity per level.
+const TEXT: Record<number, string> = {
+  0: "text-dim",
+  1: "text-phosphor/40",
+  2: "text-phosphor/60",
+  3: "text-phosphor/85",
+  4: "text-phosphor",
 };
 
 async function fetchContributions(username: string): Promise<ApiResponse | null> {
@@ -33,7 +42,7 @@ async function fetchContributions(username: string): Promise<ApiResponse | null>
   }
 }
 
-function chunkByWeek(contribs: Contribution[]): Contribution[][] {
+function chunkByWeek(contribs: Contribution[]): (Contribution | null)[][] {
   if (contribs.length === 0) return [];
   const firstDate = new Date(contribs[0].date);
   const firstDay = firstDate.getUTCDay();
@@ -45,7 +54,7 @@ function chunkByWeek(contribs: Contribution[]): Contribution[][] {
   for (let i = 0; i < padded.length; i += 7) {
     weeks.push(padded.slice(i, i + 7));
   }
-  return weeks as Contribution[][];
+  return weeks;
 }
 
 export async function GitHubHeatmap({ username }: { username: string }) {
@@ -53,17 +62,16 @@ export async function GitHubHeatmap({ username }: { username: string }) {
 
   if (!data) {
     return (
-      <div className="border-[2.5px] border-current p-8 text-center">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-muted-foreground">
-          Live GitHub activity is temporarily unavailable.
-        </p>
+      <div className="border border-border p-6 font-mono text-xs uppercase tracking-wider text-dim">
+        <span className="text-destructive">[ERR]</span> live GitHub feed
+        unavailable.{" "}
         <a
           href={`https://github.com/${username}`}
           target="_blank"
           rel="noreferrer"
-          className="mt-3 inline-block font-mono text-sm font-bold uppercase tracking-[0.16em] text-primary underline decoration-2 underline-offset-4"
+          className="text-phosphor underline decoration-phosphor underline-offset-4"
         >
-          View on GitHub →
+          fallback → github.com/{username}
         </a>
       </div>
     );
@@ -75,66 +83,69 @@ export async function GitHubHeatmap({ username }: { username: string }) {
   const lastYearTotal = lastYearKey ? data.total[lastYearKey] : total;
 
   return (
-    <div
-      className="relative border-[3px] border-current bg-card p-6 sm:p-8"
-      style={{ boxShadow: "8px 8px 0 0 hsl(var(--primary))" }}
-    >
-      <div className="flex flex-wrap items-baseline justify-between gap-3 border-b-2 border-dashed border-current pb-4">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-foreground/80">
-          <span
-            data-text={lastYearTotal.toLocaleString()}
-            className="riso-misregister riso-display mr-2 text-3xl"
-          >
-            {lastYearTotal.toLocaleString()}
-          </span>{" "}
-          commits this year
-        </p>
-        <a
-          href={`https://github.com/${username}`}
-          target="_blank"
-          rel="noreferrer"
-          className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-[0.16em] text-primary underline decoration-2 underline-offset-4"
-        >
-          @{username}
-          <ArrowUpRight className="h-3 w-3" />
-        </a>
+    <div className="panel-phosphor">
+      <div className="flex items-center justify-between border-b border-phosphor/60 px-4 py-2 font-mono text-[11px] uppercase tracking-wider">
+        <span className="text-phosphor">~/heatmap.sh</span>
+        <span className="text-dim">render: ascii · 12px</span>
       </div>
 
-      <div className="overflow-x-auto pt-6">
-        <div className="flex gap-[3px]">
-          {weeks.map((week, wi) => (
-            <div key={wi} className="flex flex-col gap-[3px]">
-              {Array.from({ length: 7 }).map((_, di) => {
-                const day = week[di];
-                if (!day) {
+      <div className="p-4 font-mono text-xs sm:p-6">
+        <p className="text-foreground/85">
+          <span className="text-phosphor">{">"}</span>{" "}
+          <span className="text-foreground/70">commits this year:</span>{" "}
+          <span className="font-bold text-phosphor">
+            {lastYearTotal.toLocaleString()}
+          </span>{" "}
+          <span className="text-dim">/ source:</span>{" "}
+          <a
+            href={`https://github.com/${username}`}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-center gap-1 text-amber underline decoration-amber underline-offset-4"
+          >
+            @{username}
+            <ArrowUpRight className="h-3 w-3" />
+          </a>
+        </p>
+
+        <div className="mt-5 overflow-x-auto">
+          <pre className="text-[14px] leading-[1] tracking-[0.06em]">
+            {Array.from({ length: 7 }).map((_, day) => (
+              <span key={day} className="flex">
+                {weeks.map((week, wi) => {
+                  const cell = week[day];
+                  if (!cell) {
+                    return (
+                      <span key={wi} className="text-dim/20">
+                        {" "}
+                      </span>
+                    );
+                  }
                   return (
                     <span
-                      key={di}
-                      className="h-[12px] w-[12px] bg-transparent"
-                    />
+                      key={wi}
+                      title={`${cell.count} contributions on ${cell.date}`}
+                      className={TEXT[cell.level]}
+                    >
+                      {GLYPH[cell.level]}
+                    </span>
                   );
-                }
-                return (
-                  <span
-                    key={di}
-                    title={`${day.count} contributions on ${day.date}`}
-                    className={`h-[12px] w-[12px] ${LEVEL_CLASSES[day.level]}`}
-                  />
-                );
-              })}
-            </div>
-          ))}
+                })}
+                {"\n"}
+              </span>
+            ))}
+          </pre>
         </div>
-        <div className="mt-4 flex items-center justify-end gap-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground/70">
-          <span>Less</span>
+
+        <p className="mt-4 flex items-center gap-2 text-[10px] uppercase tracking-wider text-dim">
+          <span>less</span>
           {[0, 1, 2, 3, 4].map((lvl) => (
-            <span
-              key={lvl}
-              className={`h-[12px] w-[12px] ${LEVEL_CLASSES[lvl]}`}
-            />
+            <span key={lvl} className={`${TEXT[lvl]} text-base leading-none`}>
+              {GLYPH[lvl]}
+            </span>
           ))}
-          <span>More</span>
-        </div>
+          <span>more</span>
+        </p>
       </div>
     </div>
   );

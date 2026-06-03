@@ -1,29 +1,36 @@
 import type { Metadata, Viewport } from "next";
-import { Inter, Space_Grotesk, Space_Mono } from "next/font/google";
+import {
+  IBM_Plex_Mono,
+  IBM_Plex_Sans,
+  IBM_Plex_Serif,
+} from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { Navbar } from "@/components/navbar";
+import { StatusBar } from "@/components/terminal/status-bar";
+import { CommandPalette } from "@/components/terminal/command-palette";
+import { Ticker } from "@/components/terminal/ticker";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { siteConfig, publication } from "@/lib/data";
 import "./globals.css";
 
-const inter = Inter({
+const mono = IBM_Plex_Mono({
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  variable: "--font-mono",
+  display: "swap",
+});
+
+const sans = IBM_Plex_Sans({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
   display: "swap",
 });
 
-const display = Space_Grotesk({
+const serif = IBM_Plex_Serif({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-display",
-  display: "swap",
-});
-
-const mono = Space_Mono({
-  subsets: ["latin"],
-  weight: ["400", "700"],
-  variable: "--font-mono",
+  weight: ["400", "600"],
+  variable: "--font-serif",
   display: "swap",
 });
 
@@ -42,9 +49,7 @@ export const metadata: Metadata = {
     "ICAB",
     "Data Analyst",
     "Financial Modeling",
-    "Policy Research",
     "Dhaka",
-    "Bangladesh",
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
@@ -78,8 +83,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#F3ECD7" },
-    { media: "(prefers-color-scheme: dark)", color: "#0B0B17" },
+    { media: "(prefers-color-scheme: dark)", color: "#08100A" },
+    { media: "(prefers-color-scheme: light)", color: "#F4ECD9" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -128,16 +133,9 @@ const publicationJsonLd = {
     url: siteConfig.url,
   })),
   keywords: publication.keywords.join(", "),
-  inLanguage: "en",
-  identifier: [
-    { "@type": "PropertyValue", propertyID: "DOI", value: publication.doi },
-  ],
   url: publication.url,
   sameAs: [publication.url, publication.doiUrl],
-  isPartOf: {
-    "@type": "Periodical",
-    name: publication.venue,
-  },
+  isPartOf: { "@type": "Periodical", name: publication.venue },
   publisher: {
     "@type": "Organization",
     name: "Social Science Research Network",
@@ -153,20 +151,23 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${inter.variable} ${display.variable} ${mono.variable}`}
+      className={`${mono.variable} ${sans.variable} ${serif.variable}`}
     >
-      <body className="min-h-screen bg-background font-sans antialiased">
+      <body className="min-h-screen bg-background font-mono antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="light"
-          enableSystem
+          defaultTheme="dark"
+          enableSystem={false}
           disableTransitionOnChange
         >
+          <div aria-hidden className="scanlines" />
+          <div aria-hidden className="scanbar" />
           <ScrollProgress />
-          <Navbar />
-          <main>{children}</main>
+          <StatusBar />
+          <CommandPalette />
+          <main className="pt-12">{children}</main>
+          <Ticker />
           <Footer />
-          <div aria-hidden className="paper-grain" />
         </ThemeProvider>
         <script
           type="application/ld+json"

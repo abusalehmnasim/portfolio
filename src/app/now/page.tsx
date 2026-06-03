@@ -13,7 +13,7 @@ import { siteConfig } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Now",
-  description: `What ${siteConfig.name} is focused on right now — learning, building, reading, and current goals.`,
+  description: `What ${siteConfig.name} is focused on right now.`,
   alternates: { canonical: "/now" },
   openGraph: {
     title: `Now · ${siteConfig.name}`,
@@ -32,86 +32,78 @@ export default function NowPage() {
   const updated = new Date(nowMeta.updatedAt);
 
   return (
-    <div className="relative overflow-hidden pt-32 sm:pt-36">
-      <div
-        aria-hidden
-        className="halftone-pink-loose absolute -left-32 top-10 -z-10 h-[26rem] w-[26rem] rounded-full opacity-60"
-      />
-
-      <div className="riso-container pb-20">
+    <div className="pt-8">
+      <div className="term-container pb-16">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-[0.18em] text-foreground/75 transition-colors hover:text-primary"
+          className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-foreground/75 transition-colors hover:text-phosphor"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          Back to home
+          cd ../
         </Link>
 
-        {/* Masthead */}
-        <div className="mt-10 flex flex-wrap items-center gap-3 border-y-2 border-current py-2.5">
-          <span className="riso-eyebrow">/now</span>
-          <span className="font-mono text-xs text-foreground/70">·</span>
-          <span className="riso-eyebrow text-foreground">Vol. 01</span>
-          <span className="riso-divider flex-1" />
-          <span className="font-mono text-[11px] uppercase tracking-[0.18em] text-foreground/75">
-            Updated {longDate.format(updated)} · {nowMeta.location}
+        <p className="mt-10 font-mono text-xs uppercase tracking-wider text-dim">
+          <span className="text-phosphor">$ cat</span>{" "}
+          <span className="text-foreground/85">now.md</span>{" "}
+          <span className="text-dim">
+            · updated {longDate.format(updated)} · loc:{" "}
+            <span className="text-amber">{nowMeta.location}</span>
           </span>
-        </div>
+        </p>
 
-        <h1
-          data-text="WHAT I'M FOCUSED ON"
-          className="riso-display riso-misregister mt-10 text-[2.5rem] sm:text-[4rem] lg:text-[5rem]"
-        >
+        <h1 className="mt-3 font-mono text-3xl font-bold uppercase leading-[1.05] tracking-tight text-foreground sm:text-[3.2rem]">
           WHAT I&apos;M FOCUSED ON
+          <span className="caret" />
         </h1>
 
-        <p className="mt-6 max-w-prose prose-riso text-foreground/85">
+        <p className="mt-6 max-w-prose text-[0.96rem] leading-[1.65] text-foreground/85 sm:text-base">
           {nowMeta.summary}
         </p>
 
-        <p className="mt-4 max-w-prose font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
-          Inspired by Derek Sivers&apos;{" "}
+        <p className="mt-4 max-w-prose font-mono text-[11px] uppercase tracking-wider text-dim">
+          {"// inspired by "}
           <a
             href="https://nownownow.com/about"
             target="_blank"
             rel="noreferrer"
-            className="text-primary underline decoration-2 underline-offset-4"
+            className="text-phosphor underline decoration-phosphor underline-offset-4"
           >
-            /now page movement
+            Derek Sivers&apos; /now page movement
           </a>
-          . Updated monthly.
+          . updated monthly.
         </p>
 
         {/* Sections */}
-        <div className="mt-16 space-y-16">
+        <div className="mt-14 space-y-14">
           {nowSections.map((section, i) => (
             <section key={section.heading}>
-              <div className="flex items-baseline gap-3">
-                <span className="riso-eyebrow">
-                  № 0{i + 1}
+              <p className="font-mono text-xs uppercase tracking-wider text-dim">
+                <span className="text-foreground/60">
+                  [{String(i + 1).padStart(2, "0")}]
+                </span>{" "}
+                <span className="text-phosphor">$ ls</span>{" "}
+                <span className="text-foreground/85">
+                  {section.heading.toLowerCase()}/
                 </span>
-                <span className="riso-eyebrow text-foreground">
-                  {section.heading}
-                </span>
-                <span className="riso-divider flex-1" />
-              </div>
+              </p>
               {section.description && (
-                <p className="mt-4 max-w-prose font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+                <p className="mt-3 max-w-prose font-mono text-[11px] uppercase tracking-wider text-dim">
+                  {"// "}
                   {section.description}
                 </p>
               )}
-              <ul className="mt-6 divide-y-2 divide-dashed divide-current border-y-2 border-current">
+              <ul className="mt-5 divide-y divide-border border-y border-border font-mono">
                 {section.items.map((item, idx) => (
                   <li
                     key={`${section.heading}-${idx}`}
-                    className="grid gap-2 py-5 sm:grid-cols-[1fr_auto] sm:gap-6"
+                    className="grid gap-2 py-4 sm:grid-cols-[1fr_auto] sm:gap-6"
                   >
                     <div className="max-w-prose">
-                      <p className="font-display text-lg font-bold uppercase tracking-tight sm:text-xl">
-                        {item.title}
+                      <p className="text-base font-bold uppercase leading-tight text-foreground sm:text-lg">
+                        <span className="text-phosphor">▸</span> {item.title}
                       </p>
                       {item.detail && (
-                        <p className="mt-1.5 text-[1rem] leading-relaxed text-foreground/80">
+                        <p className="mt-1.5 text-[0.92rem] leading-relaxed text-foreground/75">
                           {item.detail}
                         </p>
                       )}
@@ -121,9 +113,9 @@ export default function NowPage() {
                         href={item.link}
                         target="_blank"
                         rel="noreferrer"
-                        className="inline-flex items-center gap-1 font-mono text-xs font-bold uppercase tracking-[0.16em] text-primary underline decoration-2 underline-offset-4 sm:self-start sm:pt-1"
+                        className="inline-flex items-center gap-1 text-xs uppercase tracking-wider text-amber underline decoration-amber underline-offset-4 sm:self-start sm:pt-1"
                       >
-                        Link
+                        link
                         <ArrowUpRight className="h-3 w-3" />
                       </a>
                     )}
@@ -135,73 +127,57 @@ export default function NowPage() {
         </div>
 
         {/* Favourites */}
-        <section className="mt-20">
-          <div className="flex items-baseline gap-3">
-            <span className="riso-eyebrow">Vibes</span>
-            <span className="riso-divider flex-1" />
-          </div>
-          <h2
-            data-text="FAVOURITES"
-            className="riso-display riso-misregister mt-6 text-[1.8rem] sm:text-[2.4rem]"
-          >
+        <section className="mt-16">
+          <p className="font-mono text-xs uppercase tracking-wider text-dim">
+            <span className="text-phosphor">$ ls</span>{" "}
+            <span className="text-foreground/85">vibes/</span>
+          </p>
+          <h2 className="mt-3 font-mono text-2xl font-bold uppercase leading-tight text-foreground sm:text-3xl">
             FAVOURITES
           </h2>
-          <p className="mt-3 max-w-prose font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+          <p className="mt-3 max-w-prose font-mono text-[11px] uppercase tracking-wider text-dim">
+            {"// "}
             {favouritesIntro}
           </p>
-          <dl className="mt-8 divide-y-2 divide-dashed divide-current border-y-2 border-current">
-            {favourites.map((g) => (
-              <div
-                key={g.heading}
-                className="grid gap-3 py-5 sm:grid-cols-[200px_1fr] sm:gap-10"
-              >
-                <dt className="riso-eyebrow text-foreground sm:pt-1">
-                  {g.heading}
-                </dt>
-                <dd>
-                  <ul className="flex flex-wrap gap-2">
-                    {g.items.map((item) => (
-                      <li key={item}>
-                        <span className="riso-tag">{item}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </dd>
-              </div>
-            ))}
-          </dl>
+
+          <pre className="mt-6 overflow-x-auto whitespace-pre-wrap border border-border bg-card p-5 font-mono text-[0.9rem] leading-relaxed text-foreground/85 sm:p-6">
+{favourites
+  .map(
+    (g) =>
+      `${g.heading.toUpperCase().padEnd(22, " ")}  ${g.items.join(", ")}`
+  )
+  .join("\n\n")}
+          </pre>
         </section>
 
         {/* Philosophy */}
-        <section className="mt-20">
-          <div className="flex items-baseline gap-3">
-            <span className="riso-eyebrow">Philosophy</span>
-            <span className="riso-divider flex-1" />
-          </div>
-          <h2
-            data-text="HOW I THINK"
-            className="riso-display riso-misregister mt-6 text-[1.8rem] sm:text-[2.4rem]"
-          >
+        <section className="mt-16">
+          <p className="font-mono text-xs uppercase tracking-wider text-dim">
+            <span className="text-phosphor">$ cat</span>{" "}
+            <span className="text-foreground/85">philosophy.md</span>
+          </p>
+          <h2 className="mt-3 font-mono text-2xl font-bold uppercase leading-tight text-foreground sm:text-3xl">
             HOW I THINK
           </h2>
-          <p className="mt-3 max-w-prose font-mono text-xs uppercase tracking-[0.16em] text-muted-foreground">
+          <p className="mt-3 max-w-prose font-mono text-[11px] uppercase tracking-wider text-dim">
+            {"// "}
             {philosophyIntro}
           </p>
 
-          <ol className="mt-10 space-y-12">
+          <ol className="mt-10 space-y-10">
             {philosophy.map((p, i) => (
               <li
                 key={p.title}
-                className="grid gap-4 sm:grid-cols-[80px_1fr] sm:gap-10"
+                className="grid gap-3 sm:grid-cols-[80px_1fr] sm:gap-8"
               >
-                <span className="riso-eyebrow text-primary sm:pt-2">
-                  № 0{i + 1}
+                <span className="font-mono text-xs uppercase tracking-wider text-amber sm:pt-1.5">
+                  ▸ {String(i + 1).padStart(2, "0")}
                 </span>
                 <div className="max-w-prose">
-                  <p className="font-display text-2xl font-bold uppercase leading-[1.05] tracking-tight sm:text-[1.7rem]">
+                  <p className="font-mono text-xl font-bold uppercase leading-tight text-foreground sm:text-2xl">
                     {p.title}
                   </p>
-                  <p className="mt-4 text-[1rem] leading-[1.7] text-foreground/80 sm:text-[1.05rem]">
+                  <p className="mt-3 text-[0.95rem] leading-[1.7] text-foreground/80 sm:text-base">
                     {p.body}
                   </p>
                 </div>
@@ -210,22 +186,14 @@ export default function NowPage() {
           </ol>
         </section>
 
-        <div className="mt-20 border-t-2 border-current pt-8 font-mono text-xs uppercase tracking-[0.16em] text-foreground/80">
-          Want to talk?{" "}
+        <div className="mt-16 border-t border-border pt-6 font-mono text-xs uppercase tracking-wider text-foreground/85">
+          {"> talk to me: "}
           <a
             href={`mailto:${siteConfig.email}`}
-            className="text-primary underline decoration-2 underline-offset-4"
+            className="text-phosphor underline decoration-phosphor underline-offset-4"
           >
             {siteConfig.email}
           </a>
-          {" — "}
-          <Link
-            href="/#contact"
-            className="text-primary underline decoration-2 underline-offset-4"
-          >
-            contact page
-          </Link>
-          .
         </div>
       </div>
     </div>

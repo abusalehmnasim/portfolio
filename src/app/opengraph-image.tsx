@@ -6,9 +6,11 @@ export const alt = `${siteConfig.name} — ${siteConfig.tagline}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const PAPER = "#F3ECD7";
-const INK = "#1F1F58";
-const PINK = "#EB4763";
+const BG = "#08100A";
+const FG = "#E4E9E4";
+const PHOSPHOR = "#4AFF88";
+const AMBER = "#FFBE3D";
+const DIM = "#5F6B65";
 
 export default async function Image() {
   return new ImageResponse(
@@ -19,123 +21,137 @@ export default async function Image() {
           height: "100%",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "space-between",
-          padding: 64,
-          background: PAPER,
-          color: INK,
-          fontFamily: "system-ui, sans-serif",
+          padding: 56,
+          background: BG,
+          color: FG,
+          fontFamily: "monospace",
           position: "relative",
         }}
       >
-        {/* Decorative pink halftone dot blob */}
-        <div
-          style={{
-            position: "absolute",
-            top: -160,
-            right: -160,
-            width: 520,
-            height: 520,
-            borderRadius: 9999,
-            background: PINK,
-            opacity: 0.18,
-          }}
-        />
-
-        {/* Masthead bar */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 16,
-            borderTop: `3px solid ${INK}`,
-            borderBottom: `3px solid ${INK}`,
-            padding: "12px 0",
-            fontSize: 16,
-            letterSpacing: 4,
-            textTransform: "uppercase",
-            color: INK,
-          }}
-        >
-          <span style={{ color: PINK }}>Vol. I</span>
-          <span>· Issue 01</span>
-          <span style={{ flex: 1 }} />
-          <span style={{ color: INK }}>Risograph print · 2026</span>
-        </div>
-
-        {/* Headline with offset pink */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 24 }}>
-          <div
-            style={{
-              position: "relative",
-              fontSize: 110,
-              lineHeight: 0.92,
-              letterSpacing: -3,
-              fontWeight: 700,
-              textTransform: "uppercase",
-              color: INK,
-            }}
-          >
-            {/* Pink offset duplicate */}
-            <span
-              style={{
-                position: "absolute",
-                top: 10,
-                left: 12,
-                color: PINK,
-                zIndex: 0,
-              }}
-            >
-              ABU SALEH M NASIM
-            </span>
-            <span style={{ position: "relative", zIndex: 1 }}>
-              ABU SALEH M NASIM
-            </span>
-          </div>
-          <div
-            style={{
-              fontSize: 24,
-              lineHeight: 1.4,
-              color: INK,
-              maxWidth: 980,
-              textTransform: "uppercase",
-              letterSpacing: 3,
-            }}
-          >
-            BBA Finance · BUP // CA Student · ICAB // Writes · Codes · Reads
-            annual reports for fun
-          </div>
-        </div>
-
-        {/* Footer row */}
+        {/* Status bar */}
         <div
           style={{
             display: "flex",
             alignItems: "center",
             justifyContent: "space-between",
-            borderTop: `3px solid ${INK}`,
-            paddingTop: 16,
-            fontSize: 18,
-            color: INK,
-            letterSpacing: 2,
+            paddingBottom: 14,
+            borderBottom: `1px solid #1B2B22`,
+            fontSize: 16,
             textTransform: "uppercase",
+            letterSpacing: 2,
+          }}
+        >
+          <div style={{ display: "flex", gap: 18, alignItems: "center" }}>
+            <span style={{ color: PHOSPHOR }}>NASIM-TERM</span>
+            <span style={{ color: DIM }}>v2.06</span>
+            <span style={{ color: PHOSPHOR }}>● Online</span>
+          </div>
+          <div style={{ display: "flex", gap: 18, color: DIM }}>
+            <span>Dhaka 22:08:14</span>
+            <span style={{ color: FG, border: `1px solid ${DIM}`, padding: "4px 8px" }}>
+              ⌘K
+            </span>
+          </div>
+        </div>
+
+        {/* Prompt line */}
+        <div
+          style={{
+            marginTop: 36,
+            fontSize: 20,
+            letterSpacing: 1,
+            textTransform: "uppercase",
+            color: DIM,
+            display: "flex",
+            gap: 6,
+          }}
+        >
+          <span style={{ color: PHOSPHOR }}>guest@nasim-term</span>
+          <span>:</span>
+          <span style={{ color: AMBER }}>~/portfolio</span>
+          <span>$ ./run.sh</span>
+        </div>
+
+        {/* Big name */}
+        <div
+          style={{
+            marginTop: 24,
+            fontSize: 110,
+            fontWeight: 700,
+            letterSpacing: -3,
+            lineHeight: 0.95,
+            color: FG,
+            display: "flex",
+            alignItems: "center",
+          }}
+        >
+          ABU SALEH M NASIM
+          <span
+            style={{
+              marginLeft: 12,
+              color: PHOSPHOR,
+              fontSize: 110,
+              lineHeight: 0.95,
+            }}
+          >
+            ▌
+          </span>
+        </div>
+
+        {/* Subline */}
+        <div
+          style={{
+            marginTop: 30,
+            fontSize: 22,
+            textTransform: "uppercase",
+            letterSpacing: 2,
+            color: FG,
+            display: "flex",
+            gap: 20,
+            flexWrap: "wrap",
+          }}
+        >
+          <span>
+            <span style={{ color: PHOSPHOR }}>[role]</span> BBA Finance · BUP
+          </span>
+          <span>
+            <span style={{ color: PHOSPHOR }}>[cert]</span> CA · ICAB
+          </span>
+          <span>
+            <span style={{ color: PHOSPHOR }}>[status]</span>{" "}
+            <span style={{ color: AMBER }}>2026 internship</span>
+          </span>
+        </div>
+
+        {/* Footer / ticker */}
+        <div
+          style={{
+            marginTop: "auto",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            borderTop: `1px solid #1B2B22`,
+            paddingTop: 14,
+            fontSize: 17,
+            textTransform: "uppercase",
+            letterSpacing: 2,
+            color: DIM,
           }}
         >
           <div style={{ display: "flex", gap: 24 }}>
-            <span>One paper on SSRN</span>
-            <span style={{ color: PINK }}>·</span>
-            <span>Two projects on GitHub</span>
-            <span style={{ color: PINK }}>·</span>
-            <span>Class of 2027</span>
+            <span>DSEX <span style={{ color: PHOSPHOR }}>▲ 0.84%</span></span>
+            <span>BATBC <span style={{ color: PHOSPHOR }}>▲ 1.12%</span></span>
+            <span>GP <span style={{ color: "#FF5A60" }}>▼ 0.42%</span></span>
           </div>
           <div
             style={{
-              fontWeight: 700,
+              color: FG,
+              border: `1px solid ${PHOSPHOR}`,
               padding: "6px 12px",
-              border: `3px solid ${INK}`,
-              color: PINK,
+              fontWeight: 700,
             }}
           >
-            nasimabeer.me
+            <span style={{ color: PHOSPHOR }}>{">"}</span> nasimabeer.me
           </div>
         </div>
       </div>

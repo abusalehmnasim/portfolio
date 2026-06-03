@@ -4,42 +4,43 @@ import { certifications } from "@/lib/data";
 
 export function Certifications() {
   return (
-    <section id="certifications" className="riso-section">
-      <div className="riso-container">
+    <section id="certifications" className="term-section">
+      <div className="term-container">
         <SectionHeading
           number="08"
-          eyebrow="Certifications"
+          cmd="certifications"
           title="Things I've finished."
         />
 
-        <div className="grid gap-10 lg:gap-12">
+        <div className="grid gap-8 lg:grid-cols-2 lg:gap-10">
           {certifications.map((c) => (
-            <article
-              key={c.title}
-              className="grid gap-6 sm:grid-cols-[240px_1fr] sm:gap-10"
-            >
+            <article key={c.title} className="panel font-mono">
               {c.image && (
-                <figure
-                  className="relative border-[3px] border-current bg-card"
-                  style={{ boxShadow: "6px 6px 0 0 hsl(var(--primary))" }}
-                >
-                  <div className="relative aspect-[16/10] w-full overflow-hidden">
+                <>
+                  <div className="flex items-center justify-between border-b border-border px-3 py-1.5 text-[10px] uppercase tracking-wider text-dim">
+                    <span className="text-phosphor">cert.png</span>
+                    <span>verified</span>
+                  </div>
+                  <div className="relative aspect-[16/10] w-full overflow-hidden bg-background">
                     <Image
                       src={c.image}
                       alt={`${c.title} certificate`}
                       fill
-                      sizes="240px"
+                      sizes="(max-width: 1024px) 100vw, 500px"
                       className="object-contain p-2"
+                      style={{ filter: "saturate(0.9) brightness(0.95)" }}
                     />
                   </div>
-                </figure>
+                </>
               )}
-              <div>
-                <p className="riso-eyebrow text-foreground">{c.issuer}</p>
-                <h3 className="riso-display mt-2 text-2xl sm:text-3xl">
+              <div className="p-5">
+                <p className="text-[11px] uppercase tracking-wider text-amber">
+                  {c.issuer}
+                </p>
+                <h3 className="mt-1 text-xl font-bold uppercase leading-tight text-foreground">
                   {c.title}
                 </h3>
-                <p className="mt-4 max-w-prose text-[1rem] leading-relaxed text-foreground/85">
+                <p className="mt-3 max-w-prose text-sm leading-relaxed text-foreground/80">
                   {c.description}
                 </p>
               </div>

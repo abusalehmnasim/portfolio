@@ -4,65 +4,67 @@
 
 @layer base {
   :root {
-    /* Riso palette — cream paper + federal blue + fluorescent pink */
-    --paper: 42 38% 92%;            /* #F3ECD7 cream                  */
-    --background: 42 38% 92%;
-    --ink: 240 55% 22%;             /* #1F1F58 federal blue           */
-    --foreground: 240 55% 14%;      /* near-black with blue undertone */
+    /* Default = dark/terminal. Light mode is a "paper terminal" inversion. */
 
-    --muted: 42 28% 86%;
-    --muted-foreground: 240 25% 30%;
+    /* Dark terminal */
+    --terminal: 150 18% 4%;          /* #08100A near-black with green tint */
+    --background: 150 18% 4%;
+    --foreground: 90 8% 90%;         /* cool off-white                     */
 
-    --border: 240 55% 22%;          /* borders take the ink color     */
-    --input: 240 55% 22%;
-    --ring: 350 80% 60%;
+    --phosphor: 142 100% 64%;        /* #4AFF88                            */
+    --amber: 40 100% 62%;            /* #FFBE3D                            */
+    --dim: 150 10% 52%;              /* mid-gray for inactive              */
 
-    --card: 42 38% 96%;             /* slightly brighter cream cards  */
-    --card-foreground: 240 55% 14%;
+    --muted: 150 10% 10%;
+    --muted-foreground: 150 10% 60%;
 
-    --primary: 350 80% 60%;         /* #EB4763 burgundy rose          */
-    --primary-foreground: 42 38% 92%;
+    --border: 142 20% 18%;
+    --input: 142 20% 18%;
+    --ring: 142 100% 64%;
 
-    --secondary: 195 80% 60%;       /* #45B6E0 sky blue (rarely used) */
-    --secondary-foreground: 42 38% 92%;
+    --card: 150 18% 6%;
+    --card-foreground: 90 8% 90%;
 
-    --accent: 350 80% 60%;
-    --accent-foreground: 42 38% 92%;
+    --primary: 142 100% 64%;
+    --primary-foreground: 150 18% 4%;
 
-    --destructive: 350 80% 50%;
-    --destructive-foreground: 42 38% 92%;
+    --secondary: 150 10% 10%;
+    --secondary-foreground: 90 8% 90%;
+
+    --accent: 40 100% 62%;
+    --accent-foreground: 150 18% 4%;
+
+    --destructive: 0 95% 62%;
+    --destructive-foreground: 150 18% 4%;
 
     --radius: 0;
   }
 
-  .dark {
-    /* Riso at night — black paper + bright pink + electric blue */
-    --paper: 240 30% 6%;            /* #0B0B17                        */
-    --background: 240 30% 6%;
-    --ink: 42 40% 92%;
-    --foreground: 42 40% 92%;
+  .light {
+    /* Paper terminal (inverse) */
+    --terminal: 40 30% 95%;
+    --background: 40 30% 95%;
+    --foreground: 150 18% 8%;
 
-    --muted: 240 22% 12%;
-    --muted-foreground: 42 25% 70%;
+    --phosphor: 142 80% 28%;
+    --amber: 30 90% 38%;
+    --dim: 150 10% 40%;
 
-    --border: 42 40% 92%;
-    --input: 42 40% 92%;
-    --ring: 350 80% 70%;
+    --muted: 40 20% 88%;
+    --muted-foreground: 150 10% 35%;
 
-    --card: 240 22% 10%;
-    --card-foreground: 42 40% 92%;
+    --border: 150 18% 70%;
+    --input: 150 18% 70%;
+    --ring: 142 80% 28%;
 
-    --primary: 350 80% 70%;
-    --primary-foreground: 240 30% 6%;
+    --card: 40 30% 97%;
+    --card-foreground: 150 18% 8%;
 
-    --secondary: 195 90% 70%;
-    --secondary-foreground: 240 30% 6%;
+    --primary: 142 80% 28%;
+    --primary-foreground: 40 30% 95%;
 
-    --accent: 350 80% 70%;
-    --accent-foreground: 240 30% 6%;
-
-    --destructive: 350 80% 60%;
-    --destructive-foreground: 240 30% 6%;
+    --accent: 30 90% 38%;
+    --accent-foreground: 40 30% 95%;
   }
 
   * {
@@ -76,134 +78,102 @@
 
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "kern", "liga", "ss01";
+    font-feature-settings: "kern", "calt", "zero", "ss01";
+    font-family: var(--font-mono), ui-monospace, monospace;
   }
 
   ::selection {
-    @apply bg-primary text-primary-foreground;
+    background: hsl(var(--phosphor) / 0.35);
+    color: hsl(var(--foreground));
   }
 }
 
 @layer components {
-  .riso-container {
-    @apply mx-auto max-w-6xl px-6 sm:px-8;
+  .term-container {
+    @apply mx-auto max-w-6xl px-5 sm:px-8;
   }
-  .riso-narrow {
-    @apply mx-auto max-w-3xl px-6 sm:px-8;
+  .term-narrow {
+    @apply mx-auto max-w-4xl px-5 sm:px-8;
   }
-
-  .riso-section {
-    @apply py-16 sm:py-24;
-  }
-
-  /* Display headline with two-color split (the Riso misregistration trick) */
-  .riso-display {
-    @apply font-display font-bold tracking-tight uppercase;
-    line-height: 0.92;
-    letter-spacing: -0.02em;
+  .term-section {
+    @apply py-14 sm:py-20;
   }
 
-  .riso-misregister {
-    position: relative;
-    color: hsl(var(--ink));
-  }
-  .riso-misregister::before {
-    content: attr(data-text);
-    position: absolute;
-    inset: 0;
-    color: hsl(var(--primary));
-    transform: translate(0.18em, 0.16em);
-    z-index: -1;
-    mix-blend-mode: multiply;
+  /* Blinking caret */
+  .caret::after {
+    content: "▌";
+    margin-left: 2px;
+    color: hsl(var(--phosphor));
+    animation: blink 1.05s steps(1, end) infinite;
   }
 
-  /* Stamp = chunky border + hard offset shadow, no gradient */
-  .riso-stamp {
-    @apply relative inline-flex items-center gap-2 border-[2.5px] border-current px-4 py-2 font-mono text-xs font-bold uppercase tracking-wider;
-    box-shadow: 4px 4px 0 0 hsl(var(--ink));
-    transition: transform 0.12s ease, box-shadow 0.12s ease;
-  }
-  .riso-stamp:hover {
-    transform: translate(-2px, -2px);
-    box-shadow: 6px 6px 0 0 hsl(var(--ink));
-  }
-  .riso-stamp:active {
-    transform: translate(2px, 2px);
-    box-shadow: 0 0 0 0 hsl(var(--ink));
-  }
-  .riso-stamp--pink {
-    color: hsl(var(--primary));
-  }
-  .riso-stamp--pink:hover,
-  .riso-stamp--pink:active {
-    box-shadow: 4px 4px 0 0 hsl(var(--primary));
-  }
-  .riso-stamp--pink:hover {
-    box-shadow: 6px 6px 0 0 hsl(var(--primary));
-  }
-  .riso-stamp--pink:active {
-    box-shadow: 0 0 0 0 hsl(var(--primary));
+  /* Prompt prefix */
+  .prompt::before {
+    content: "$";
+    margin-right: 0.6em;
+    color: hsl(var(--phosphor));
+    font-weight: 700;
   }
 
-  /* Pill/tag — flat fill, no shadow */
-  .riso-tag {
-    @apply inline-flex items-center border-[1.5px] border-current px-2 py-0.5 font-mono text-[11px] uppercase tracking-wider;
+  .prompt-amber::before {
+    content: ">";
+    margin-right: 0.6em;
+    color: hsl(var(--amber));
+    font-weight: 700;
   }
 
-  /* Section eyebrow */
-  .riso-eyebrow {
-    @apply font-mono text-[11px] font-bold uppercase tracking-[0.25em] text-primary;
+  /* Section eyebrow as a "comment" */
+  .term-comment {
+    @apply font-mono text-xs text-muted-foreground;
+  }
+  .term-comment::before {
+    content: "// ";
+    color: hsl(var(--dim));
   }
 
-  /* Card with chunky offset shadow */
-  .riso-card {
-    @apply relative border-[2.5px] border-current bg-card text-card-foreground;
-    box-shadow: 6px 6px 0 0 hsl(var(--ink));
-  }
-  .riso-card--pink {
-    box-shadow: 6px 6px 0 0 hsl(var(--primary));
+  /* Phosphor "key" inline */
+  .kbd {
+    @apply inline-flex items-center border border-current px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-phosphor;
   }
 
-  /* Hairline divider with dashed style */
-  .riso-divider {
-    @apply h-0 border-t-2 border-dashed border-current opacity-60;
+  /* Card surface — used like a terminal panel */
+  .panel {
+    @apply relative border border-border bg-card text-card-foreground;
+  }
+  .panel-amber {
+    @apply panel;
+    border-color: hsl(var(--amber));
+  }
+  .panel-phosphor {
+    @apply panel;
+    border-color: hsl(var(--phosphor));
   }
 
-  /* Halftone dot pattern overlay */
-  .halftone {
-    background-image: radial-gradient(
-      circle,
-      hsl(var(--ink) / 0.85) 1.2px,
-      transparent 1.5px
-    );
-    background-size: 7px 7px;
-    background-position: 0 0;
-  }
-  .halftone-pink {
-    background-image: radial-gradient(
-      circle,
-      hsl(var(--primary) / 0.85) 1.2px,
-      transparent 1.5px
-    );
-    background-size: 7px 7px;
-  }
-  .halftone-pink-loose {
-    background-image: radial-gradient(
-      circle,
-      hsl(var(--primary) / 0.7) 1.5px,
-      transparent 2px
-    );
-    background-size: 14px 14px;
+  /* ASCII box (relies on monospaced font + CSS for the chrome) */
+  .ascii-box {
+    @apply relative border border-current p-5 sm:p-7;
   }
 
-  /* Treat photographs to feel printed: lower saturation + contrast boost */
-  .riso-photo {
-    filter: grayscale(0.15) contrast(1.08) saturate(0.85);
+  /* Hero-scale heading */
+  .term-display {
+    @apply font-mono font-bold tracking-tight;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
   }
 
-  /* Hand-set body prose */
-  .prose-riso {
-    @apply text-[1.05rem] leading-[1.65] text-foreground/90 sm:text-[1.125rem];
+  /* Subtle text "glow" only on phosphor accents — pure-tinted shadow */
+  .glow-phosphor {
+    color: hsl(var(--phosphor));
+    text-shadow: 0 0 12px hsl(var(--phosphor) / 0.35);
+  }
+  .glow-amber {
+    color: hsl(var(--amber));
+    text-shadow: 0 0 10px hsl(var(--amber) / 0.35);
+  }
+
+  /* Body prose */
+  .term-prose {
+    @apply text-[0.94rem] leading-[1.65] text-foreground/85 sm:text-[1.0rem];
   }
 }
 
@@ -216,31 +186,50 @@
   }
 }
 
-/* Stronger Riso paper grain — fixed to viewport, mix-blend-multiply */
-.paper-grain {
+/* Subtle CRT scanlines — fixed overlay, mix-blend-overlay */
+.scanlines {
   pointer-events: none;
   position: fixed;
   inset: 0;
-  z-index: 55;
-  opacity: 0.13;
-  mix-blend-mode: multiply;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='240' height='240'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='matrix' values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 0.85 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
-  background-size: 240px 240px;
-}
-.dark .paper-grain {
-  mix-blend-mode: screen;
-  opacity: 0.05;
+  z-index: 54;
+  opacity: 0.045;
+  background-image: repeating-linear-gradient(
+    to bottom,
+    transparent 0,
+    transparent 2px,
+    hsl(var(--phosphor)) 3px
+  );
 }
 
-/* Minimal scrollbar */
+/* Single phosphor scan-bar that slowly drifts down */
+.scanbar {
+  pointer-events: none;
+  position: fixed;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 80px;
+  z-index: 55;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    hsl(var(--phosphor) / 0.06) 50%,
+    transparent 100%
+  );
+  animation: scanline 9s linear infinite;
+}
+
+/* Scrollbar */
 ::-webkit-scrollbar {
   width: 8px;
   height: 8px;
 }
 ::-webkit-scrollbar-track {
-  background: transparent;
+  background: hsl(var(--background));
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--ink));
-  border-radius: 0;
+  background: hsl(var(--border));
+}
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--phosphor) / 0.5);
 }

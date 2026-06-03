@@ -3,35 +3,19 @@ import { skillGroups } from "@/lib/data";
 
 export function Skills() {
   return (
-    <section id="skills" className="riso-section">
-      <div className="riso-container">
+    <section id="skills" className="term-section">
+      <div className="term-container">
         <SectionHeading
           number="07"
-          eyebrow="Skills"
+          cmd="skills"
           title="What I work with."
         />
 
-        <dl className="divide-y-2 divide-dashed divide-current border-y-2 border-current">
-          {skillGroups.map((group) => (
-            <div
-              key={group.name}
-              className="grid gap-4 py-6 sm:grid-cols-[220px_1fr] sm:gap-10"
-            >
-              <dt className="riso-eyebrow text-foreground sm:pt-1">
-                {group.name}
-              </dt>
-              <dd>
-                <ul className="flex flex-wrap gap-2">
-                  {group.items.map((s) => (
-                    <li key={s}>
-                      <span className="riso-tag">{s}</span>
-                    </li>
-                  ))}
-                </ul>
-              </dd>
-            </div>
-          ))}
-        </dl>
+        <pre className="overflow-x-auto whitespace-pre-wrap border border-border bg-card p-5 font-mono text-[0.92rem] leading-relaxed text-foreground/85 sm:p-6 sm:text-[0.95rem]">
+{skillGroups
+  .map((g) => `${g.name.padEnd(22, " ")}  ${g.items.join(", ")}`)
+  .join("\n\n")}
+        </pre>
       </div>
     </section>
   );
