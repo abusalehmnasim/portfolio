@@ -145,25 +145,35 @@ notebook, and a policy paper, in some rotation.
                   sizes="(max-width: 1024px) 320px, 420px"
                   className="object-cover"
                   style={{
-                    filter:
-                      "saturate(0.45) contrast(1.08) hue-rotate(60deg) brightness(0.9)",
+                    /* Grayscale only — no hue shift, so skin tone stays human */
+                    filter: "grayscale(1) contrast(1.05) brightness(0.95)",
                   }}
                 />
+                {/* Phosphor screen tint — only on the highlights, via screen blend */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0 mix-blend-screen"
+                  style={{
+                    background: "hsl(var(--phosphor) / 0.12)",
+                  }}
+                />
+                {/* Soft top-down vignette to deepen the screen feel */}
+                <div
+                  aria-hidden
+                  className="pointer-events-none absolute inset-0"
+                  style={{
+                    background:
+                      "linear-gradient(180deg, transparent 60%, hsl(var(--background) / 0.55))",
+                  }}
+                />
+                {/* Fine CRT scanlines — much softer than before */}
                 <div
                   aria-hidden
                   className="pointer-events-none absolute inset-0 mix-blend-overlay"
                   style={{
-                    background:
-                      "linear-gradient(180deg, hsl(var(--phosphor) / 0.12), hsl(var(--phosphor) / 0))",
-                  }}
-                />
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 mix-blend-multiply"
-                  style={{
                     backgroundImage:
                       "repeating-linear-gradient(0deg, transparent 0, transparent 2px, hsl(var(--background)) 3px)",
-                    opacity: 0.45,
+                    opacity: 0.22,
                   }}
                 />
               </div>

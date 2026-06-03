@@ -34,17 +34,26 @@ export function Projects() {
                       sizes="(max-width: 1024px) 100vw, 540px"
                       className="object-cover"
                       style={{
-                        filter:
-                          "saturate(0.4) hue-rotate(60deg) brightness(0.85) contrast(1.05)",
+                        /* Light desaturation only — colors remain themselves */
+                        filter: "saturate(0.55) contrast(1.03) brightness(0.95)",
                       }}
                     />
+                    {/* Faint phosphor wash */}
+                    <div
+                      aria-hidden
+                      className="pointer-events-none absolute inset-0 mix-blend-screen"
+                      style={{
+                        background: "hsl(var(--phosphor) / 0.07)",
+                      }}
+                    />
+                    {/* Softer scanlines */}
                     <div
                       aria-hidden
                       className="pointer-events-none absolute inset-0"
                       style={{
                         backgroundImage:
                           "repeating-linear-gradient(0deg, transparent 0, transparent 2px, hsl(var(--background)) 3px)",
-                        opacity: 0.4,
+                        opacity: 0.2,
                       }}
                     />
                   </div>
