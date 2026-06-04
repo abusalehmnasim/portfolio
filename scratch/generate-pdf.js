@@ -8,8 +8,9 @@ const path = require('path');
     browser = await chromium.launch();
     const page = await browser.newPage();
     
-    console.log('Navigating to http://localhost:3000/cv ...');
-    await page.goto('http://localhost:3000/cv', { waitUntil: 'networkidle' });
+    // Using a dedicated port (3050) to avoid conflict with other running dev servers (like Daam Kemon on 3000/3001)
+    console.log('Navigating to http://localhost:3050/cv ...');
+    await page.goto('http://localhost:3050/cv', { waitUntil: 'networkidle' });
     
     // Allow any dynamic animations/icons to load
     await page.waitForTimeout(2000);
