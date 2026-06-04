@@ -1,48 +1,60 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Award } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { experience } from "@/lib/data";
 
 export function Experience() {
   return (
-    <section id="experience" className="term-section">
-      <div className="term-container">
+    <section id="experience" className="section-padding bg-muted/50">
+      <div className="container-wide">
         <SectionHeading
-          number="03"
-          cmd="roles"
-          title="Clubs, committees, the occasional forum."
-          description="Most of this is from school. The leadership pattern goes back further than the CV does."
+          eyebrow="Experience"
+          title="Leadership and roles."
+          description="Schools, college clubs, and a policy forum — building the soft skills that come up everywhere."
         />
 
-        <ul className="divide-y divide-border border-y border-border font-mono">
+        <ol className="relative space-y-6 border-l border-border pl-6 sm:pl-10">
           {experience.map((item, i) => (
-            <li
+            <motion.li
               key={`${item.role}-${item.org}`}
-              className="grid gap-3 py-6 sm:grid-cols-[80px_140px_1fr] sm:gap-6"
+              initial={{ opacity: 0, x: -12 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              className="relative"
             >
-              <span className="text-xs text-dim">
-                [{String(i + 1).padStart(2, "0")}]
+              <span className="absolute -left-[33px] sm:-left-[45px] top-3 flex h-5 w-5 items-center justify-center rounded-full border border-border bg-background ring-4 ring-background">
+                <span className="h-1.5 w-1.5 rounded-full bg-primary" />
               </span>
-              <span className="text-xs uppercase tracking-wider text-amber">
-                {item.period}
-              </span>
-              <div>
-                <p className="text-base font-semibold text-foreground sm:text-lg">
-                  {item.role}
-                </p>
-                <p className="mt-1 text-xs uppercase tracking-wider text-foreground/70">
-                  {item.org}
-                </p>
-                <ul className="mt-3 max-w-prose space-y-1 text-sm leading-relaxed text-foreground/80">
+              <div className="card-soft p-6">
+                <div className="flex flex-wrap items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-base font-semibold text-foreground">
+                      {item.role}
+                    </h3>
+                    <p className="mt-0.5 text-sm text-muted-foreground">
+                      {item.org}
+                    </p>
+                  </div>
+                  <span className="inline-flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-foreground/80">
+                    <Award className="h-3 w-3 text-primary" />
+                    {item.period}
+                  </span>
+                </div>
+                <ul className="mt-4 space-y-2 text-sm leading-relaxed text-muted-foreground">
                   {item.points.map((p) => (
-                    <li key={p} className="flex gap-2">
-                      <span className="text-phosphor">▸</span>
+                    <li key={p} className="flex gap-2.5">
+                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-muted-foreground/70" />
                       <span>{p}</span>
                     </li>
                   ))}
                 </ul>
               </div>
-            </li>
+            </motion.li>
           ))}
-        </ul>
+        </ol>
       </div>
     </section>
   );

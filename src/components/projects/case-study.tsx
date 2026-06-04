@@ -22,188 +22,222 @@ export function CaseStudy({
   detail: ProjectDetail;
 }) {
   return (
-    <article className="pt-8">
-      <div className="term-narrow pb-16">
+    <article className="section-padding">
+      <div className="container-narrow">
         <Link
           href="/projects"
-          className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-foreground/75 transition-colors hover:text-phosphor"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          cd ../projects
+          All projects
         </Link>
 
-        {/* Header */}
-        <p className="mt-10 font-mono text-xs uppercase tracking-wider text-dim">
-          <span className="text-phosphor">$ cat</span>{" "}
-          <span className="text-foreground/85">{project.slug}/README.md</span>
-        </p>
-
-        <h1 className="mt-3 font-mono text-3xl font-bold uppercase leading-[1.05] tracking-tight text-foreground sm:text-[3rem]">
-          {project.title}
-          <span className="caret" />
-        </h1>
-
-        <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-1 font-mono text-[11px] uppercase tracking-wider text-foreground/75">
+        <div className="mt-8 flex flex-wrap gap-2 text-xs">
           {project.status && (
-            <span>
-              <span className="text-dim">status:</span>{" "}
-              <span className="text-amber">{project.status}</span>
+            <span className="rounded-md bg-primary/10 px-2.5 py-1 font-semibold text-primary">
+              {project.status}
             </span>
           )}
           {project.period && (
-            <span>
-              <span className="text-dim">period:</span>{" "}
-              <span className="text-foreground/85">{project.period}</span>
+            <span className="rounded-md bg-muted px-2.5 py-1 text-muted-foreground">
+              {project.period}
             </span>
           )}
-          <span>
-            <span className="text-dim">stack:</span>{" "}
-            <span className="text-phosphor">{project.tech.join(" · ")}</span>
-          </span>
         </div>
 
-        <p className="mt-8 max-w-prose text-[1rem] leading-[1.7] text-foreground/85 sm:text-[1.05rem]">
+        <h1 className="display mt-5 text-balance text-4xl leading-[1.05] sm:text-5xl">
+          {project.title}
+        </h1>
+
+        <p className="mt-5 max-w-prose text-base leading-relaxed text-muted-foreground sm:text-lg">
           {detail.oneLiner}
         </p>
 
-        {/* Cover image */}
+        <ul className="mt-6 flex flex-wrap gap-1.5">
+          {project.tech.map((t) => (
+            <li
+              key={t}
+              className="rounded-md bg-muted px-2.5 py-1 text-xs font-medium text-foreground/80"
+            >
+              {t}
+            </li>
+          ))}
+        </ul>
+
         {project.image && (
-          <figure className="mt-10 border border-phosphor/60 font-mono">
-            <div className="flex items-center justify-between border-b border-phosphor/40 px-3 py-1.5 text-[10px] uppercase tracking-wider text-phosphor">
-              <span>cover.png</span>
-              <span className="text-dim">scanned 1440×900</span>
-            </div>
-            <div className="relative aspect-[16/9] w-full overflow-hidden bg-card">
+          <figure className="mt-10 overflow-hidden rounded-lg border border-border bg-muted">
+            <div className="relative aspect-[16/9] w-full">
               <Image
                 src={project.image}
                 alt={project.title}
                 fill
                 priority
-                sizes="(max-width: 768px) 100vw, 720px"
+                sizes="(max-width: 768px) 100vw, 800px"
                 className="object-cover"
-                style={{ filter: "saturate(0.55) contrast(1.03) brightness(0.95)" }}
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0 mix-blend-screen"
-                style={{ background: "hsl(var(--phosphor) / 0.07)" }}
-              />
-              <div
-                aria-hidden
-                className="pointer-events-none absolute inset-0"
-                style={{
-                  backgroundImage:
-                    "repeating-linear-gradient(0deg, transparent 0, transparent 2px, hsl(var(--background)) 3px)",
-                  opacity: 0.2,
-                }}
               />
             </div>
           </figure>
         )}
 
-        {/* Problem */}
-        <Section number="01" name="problem">
+        {/* 01 Problem */}
+        <Section eyebrow="01 — Problem" title="Why this project">
           {detail.problem.map((p, i) => (
-            <p key={i} className="max-w-prose">
-              {p}
-            </p>
+            <p key={i}>{p}</p>
           ))}
         </Section>
 
-        {/* Approach */}
-        <Section number="02" name="approach">
-          <ol className="space-y-3 max-w-prose">
+        {/* 02 Approach */}
+        <Section eyebrow="02 — Approach" title="How I tackled it">
+          <ol className="not-prose space-y-3">
             {detail.approach.map((step, i) => (
-              <li key={i} className="flex gap-3 font-mono text-[0.95rem]">
-                <span className="shrink-0 text-phosphor">
-                  [{String(i + 1).padStart(2, "0")}]
+              <li
+                key={i}
+                className="flex gap-4 rounded-md border border-border bg-card p-4"
+              >
+                <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md bg-primary/10 text-xs font-semibold text-primary">
+                  {String(i + 1).padStart(2, "0")}
                 </span>
-                <span>{step}</span>
+                <p className="text-sm leading-relaxed text-foreground/85">
+                  {step}
+                </p>
               </li>
             ))}
           </ol>
         </Section>
 
-        {/* Data sources */}
-        <Section number="03" name="data sources">
-          <pre className="overflow-x-auto whitespace-pre border border-border bg-card p-4 font-mono text-[0.85rem] leading-relaxed text-foreground/85">
-{`SOURCE                                  VIA                          ROWS
-${detail.dataSources
-  .map(
-    (d) =>
-      `${d.name.padEnd(40, " ")}${d.via.padEnd(29, " ")}${d.rows ?? "-"}`
-  )
-  .join("\n")}`}
-          </pre>
+        {/* 03 Data sources */}
+        <Section eyebrow="03 — Data sources" title="Where the data came from">
+          <div className="not-prose overflow-x-auto rounded-md border border-border">
+            <table className="w-full text-sm">
+              <thead className="border-b border-border bg-muted/50 text-left">
+                <tr>
+                  <th className="px-4 py-2 font-semibold">Source</th>
+                  <th className="px-4 py-2 font-semibold">Via</th>
+                  <th className="px-4 py-2 font-semibold">Rows</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {detail.dataSources.map((d) => (
+                  <tr key={d.name}>
+                    <td className="px-4 py-2 text-foreground">{d.name}</td>
+                    <td className="px-4 py-2 text-muted-foreground">{d.via}</td>
+                    <td className="px-4 py-2 text-muted-foreground">
+                      {d.rows ?? "—"}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </Section>
 
-        {/* Pipeline */}
-        <Section number="04" name="pipeline">
-          <pre className="overflow-x-auto whitespace-pre border border-border bg-card p-4 font-mono text-[0.85rem] leading-[1.6] text-foreground/85 sm:p-5">
-{detail.pipeline
-  .map((s, i, arr) => {
-    const head = `[${String(i + 1).padStart(2, "0")}]  ${s.label.padEnd(28, " ")}`;
-    const tail = s.detail ? `// ${s.detail}` : "";
-    const connector = i < arr.length - 1 ? "\n      │\n      ▼" : "";
-    return `${head}${tail}${connector}`;
-  })
-  .join("\n")}
-          </pre>
+        {/* 04 Pipeline */}
+        <Section eyebrow="04 — Pipeline" title="End-to-end flow">
+          <ol className="not-prose space-y-2">
+            {detail.pipeline.map((s, i, arr) => (
+              <li key={i}>
+                <div className="flex items-start gap-3 rounded-md border border-border bg-card p-3.5">
+                  <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded bg-primary/10 text-[10px] font-semibold text-primary">
+                    {String(i + 1).padStart(2, "0")}
+                  </span>
+                  <div className="min-w-0">
+                    <p className="text-sm font-semibold text-foreground">
+                      {s.label}
+                    </p>
+                    {s.detail && (
+                      <p className="mt-0.5 text-xs text-muted-foreground">
+                        {s.detail}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                {i < arr.length - 1 && (
+                  <div className="ml-5 my-1 h-3 w-px bg-border" />
+                )}
+              </li>
+            ))}
+          </ol>
         </Section>
 
-        {/* Code */}
-        <Section number="05" name="code">
-          <div className="overflow-x-auto border border-phosphor/60">
-            <div className="flex items-center justify-between border-b border-phosphor/40 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-phosphor">
-              <span>{detail.code.caption ?? "snippet"}.{detail.code.language}</span>
-              <span className="text-dim">{detail.code.language}</span>
+        {/* 05 Code */}
+        <Section eyebrow="05 — Code" title="A key snippet">
+          {detail.code.caption && (
+            <p className="text-sm text-muted-foreground">
+              {detail.code.caption}
+            </p>
+          )}
+          <div className="not-prose overflow-x-auto rounded-md border border-border bg-muted/40">
+            <div className="flex items-center justify-between border-b border-border px-4 py-2 text-xs">
+              <span className="font-mono font-semibold text-foreground/70">
+                snippet.{detail.code.language}
+              </span>
+              <span className="text-muted-foreground">
+                {detail.code.language}
+              </span>
             </div>
-            <pre className="overflow-x-auto whitespace-pre bg-card p-4 font-mono text-[0.85rem] leading-[1.55] text-foreground/85 sm:p-5">
-              {detail.code.body}
+            <pre className="overflow-x-auto px-4 py-4 text-xs leading-relaxed text-foreground/90 sm:text-[13px]">
+              <code>{detail.code.body}</code>
             </pre>
           </div>
         </Section>
 
-        {/* Results */}
-        <Section number="06" name="results">
-          <pre className="overflow-x-auto whitespace-pre border border-amber/60 bg-card p-4 font-mono text-[0.9rem] leading-relaxed text-foreground/85 sm:p-5">
-{`METRIC                              VALUE
-${detail.results
-  .map(
-    (r) => `${r.metric.padEnd(36, " ")}${r.value}`
-  )
-  .join("\n")}`}
-          </pre>
+        {/* 06 Results */}
+        <Section eyebrow="06 — Results" title="What it shipped">
+          <div className="not-prose overflow-x-auto rounded-md border border-border">
+            <table className="w-full text-sm">
+              <thead className="border-b border-border bg-muted/50 text-left">
+                <tr>
+                  <th className="px-4 py-2 font-semibold">Metric</th>
+                  <th className="px-4 py-2 font-semibold">Value</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-border">
+                {detail.results.map((r) => (
+                  <tr key={r.metric}>
+                    <td className="px-4 py-2 text-foreground">{r.metric}</td>
+                    <td className="px-4 py-2 font-semibold text-foreground">
+                      {r.value}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           {detail.resultsCaveat && (
-            <p className="mt-4 max-w-prose font-mono text-[0.85rem] leading-relaxed text-foreground/75">
-              <span className="text-amber">{"// caveat:"}</span>{" "}
+            <p className="mt-3 rounded-md border-l-2 border-primary/40 bg-muted/40 p-4 text-sm leading-relaxed text-muted-foreground">
+              <span className="font-semibold text-foreground">Caveat: </span>
               {detail.resultsCaveat}
             </p>
           )}
         </Section>
 
-        {/* Lessons */}
-        <Section number="07" name="lessons">
-          <ul className="space-y-3 max-w-prose">
+        {/* 07 Lessons */}
+        <Section eyebrow="07 — Lessons" title="What I learned">
+          <ul className="not-prose space-y-3">
             {detail.lessons.map((l, i) => (
-              <li key={i} className="flex gap-3 font-mono text-[0.95rem]">
-                <span className="shrink-0 text-amber">▸</span>
-                <span>{l}</span>
+              <li
+                key={i}
+                className="flex gap-3 rounded-md border border-border bg-card p-4"
+              >
+                <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-primary" />
+                <p className="text-sm leading-relaxed text-foreground/85">
+                  {l}
+                </p>
               </li>
             ))}
           </ul>
         </Section>
 
-        {/* Links */}
-        <Section number="08" name="links">
-          <ul className="space-y-2 font-mono text-sm">
+        {/* 08 Links */}
+        <Section eyebrow="08 — Links" title="References">
+          <ul className="not-prose space-y-2">
             {detail.links.map((l) => (
               <li key={l.href}>
                 <a
                   href={l.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="inline-flex items-center gap-1.5 text-phosphor underline decoration-phosphor underline-offset-4 hover:text-amber"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
                 >
                   {l.label}
                   <ArrowUpRight className="h-3.5 w-3.5" />
@@ -213,13 +247,13 @@ ${detail.results
           </ul>
         </Section>
 
-        <div className="mt-16 border-t border-border pt-6 font-mono text-xs uppercase tracking-wider text-foreground/85">
-          <span className="text-phosphor">▸</span>{" "}
+        <div className="mt-16 border-t border-border pt-8">
           <Link
             href="/projects"
-            className="text-foreground/85 underline decoration-foreground/40 underline-offset-4 hover:text-phosphor"
+            className="inline-flex items-center gap-1.5 text-sm font-semibold text-primary hover:underline"
           >
-            back to /projects
+            <ArrowLeft className="h-3.5 w-3.5" />
+            All projects
           </Link>
         </div>
       </div>
@@ -228,22 +262,19 @@ ${detail.results
 }
 
 function Section({
-  number,
-  name,
+  eyebrow,
+  title,
   children,
 }: {
-  number: string;
-  name: string;
+  eyebrow: string;
+  title: string;
   children: React.ReactNode;
 }) {
   return (
     <section className="mt-14">
-      <h2 className="font-mono text-xs uppercase tracking-wider text-dim">
-        <span className="text-foreground/60">[{number}]</span>{" "}
-        <span className="text-phosphor">$ cat</span>{" "}
-        <span className="text-foreground/85">{name}.md</span>
-      </h2>
-      <div className="mt-4 space-y-3 text-[0.95rem] leading-[1.7] text-foreground/85">
+      <p className="eyebrow">{eyebrow}</p>
+      <h2 className="display mt-2 text-2xl sm:text-3xl">{title}</h2>
+      <div className="mt-5 space-y-4 text-base leading-relaxed text-foreground/85">
         {children}
       </div>
     </section>

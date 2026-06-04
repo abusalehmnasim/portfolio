@@ -7,7 +7,7 @@ const config: Config = {
     container: {
       center: true,
       padding: "1.5rem",
-      screens: { "2xl": "1180px" },
+      screens: { "2xl": "1200px" },
     },
     extend: {
       colors: {
@@ -16,10 +16,6 @@ const config: Config = {
         ring: "hsl(var(--ring))",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
-        terminal: "hsl(var(--terminal))",
-        phosphor: "hsl(var(--phosphor))",
-        amber: "hsl(var(--amber))",
-        dim: "hsl(var(--dim))",
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
@@ -51,31 +47,10 @@ const config: Config = {
         sm: "calc(var(--radius) - 4px)",
       },
       fontFamily: {
-        mono: ["var(--font-mono)", "ui-monospace", "monospace"],
         sans: ["var(--font-sans)", "system-ui", "sans-serif"],
-        serif: ["var(--font-serif)", "Georgia", "serif"],
       },
       maxWidth: {
-        prose: "70ch",
-      },
-      keyframes: {
-        blink: {
-          "0%,49%": { opacity: "1" },
-          "50%,100%": { opacity: "0" },
-        },
-        marquee: {
-          "0%": { transform: "translateX(0)" },
-          "100%": { transform: "translateX(-50%)" },
-        },
-        scanline: {
-          "0%": { transform: "translateY(-100%)" },
-          "100%": { transform: "translateY(100vh)" },
-        },
-      },
-      animation: {
-        blink: "blink 1.05s steps(1,end) infinite",
-        "marquee-slow": "marquee 80s linear infinite",
-        scanline: "scanline 8s linear infinite",
+        prose: "65ch",
       },
     },
   },

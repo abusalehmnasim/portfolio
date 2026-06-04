@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { ArrowLeft, ArrowUpRight } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, Calendar, MapPin } from "lucide-react";
 import {
   favourites,
   favouritesIntro,
@@ -13,7 +13,7 @@ import { siteConfig } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Now",
-  description: `What ${siteConfig.name} is focused on right now.`,
+  description: `What ${siteConfig.name} is focused on right now — learning, building, reading, and current goals.`,
   alternates: { canonical: "/now" },
   openGraph: {
     title: `Now · ${siteConfig.name}`,
@@ -32,92 +32,101 @@ export default function NowPage() {
   const updated = new Date(nowMeta.updatedAt);
 
   return (
-    <div className="pt-8">
-      <div className="term-container pb-16">
+    <div className="section-padding">
+      <div className="container-narrow">
         <Link
           href="/"
-          className="inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-foreground/75 transition-colors hover:text-phosphor"
+          className="inline-flex items-center gap-1.5 text-sm text-muted-foreground transition-colors hover:text-foreground"
         >
           <ArrowLeft className="h-3.5 w-3.5" />
-          cd ../
+          Back to home
         </Link>
 
-        <p className="mt-10 font-mono text-xs uppercase tracking-wider text-dim">
-          <span className="text-phosphor">$ cat</span>{" "}
-          <span className="text-foreground/85">now.md</span>{" "}
-          <span className="text-dim">
-            · updated {longDate.format(updated)} · loc:{" "}
-            <span className="text-amber">{nowMeta.location}</span>
+        <div className="mt-8 flex flex-wrap items-center gap-2 text-xs">
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-primary/10 px-2.5 py-1 font-semibold text-primary">
+            Live snapshot
           </span>
-        </p>
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-muted-foreground">
+            <Calendar className="h-3 w-3" />
+            Updated {longDate.format(updated)}
+          </span>
+          <span className="inline-flex items-center gap-1.5 rounded-md bg-muted px-2.5 py-1 text-muted-foreground">
+            <MapPin className="h-3 w-3" />
+            {nowMeta.location}
+          </span>
+        </div>
 
-        <h1 className="mt-3 font-mono text-3xl font-bold uppercase leading-[1.05] tracking-tight text-foreground sm:text-[3.2rem]">
-          WHAT I&apos;M FOCUSED ON
-          <span className="caret" />
+        <h1 className="display mt-6 text-balance text-4xl leading-[1.05] sm:text-5xl">
+          What I&apos;m <span className="text-primary">focused on</span> right
+          now.
         </h1>
-
-        <p className="mt-6 max-w-prose text-[0.96rem] leading-[1.65] text-foreground/85 sm:text-base">
+        <p className="mt-4 max-w-prose text-base leading-relaxed text-muted-foreground sm:text-lg">
           {nowMeta.summary}
         </p>
-
-        <p className="mt-4 max-w-prose font-mono text-[11px] uppercase tracking-wider text-dim">
-          {"// inspired by "}
+        <p className="mt-3 max-w-prose text-sm text-muted-foreground">
+          Inspired by Derek Sivers&apos;{" "}
           <a
             href="https://nownownow.com/about"
             target="_blank"
             rel="noreferrer"
-            className="text-phosphor underline decoration-phosphor underline-offset-4"
+            className="font-medium text-primary hover:underline"
           >
-            Derek Sivers&apos; /now page movement
+            /now page movement
           </a>
-          . updated monthly.
+          . If we last talked a while ago, this page tells you what&apos;s
+          changed.
         </p>
 
         {/* Sections */}
-        <div className="mt-14 space-y-14">
+        <div className="mt-14 grid gap-6 sm:grid-cols-2">
           {nowSections.map((section, i) => (
-            <section key={section.heading}>
-              <p className="font-mono text-xs uppercase tracking-wider text-dim">
-                <span className="text-foreground/60">
-                  [{String(i + 1).padStart(2, "0")}]
-                </span>{" "}
-                <span className="text-phosphor">$ ls</span>{" "}
-                <span className="text-foreground/85">
-                  {section.heading.toLowerCase()}/
+            <section
+              key={section.heading}
+              className={`card-soft p-6 ${i === 0 ? "sm:col-span-2" : ""}`}
+            >
+              <div className="flex items-center gap-3">
+                <span
+                  className="text-xl leading-none"
+                  role="img"
+                  aria-label={section.heading}
+                >
+                  {section.emoji}
                 </span>
-              </p>
-              {section.description && (
-                <p className="mt-3 max-w-prose font-mono text-[11px] uppercase tracking-wider text-dim">
-                  {"// "}
-                  {section.description}
-                </p>
-              )}
-              <ul className="mt-5 divide-y divide-border border-y border-border font-mono">
+                <div>
+                  <h2 className="text-base font-semibold">
+                    {section.heading}
+                  </h2>
+                  {section.description && (
+                    <p className="text-xs text-muted-foreground">
+                      {section.description}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <ul className="mt-5 space-y-4">
                 {section.items.map((item, idx) => (
                   <li
                     key={`${section.heading}-${idx}`}
-                    className="grid gap-2 py-4 sm:grid-cols-[1fr_auto] sm:gap-6"
+                    className="rounded-md border border-border bg-background p-4"
                   >
-                    <div className="max-w-prose">
-                      <p className="text-base font-bold uppercase leading-tight text-foreground sm:text-lg">
-                        <span className="text-phosphor">▸</span> {item.title}
-                      </p>
-                      {item.detail && (
-                        <p className="mt-1.5 text-[0.92rem] leading-relaxed text-foreground/75">
-                          {item.detail}
-                        </p>
+                    <div className="flex items-start justify-between gap-3">
+                      <h3 className="text-sm font-semibold">{item.title}</h3>
+                      {item.link && (
+                        <a
+                          href={item.link}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground"
+                        >
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </a>
                       )}
                     </div>
-                    {item.link && (
-                      <a
-                        href={item.link}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="inline-flex items-center gap-1 text-xs uppercase tracking-wider text-amber underline decoration-amber underline-offset-4 sm:self-start sm:pt-1"
-                      >
-                        link
-                        <ArrowUpRight className="h-3 w-3" />
-                      </a>
+                    {item.detail && (
+                      <p className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
+                        {item.detail}
+                      </p>
                     )}
                   </li>
                 ))}
@@ -128,72 +137,81 @@ export default function NowPage() {
 
         {/* Favourites */}
         <section className="mt-16">
-          <p className="font-mono text-xs uppercase tracking-wider text-dim">
-            <span className="text-phosphor">$ ls</span>{" "}
-            <span className="text-foreground/85">vibes/</span>
-          </p>
-          <h2 className="mt-3 font-mono text-2xl font-bold uppercase leading-tight text-foreground sm:text-3xl">
-            FAVOURITES
+          <span className="eyebrow">Vibes</span>
+          <h2 className="display mt-3 text-2xl sm:text-3xl">
+            Favourites.
           </h2>
-          <p className="mt-3 max-w-prose font-mono text-[11px] uppercase tracking-wider text-dim">
-            {"// "}
+          <p className="mt-3 max-w-prose text-sm text-muted-foreground">
             {favouritesIntro}
           </p>
 
-          <pre className="mt-6 overflow-x-auto whitespace-pre-wrap border border-border bg-card p-5 font-mono text-[0.9rem] leading-relaxed text-foreground/85 sm:p-6">
-{favourites
-  .map(
-    (g) =>
-      `${g.heading.toUpperCase().padEnd(22, " ")}  ${g.items.join(", ")}`
-  )
-  .join("\n\n")}
-          </pre>
+          <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {favourites.map((g) => (
+              <div key={g.heading} className="card-soft p-5">
+                <div className="flex items-center gap-2.5">
+                  <span className="text-lg" role="img" aria-label={g.heading}>
+                    {g.emoji}
+                  </span>
+                  <h3 className="text-sm font-semibold">{g.heading}</h3>
+                </div>
+                <ul className="mt-3 flex flex-wrap gap-1.5">
+                  {g.items.map((item) => (
+                    <li
+                      key={item}
+                      className="rounded-md bg-muted px-2 py-0.5 text-xs text-foreground/80"
+                    >
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
         </section>
 
         {/* Philosophy */}
         <section className="mt-16">
-          <p className="font-mono text-xs uppercase tracking-wider text-dim">
-            <span className="text-phosphor">$ cat</span>{" "}
-            <span className="text-foreground/85">philosophy.md</span>
-          </p>
-          <h2 className="mt-3 font-mono text-2xl font-bold uppercase leading-tight text-foreground sm:text-3xl">
-            HOW I THINK
+          <span className="eyebrow">Philosophy</span>
+          <h2 className="display mt-3 text-2xl sm:text-3xl">
+            How I try to think.
           </h2>
-          <p className="mt-3 max-w-prose font-mono text-[11px] uppercase tracking-wider text-dim">
-            {"// "}
+          <p className="mt-3 max-w-prose text-sm text-muted-foreground">
             {philosophyIntro}
           </p>
 
-          <ol className="mt-10 space-y-10">
+          <ol className="mt-8 space-y-6">
             {philosophy.map((p, i) => (
-              <li
-                key={p.title}
-                className="grid gap-3 sm:grid-cols-[80px_1fr] sm:gap-8"
-              >
-                <span className="font-mono text-xs uppercase tracking-wider text-amber sm:pt-1.5">
-                  ▸ {String(i + 1).padStart(2, "0")}
-                </span>
-                <div className="max-w-prose">
-                  <p className="font-mono text-xl font-bold uppercase leading-tight text-foreground sm:text-2xl">
-                    {p.title}
-                  </p>
-                  <p className="mt-3 text-[0.95rem] leading-[1.7] text-foreground/80 sm:text-base">
-                    {p.body}
-                  </p>
-                </div>
+              <li key={p.title} className="card-soft p-6">
+                <p className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">
+                  Principle {String(i + 1).padStart(2, "0")}
+                </p>
+                <h3 className="mt-2 text-lg font-semibold tracking-tight sm:text-xl">
+                  {p.title}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">
+                  {p.body}
+                </p>
               </li>
             ))}
           </ol>
         </section>
 
-        <div className="mt-16 border-t border-border pt-6 font-mono text-xs uppercase tracking-wider text-foreground/85">
-          {"> talk to me: "}
+        <div className="mt-16 rounded-lg border border-border bg-muted/50 p-6 text-sm text-muted-foreground">
+          Want to talk about any of this? Email me at{" "}
           <a
             href={`mailto:${siteConfig.email}`}
-            className="text-phosphor underline decoration-phosphor underline-offset-4"
+            className="font-semibold text-primary hover:underline"
           >
             {siteConfig.email}
-          </a>
+          </a>{" "}
+          or via the{" "}
+          <Link
+            href="/#contact"
+            className="font-semibold text-primary hover:underline"
+          >
+            contact page
+          </Link>
+          .
         </div>
       </div>
     </div>

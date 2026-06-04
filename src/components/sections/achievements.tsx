@@ -1,36 +1,43 @@
+"use client";
+
+import { motion } from "framer-motion";
+import { Trophy } from "lucide-react";
 import { SectionHeading } from "@/components/section-heading";
 import { achievements } from "@/lib/data";
 
 export function Achievements() {
   return (
-    <section id="achievements" className="term-section">
-      <div className="term-container">
+    <section id="achievements" className="section-padding bg-muted/50">
+      <div className="container-wide">
         <SectionHeading
-          number="09"
-          cmd="wins"
-          title="A few I'm proud of."
+          eyebrow="Awards"
+          title="Recognition."
         />
 
-        <ul className="divide-y divide-border border-y border-border font-mono">
+        <div className="grid gap-5 sm:grid-cols-2">
           {achievements.map((a, i) => (
-            <li
+            <motion.div
               key={a.title}
-              className="grid gap-2 py-6 sm:grid-cols-[80px_1fr] sm:gap-6"
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-80px" }}
+              transition={{ duration: 0.4, delay: i * 0.05 }}
+              className="card-soft p-6"
             >
-              <span className="text-xs text-amber">
-                ★ [{String(i + 1).padStart(2, "0")}]
-              </span>
-              <div>
-                <h3 className="text-lg font-bold uppercase leading-tight text-foreground sm:text-xl">
-                  {a.title}
-                </h3>
-                <p className="mt-2 max-w-prose text-sm leading-relaxed text-foreground/80">
-                  {a.description}
-                </p>
+              <div className="flex items-start gap-4">
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-amber-100 text-amber-700 dark:bg-amber-500/15 dark:text-amber-400">
+                  <Trophy className="h-6 w-6" />
+                </div>
+                <div>
+                  <h3 className="text-base font-semibold">{a.title}</h3>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {a.description}
+                  </p>
+                </div>
               </div>
-            </li>
+            </motion.div>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

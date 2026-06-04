@@ -4,67 +4,61 @@
 
 @layer base {
   :root {
-    /* Default = dark/terminal. Light mode is a "paper terminal" inversion. */
+    /* Corporate Modern — light */
+    --background: 0 0% 100%;             /* #FFFFFF                 */
+    --foreground: 222 47% 11%;           /* #0F172A slate-900       */
 
-    /* Dark terminal */
-    --terminal: 150 18% 4%;          /* #08100A near-black with green tint */
-    --background: 150 18% 4%;
-    --foreground: 90 8% 90%;         /* cool off-white                     */
+    --muted: 210 40% 98%;                /* #F8FAFC slate-50        */
+    --muted-foreground: 215 16% 47%;     /* #64748B slate-500       */
 
-    --phosphor: 142 100% 64%;        /* #4AFF88                            */
-    --amber: 40 100% 62%;            /* #FFBE3D                            */
-    --dim: 150 10% 52%;              /* mid-gray for inactive              */
+    --border: 214 32% 91%;               /* #E2E8F0 slate-200       */
+    --input: 214 32% 91%;
+    --ring: 226 71% 33%;
 
-    --muted: 150 10% 10%;
-    --muted-foreground: 150 10% 60%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
 
-    --border: 142 20% 18%;
-    --input: 142 20% 18%;
-    --ring: 142 100% 64%;
+    --primary: 226 71% 33%;              /* #1E3A8A blue-900 navy   */
+    --primary-foreground: 0 0% 100%;
 
-    --card: 150 18% 6%;
-    --card-foreground: 90 8% 90%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
 
-    --primary: 142 100% 64%;
-    --primary-foreground: 150 18% 4%;
+    --accent: 226 71% 33%;
+    --accent-foreground: 0 0% 100%;
 
-    --secondary: 150 10% 10%;
-    --secondary-foreground: 90 8% 90%;
+    --destructive: 0 72% 51%;
+    --destructive-foreground: 0 0% 100%;
 
-    --accent: 40 100% 62%;
-    --accent-foreground: 150 18% 4%;
-
-    --destructive: 0 95% 62%;
-    --destructive-foreground: 150 18% 4%;
-
-    --radius: 0;
+    --radius: 0.5rem;
   }
 
-  .light {
-    /* Paper terminal (inverse) */
-    --terminal: 40 30% 95%;
-    --background: 40 30% 95%;
-    --foreground: 150 18% 8%;
+  .dark {
+    /* Corporate Modern — dark */
+    --background: 222 47% 6%;            /* #0B1220                 */
+    --foreground: 210 40% 96%;           /* #F1F5F9                 */
 
-    --phosphor: 142 80% 28%;
-    --amber: 30 90% 38%;
-    --dim: 150 10% 40%;
+    --muted: 222 30% 12%;
+    --muted-foreground: 215 16% 65%;
 
-    --muted: 40 20% 88%;
-    --muted-foreground: 150 10% 35%;
+    --border: 222 30% 18%;
+    --input: 222 30% 18%;
+    --ring: 217 91% 60%;
 
-    --border: 150 18% 70%;
-    --input: 150 18% 70%;
-    --ring: 142 80% 28%;
+    --card: 222 35% 9%;
+    --card-foreground: 210 40% 96%;
 
-    --card: 40 30% 97%;
-    --card-foreground: 150 18% 8%;
+    --primary: 217 91% 60%;              /* brighter blue on dark   */
+    --primary-foreground: 222 47% 6%;
 
-    --primary: 142 80% 28%;
-    --primary-foreground: 40 30% 95%;
+    --secondary: 222 30% 14%;
+    --secondary-foreground: 210 40% 96%;
 
-    --accent: 30 90% 38%;
-    --accent-foreground: 40 30% 95%;
+    --accent: 217 91% 60%;
+    --accent-foreground: 222 47% 6%;
+
+    --destructive: 0 72% 60%;
+    --destructive-foreground: 222 47% 6%;
   }
 
   * {
@@ -74,106 +68,56 @@
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "kern", "calt", "zero", "ss01";
-    font-family: var(--font-mono), ui-monospace, monospace;
+    font-feature-settings: "kern", "liga", "calt", "ss01";
   }
 
   ::selection {
-    background: hsl(var(--phosphor) / 0.35);
-    color: hsl(var(--foreground));
+    @apply bg-primary/15 text-foreground;
   }
 }
 
 @layer components {
-  .term-container {
-    @apply mx-auto max-w-6xl px-5 sm:px-8;
+  .container-wide {
+    @apply mx-auto max-w-6xl px-6 lg:px-8;
   }
-  .term-narrow {
-    @apply mx-auto max-w-4xl px-5 sm:px-8;
+  .container-narrow {
+    @apply mx-auto max-w-4xl px-6 lg:px-8;
   }
-  .term-section {
-    @apply py-14 sm:py-20;
+  .section-padding {
+    @apply py-16 sm:py-24;
   }
-
-  /* Blinking caret */
-  .caret::after {
-    content: "▌";
-    margin-left: 2px;
-    color: hsl(var(--phosphor));
-    animation: blink 1.05s steps(1, end) infinite;
+  .eyebrow {
+    @apply text-xs font-semibold uppercase tracking-widest text-primary;
+  }
+  .display {
+    @apply text-balance font-semibold tracking-tight text-foreground;
   }
 
-  /* Prompt prefix */
-  .prompt::before {
-    content: "$";
-    margin-right: 0.6em;
-    color: hsl(var(--phosphor));
-    font-weight: 700;
+  /* Subtle hover card surface */
+  .card-soft {
+    @apply rounded-lg border border-border bg-card transition-all;
+  }
+  .card-soft:hover {
+    @apply -translate-y-0.5 border-primary/40 shadow-md shadow-primary/5;
   }
 
-  .prompt-amber::before {
-    content: ">";
-    margin-right: 0.6em;
-    color: hsl(var(--amber));
-    font-weight: 700;
+  /* Buttons */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-md px-4 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
   }
-
-  /* Section eyebrow as a "comment" */
-  .term-comment {
-    @apply font-mono text-xs text-muted-foreground;
+  .btn-primary {
+    @apply btn bg-primary text-primary-foreground hover:bg-primary/90;
   }
-  .term-comment::before {
-    content: "// ";
-    color: hsl(var(--dim));
+  .btn-outline {
+    @apply btn border border-border bg-background text-foreground hover:border-primary hover:text-primary;
   }
-
-  /* Phosphor "key" inline */
-  .kbd {
-    @apply inline-flex items-center border border-current px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-wider text-phosphor;
-  }
-
-  /* Card surface — used like a terminal panel */
-  .panel {
-    @apply relative border border-border bg-card text-card-foreground;
-  }
-  .panel-amber {
-    @apply panel;
-    border-color: hsl(var(--amber));
-  }
-  .panel-phosphor {
-    @apply panel;
-    border-color: hsl(var(--phosphor));
-  }
-
-  /* ASCII box (relies on monospaced font + CSS for the chrome) */
-  .ascii-box {
-    @apply relative border border-current p-5 sm:p-7;
-  }
-
-  /* Hero-scale heading */
-  .term-display {
-    @apply font-mono font-bold tracking-tight;
-    line-height: 0.95;
-    letter-spacing: -0.04em;
-  }
-
-  /* Subtle text "glow" only on phosphor accents — pure-tinted shadow */
-  .glow-phosphor {
-    color: hsl(var(--phosphor));
-    text-shadow: 0 0 12px hsl(var(--phosphor) / 0.35);
-  }
-  .glow-amber {
-    color: hsl(var(--amber));
-    text-shadow: 0 0 10px hsl(var(--amber) / 0.35);
-  }
-
-  /* Body prose */
-  .term-prose {
-    @apply text-[0.94rem] leading-[1.65] text-foreground/85 sm:text-[1.0rem];
+  .btn-ghost {
+    @apply btn text-foreground hover:bg-muted;
   }
 }
 
@@ -186,50 +130,17 @@
   }
 }
 
-/* Subtle CRT scanlines — fixed overlay, mix-blend-overlay */
-.scanlines {
-  pointer-events: none;
-  position: fixed;
-  inset: 0;
-  z-index: 54;
-  opacity: 0.045;
-  background-image: repeating-linear-gradient(
-    to bottom,
-    transparent 0,
-    transparent 2px,
-    hsl(var(--phosphor)) 3px
-  );
-}
-
-/* Single phosphor scan-bar that slowly drifts down */
-.scanbar {
-  pointer-events: none;
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 80px;
-  z-index: 55;
-  background: linear-gradient(
-    to bottom,
-    transparent 0%,
-    hsl(var(--phosphor) / 0.06) 50%,
-    transparent 100%
-  );
-  animation: scanline 9s linear infinite;
-}
-
-/* Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 10px;
+  height: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: hsl(var(--background));
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: hsl(var(--border));
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: hsl(var(--phosphor) / 0.5);
+  background: hsl(var(--muted-foreground) / 0.5);
 }

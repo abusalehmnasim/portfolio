@@ -3,13 +3,12 @@ import { GitHubHeatmap } from "@/components/widgets/github-heatmap";
 
 export function Activity() {
   return (
-    <section id="activity" className="term-section">
-      <div className="term-container">
+    <section id="activity" className="section-padding bg-muted/50">
+      <div className="container-wide">
         <SectionHeading
-          number="05"
-          cmd="activity"
-          title="Last twelve months."
-          description="Pulled live from the GitHub API. Rendered as ASCII because we can."
+          eyebrow="Open Source"
+          title="GitHub activity."
+          description="A real-time look at the last twelve months of public contributions on GitHub — pulled from the API, not a screenshot."
         />
         <GitHubHeatmap username="abusalehmnasim" />
       </div>

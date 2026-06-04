@@ -1,36 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import {
-  IBM_Plex_Mono,
-  IBM_Plex_Sans,
-  IBM_Plex_Serif,
-} from "next/font/google";
+import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/theme-provider";
-import { StatusBar } from "@/components/terminal/status-bar";
-import { CommandPalette } from "@/components/terminal/command-palette";
-import { Ticker } from "@/components/terminal/ticker";
+import { Navbar } from "@/components/navbar";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { siteConfig, publication } from "@/lib/data";
 import "./globals.css";
 
-const mono = IBM_Plex_Mono({
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
-  variable: "--font-mono",
-  display: "swap",
-});
-
-const sans = IBM_Plex_Sans({
-  subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
   variable: "--font-sans",
-  display: "swap",
-});
-
-const serif = IBM_Plex_Serif({
-  subsets: ["latin"],
-  weight: ["400", "600"],
-  variable: "--font-serif",
   display: "swap",
 });
 
@@ -49,7 +28,9 @@ export const metadata: Metadata = {
     "ICAB",
     "Data Analyst",
     "Financial Modeling",
+    "Policy Research",
     "Dhaka",
+    "Bangladesh",
   ],
   authors: [{ name: siteConfig.name, url: siteConfig.url }],
   creator: siteConfig.name,
@@ -83,8 +64,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#08100A" },
-    { media: "(prefers-color-scheme: light)", color: "#F4ECD9" },
+    { media: "(prefers-color-scheme: light)", color: "#FFFFFF" },
+    { media: "(prefers-color-scheme: dark)", color: "#0B1220" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -151,22 +132,18 @@ export default function RootLayout({
     <html
       lang="en"
       suppressHydrationWarning
-      className={`${mono.variable} ${sans.variable} ${serif.variable}`}
+      className={inter.variable}
     >
-      <body className="min-h-screen bg-background font-mono antialiased">
+      <body className="min-h-screen bg-background font-sans antialiased">
         <ThemeProvider
           attribute="class"
-          defaultTheme="dark"
-          enableSystem={false}
+          defaultTheme="light"
+          enableSystem
           disableTransitionOnChange
         >
-          <div aria-hidden className="scanlines" />
-          <div aria-hidden className="scanbar" />
           <ScrollProgress />
-          <StatusBar />
-          <CommandPalette />
-          <main className="pt-12">{children}</main>
-          <Ticker />
+          <Navbar />
+          <main className="pt-16">{children}</main>
           <Footer />
         </ThemeProvider>
         <script

@@ -1,190 +1,89 @@
 "use client";
 
-import * as React from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { siteConfig } from "@/lib/data";
-
-function useTypewriter(text: string, ms = 55, startDelay = 200) {
-  const [out, setOut] = React.useState("");
-  React.useEffect(() => {
-    let i = 0;
-    let cancelled = false;
-    const tick = () => {
-      if (cancelled) return;
-      if (i <= text.length) {
-        setOut(text.slice(0, i));
-        i += 1;
-        setTimeout(tick, ms);
-      }
-    };
-    const id = setTimeout(tick, startDelay);
-    return () => {
-      cancelled = true;
-      clearTimeout(id);
-    };
-  }, [text, ms, startDelay]);
-  return out;
-}
+import { ArrowDown, Download, Mail } from "lucide-react";
+import { siteConfig, stats } from "@/lib/data";
 
 export function Hero() {
-  const typed = useTypewriter("ABU SALEH M NASIM");
-
   return (
-    <section id="top" className="term-section pt-8 sm:pt-12">
-      <div className="term-container">
-        {/* Prompt line */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="font-mono text-xs uppercase tracking-wider text-dim"
-        >
-          <span className="text-phosphor">guest@nasim-term</span>
-          <span>:</span>
-          <span className="text-amber">~/portfolio</span>
-          <span>$ ./run.sh</span>
-        </motion.div>
-
-        <p className="mt-6 font-mono text-xs uppercase tracking-wider text-dim">
-          {"// loading identity..."}
-        </p>
-
-        {/* Big typewriter name */}
-        <h1 className="mt-3 term-display text-[2.4rem] leading-[1.02] text-foreground sm:text-[4rem] lg:text-[5rem]">
-          {typed}
-          <span className="caret" />
-        </h1>
-
-        <p className="mt-4 max-w-3xl font-mono text-sm uppercase tracking-wider text-foreground/85 sm:text-[0.95rem]">
-          <span className="text-phosphor">[role]</span> BBA Finance · BUP{" "}
-          <span className="text-dim">|</span>{" "}
-          <span className="text-phosphor">[cert]</span> CA Student · ICAB{" "}
-          <span className="text-dim">|</span>{" "}
-          <span className="text-phosphor">[status]</span>{" "}
-          <span className="text-amber">Available · 2026 internship</span>
-        </p>
-
-        {/* Body row */}
-        <div className="mt-10 grid gap-10 lg:grid-cols-[1.3fr_1fr] lg:gap-14">
+    <section id="top" className="relative">
+      <div className="container-wide pb-16 pt-12 sm:pt-20">
+        <div className="grid items-center gap-12 lg:grid-cols-[1.25fr_1fr] lg:gap-16">
+          {/* Text column */}
           <motion.div
-            initial={{ opacity: 0, y: 12 }}
+            initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.5 }}
+            transition={{ duration: 0.5 }}
           >
-            <pre className="overflow-x-auto whitespace-pre-wrap font-mono text-[0.92rem] leading-[1.7] text-foreground/85 sm:text-[1rem]">
-{`> cat bio.txt
-
-I'm a finance undergraduate at Bangladesh University of
-Professionals, currently pre-articled with ICAB (Certificate
-Level cleared, Application Level in progress).
-
-My first peer-accessible paper is live on `}
-              <a
-                href="#research"
-                className="text-phosphor underline decoration-phosphor underline-offset-4 hover:text-amber"
-              >
-                SSRN
-              </a>
-              {` —
-on customer loyalty in Bangladesh's organised grocery sector.
-
-Most weeks: a financial-modelling problem set, an XGBoost
-notebook, and a policy paper, in some rotation.
-
-> _`}
-            </pre>
+            <span className="eyebrow">Available for 2026 internships</span>
+            <h1 className="display mt-4 text-4xl leading-[1.05] sm:text-5xl lg:text-6xl">
+              Hi, I&apos;m{" "}
+              <span className="text-primary">Abu Saleh M Nasim</span>.
+            </h1>
+            <p className="mt-6 max-w-2xl text-base leading-relaxed text-muted-foreground sm:text-lg">
+              I&apos;m a finance undergraduate at the{" "}
+              <span className="font-semibold text-foreground">
+                Bangladesh University of Professionals
+              </span>{" "}
+              and a pre-articled Chartered Accountancy student at{" "}
+              <span className="font-semibold text-foreground">ICAB</span>. I
+              combine classical finance training with hands-on data analytics,
+              machine learning, and policy research.
+            </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <a
-                href="#projects"
-                className="border border-phosphor px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-phosphor transition-colors hover:bg-phosphor hover:text-background"
-              >
-                PROJECTS&lt;GO&gt;
+              <a href="#projects" className="btn-primary">
+                View Projects
+                <ArrowDown className="h-4 w-4" />
               </a>
-              <a
-                href="/cv.pdf"
-                download
-                className="border border-foreground/40 px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-foreground/85 transition-colors hover:border-phosphor hover:text-phosphor"
-              >
-                DOWNLOAD CV
+              <a href="/cv.pdf" download className="btn-outline">
+                <Download className="h-4 w-4" />
+                Download CV
               </a>
-              <button
-                type="button"
-                onClick={() =>
-                  window.dispatchEvent(new CustomEvent("term:palette"))
-                }
-                className="border border-amber px-3 py-1.5 font-mono text-xs uppercase tracking-wider text-amber transition-colors hover:bg-amber hover:text-background"
-              >
-                ⌘K&nbsp;&nbsp;COMMAND
-              </button>
-              <span className="font-mono text-[10px] uppercase tracking-wider text-dim">
-                or press <span className="kbd">?</span> for shortcuts
-              </span>
+              <a href="#contact" className="btn-ghost">
+                <Mail className="h-4 w-4" />
+                Contact
+              </a>
             </div>
           </motion.div>
 
-          <motion.figure
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.55, delay: 0.7 }}
-            className="relative"
+          {/* Portrait */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.97 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.55, delay: 0.1 }}
+            className="relative mx-auto w-full max-w-sm"
           >
-            <div className="border border-phosphor">
-              {/* Fake terminal header */}
-              <div className="flex items-center justify-between border-b border-phosphor/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-phosphor">
-                <span>plate-01.bmp</span>
-                <span className="text-dim">256×320 · 4-bit</span>
-              </div>
-              <div className="relative aspect-[4/5] w-full overflow-hidden bg-card">
-                <Image
-                  src={siteConfig.portrait}
-                  alt={`Photograph of ${siteConfig.name}`}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 320px, 420px"
-                  className="object-cover"
-                  style={{
-                    /* Grayscale only — no hue shift, so skin tone stays human */
-                    filter: "grayscale(1) contrast(1.05) brightness(0.95)",
-                  }}
-                />
-                {/* Phosphor screen tint — only on the highlights, via screen blend */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 mix-blend-screen"
-                  style={{
-                    background: "hsl(var(--phosphor) / 0.12)",
-                  }}
-                />
-                {/* Soft top-down vignette to deepen the screen feel */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0"
-                  style={{
-                    background:
-                      "linear-gradient(180deg, transparent 60%, hsl(var(--background) / 0.55))",
-                  }}
-                />
-                {/* Fine CRT scanlines — much softer than before */}
-                <div
-                  aria-hidden
-                  className="pointer-events-none absolute inset-0 mix-blend-overlay"
-                  style={{
-                    backgroundImage:
-                      "repeating-linear-gradient(0deg, transparent 0, transparent 2px, hsl(var(--background)) 3px)",
-                    opacity: 0.22,
-                  }}
-                />
-              </div>
-              <div className="flex items-center justify-between border-t border-phosphor/70 px-3 py-1.5 font-mono text-[10px] uppercase tracking-wider text-foreground/70">
-                <span>plate-01</span>
-                <span>dhaka · 2026</span>
-                <span className="text-phosphor">OK</span>
-              </div>
+            <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg border border-border bg-muted shadow-lg">
+              <Image
+                src={siteConfig.portrait}
+                alt={`Portrait of ${siteConfig.name}`}
+                fill
+                priority
+                sizes="(max-width: 1024px) 320px, 420px"
+                className="object-cover"
+              />
             </div>
-          </motion.figure>
+          </motion.div>
         </div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="mt-16 grid grid-cols-2 gap-6 border-t border-border pt-10 sm:grid-cols-4 sm:gap-8"
+        >
+          {stats.map((s) => (
+            <div key={s.label}>
+              <p className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+                {s.value}
+              </p>
+              <p className="mt-1.5 text-sm text-muted-foreground">{s.label}</p>
+            </div>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

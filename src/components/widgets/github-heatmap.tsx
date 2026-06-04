@@ -1,4 +1,4 @@
-import { ArrowUpRight } from "lucide-react";
+import { ArrowUpRight, GitCommit } from "lucide-react";
 
 interface Contribution {
   date: string;
@@ -11,22 +11,12 @@ interface ApiResponse {
   contributions: Contribution[];
 }
 
-// ASCII shading by level (Unicode block characters).
-const GLYPH: Record<number, string> = {
-  0: "·",
-  1: "░",
-  2: "▒",
-  3: "▓",
-  4: "█",
-};
-
-// Phosphor intensity per level.
-const TEXT: Record<number, string> = {
-  0: "text-dim",
-  1: "text-phosphor/40",
-  2: "text-phosphor/60",
-  3: "text-phosphor/85",
-  4: "text-phosphor",
+const LEVEL_CLASSES: Record<number, string> = {
+  0: "bg-muted",
+  1: "bg-primary/25",
+  2: "bg-primary/45",
+  3: "bg-primary/70",
+  4: "bg-primary",
 };
 
 async function fetchContributions(username: string): Promise<ApiResponse | null> {
@@ -62,16 +52,18 @@ export async function GitHubHeatmap({ username }: { username: string }) {
 
   if (!data) {
     return (
-      <div className="border border-border p-6 font-mono text-xs uppercase tracking-wider text-dim">
-        <span className="text-destructive">[ERR]</span> live GitHub feed
-        unavailable.{" "}
+      <div className="card-soft flex flex-col items-center gap-3 p-10 text-center">
+        <GitCommit className="h-6 w-6 text-muted-foreground" />
+        <p className="text-sm text-muted-foreground">
+          Live GitHub activity is temporarily unavailable.
+        </p>
         <a
           href={`https://github.com/${username}`}
           target="_blank"
           rel="noreferrer"
-          className="text-phosphor underline decoration-phosphor underline-offset-4"
+          className="text-sm font-semibold text-primary hover:underline"
         >
-          fallback → github.com/{username}
+          View on GitHub →
         </a>
       </div>
     );
@@ -83,69 +75,67 @@ export async function GitHubHeatmap({ username }: { username: string }) {
   const lastYearTotal = lastYearKey ? data.total[lastYearKey] : total;
 
   return (
-    <div className="panel-phosphor">
-      <div className="flex items-center justify-between border-b border-phosphor/60 px-4 py-2 font-mono text-[11px] uppercase tracking-wider">
-        <span className="text-phosphor">~/heatmap.sh</span>
-        <span className="text-dim">render: ascii · 12px</span>
+    <div className="card-soft overflow-hidden">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-border p-5">
+        <div className="flex items-center gap-3">
+          <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+            <GitCommit className="h-5 w-5" />
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-foreground">
+              {lastYearTotal.toLocaleString()} contributions in the last year
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Pulled live from github.com/{username}
+            </p>
+          </div>
+        </div>
+        <a
+          href={`https://github.com/${username}`}
+          target="_blank"
+          rel="noreferrer"
+          className="inline-flex items-center gap-1.5 text-xs font-semibold text-primary hover:underline"
+        >
+          Open profile
+          <ArrowUpRight className="h-3 w-3" />
+        </a>
       </div>
 
-      <div className="p-4 font-mono text-xs sm:p-6">
-        <p className="text-foreground/85">
-          <span className="text-phosphor">{">"}</span>{" "}
-          <span className="text-foreground/70">commits this year:</span>{" "}
-          <span className="font-bold text-phosphor">
-            {lastYearTotal.toLocaleString()}
-          </span>{" "}
-          <span className="text-dim">/ source:</span>{" "}
-          <a
-            href={`https://github.com/${username}`}
-            target="_blank"
-            rel="noreferrer"
-            className="inline-flex items-center gap-1 text-amber underline decoration-amber underline-offset-4"
-          >
-            @{username}
-            <ArrowUpRight className="h-3 w-3" />
-          </a>
-        </p>
-
-        <div className="mt-5 overflow-x-auto">
-          <pre className="text-[14px] leading-[1] tracking-[0.06em]">
-            {Array.from({ length: 7 }).map((_, day) => (
-              <span key={day} className="flex">
-                {weeks.map((week, wi) => {
-                  const cell = week[day];
-                  if (!cell) {
-                    return (
-                      <span key={wi} className="text-dim/20">
-                        {" "}
-                      </span>
-                    );
-                  }
+      <div className="overflow-x-auto p-5">
+        <div className="flex gap-[3px]">
+          {weeks.map((week, wi) => (
+            <div key={wi} className="flex flex-col gap-[3px]">
+              {Array.from({ length: 7 }).map((_, di) => {
+                const day = week[di];
+                if (!day) {
                   return (
                     <span
-                      key={wi}
-                      title={`${cell.count} contributions on ${cell.date}`}
-                      className={TEXT[cell.level]}
-                    >
-                      {GLYPH[cell.level]}
-                    </span>
+                      key={di}
+                      className="h-[11px] w-[11px] rounded-sm bg-transparent"
+                    />
                   );
-                })}
-                {"\n"}
-              </span>
-            ))}
-          </pre>
-        </div>
-
-        <p className="mt-4 flex items-center gap-2 text-[10px] uppercase tracking-wider text-dim">
-          <span>less</span>
-          {[0, 1, 2, 3, 4].map((lvl) => (
-            <span key={lvl} className={`${TEXT[lvl]} text-base leading-none`}>
-              {GLYPH[lvl]}
-            </span>
+                }
+                return (
+                  <span
+                    key={di}
+                    title={`${day.count} contributions on ${day.date}`}
+                    className={`h-[11px] w-[11px] rounded-sm ${LEVEL_CLASSES[day.level]}`}
+                  />
+                );
+              })}
+            </div>
           ))}
-          <span>more</span>
-        </p>
+        </div>
+        <div className="mt-4 flex items-center justify-end gap-1.5 text-[10px] text-muted-foreground">
+          <span>Less</span>
+          {[0, 1, 2, 3, 4].map((lvl) => (
+            <span
+              key={lvl}
+              className={`h-[11px] w-[11px] rounded-sm ${LEVEL_CLASSES[lvl]}`}
+            />
+          ))}
+          <span>More</span>
+        </div>
       </div>
     </div>
   );

@@ -4,48 +4,43 @@ import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
 interface SectionHeadingProps {
-  /** e.g. "01" */
-  number?: string;
-  /** lowercase machine-id, e.g. "about" */
-  cmd?: string;
-  /** human-readable name shown after the command */
+  eyebrow?: string;
   title?: string;
-  /** sub-comment in dim color */
   description?: string;
+  align?: "left" | "center";
   className?: string;
 }
 
 export function SectionHeading({
-  number,
-  cmd,
+  eyebrow,
   title,
   description,
+  align = "left",
   className,
 }: SectionHeadingProps) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 6 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-80px" }}
-      transition={{ duration: 0.35 }}
-      className={cn("mb-10", className)}
-    >
-      {(number || cmd) && (
-        <p className="font-mono text-xs uppercase tracking-wider text-dim">
-          {number && <span className="mr-3 text-foreground/60">[{number}]</span>}
-          <span className="text-phosphor">$ cat</span>{" "}
-          <span className="text-foreground/85">{cmd}.md</span>
-        </p>
+      transition={{ duration: 0.4 }}
+      className={cn(
+        "mb-12 flex flex-col gap-3",
+        align === "center" ? "items-center text-center" : "items-start",
+        className
       )}
+    >
+      {eyebrow && <span className="eyebrow">{eyebrow}</span>}
       {title && (
-        <h2 className="term-display mt-3 text-balance text-3xl text-foreground sm:text-4xl">
-          {title}
-          <span className="caret" />
-        </h2>
+        <h2 className="display text-3xl sm:text-4xl">{title}</h2>
       )}
       {description && (
-        <p className="mt-3 max-w-prose text-pretty text-sm leading-relaxed text-foreground/75 sm:text-base">
-          <span className="text-dim">{"// "}</span>
+        <p
+          className={cn(
+            "text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg",
+            align === "center" ? "max-w-2xl" : "max-w-3xl"
+          )}
+        >
           {description}
         </p>
       )}
