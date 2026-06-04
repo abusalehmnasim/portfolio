@@ -141,10 +141,14 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <ScrollProgress />
-          <Navbar />
-          <main className="pt-16">{children}</main>
-          <Footer />
+          <div className="print:hidden">
+            <ScrollProgress />
+            <Navbar />
+          </div>
+          <main className="pt-16 print:pt-0">{children}</main>
+          <div className="print:hidden">
+            <Footer />
+          </div>
         </ThemeProvider>
         <script
           type="application/ld+json"

@@ -1,97 +1,90 @@
 import { siteConfig, education, experience, projects, publication, skillGroups, certifications, achievements } from "@/lib/data";
-import Link from "next/link";
-import { Mail, Phone, MapPin, Github, Linkedin, ExternalLink } from "lucide-react";
 
 export const metadata = {
   title: `CV - ${siteConfig.name}`,
-  description: `Professional resume of ${siteConfig.name}`,
+  description: `ATS-Friendly resume of ${siteConfig.name}`,
 };
 
 export default function CVPage() {
   return (
-    <div className="min-h-screen bg-zinc-50 py-10 print:py-0 print:bg-white">
-      {/* Printable page container: A4-ish layout */}
-      <div className="mx-auto max-w-[800px] bg-white p-10 shadow-lg print:p-0 print:shadow-none print:max-w-none">
+    <div className="min-h-screen bg-zinc-50 py-8 print:py-0 print:bg-white text-zinc-900 font-sans antialiased">
+      {/* Printable page container: A4 size layout, single-column for absolute ATS friendliness */}
+      <div className="mx-auto max-w-[800px] bg-white p-12 shadow-md print:p-0 print:shadow-none print:max-w-none text-xs">
         
-        {/* Header */}
-        <header className="border-b border-zinc-200 pb-4 text-center">
-          <h1 className="font-serif text-3xl font-bold tracking-tight text-zinc-950">
+        {/* Name and Tagline */}
+        <header className="text-center pb-3">
+          <h1 className="text-2xl font-bold text-black tracking-tight uppercase">
             {siteConfig.name}
           </h1>
-          <p className="mt-1 text-sm font-medium text-zinc-600 print:text-xs">
+          <p className="text-[11px] font-semibold text-zinc-700 tracking-normal mt-0.5 print:text-zinc-800">
             {siteConfig.tagline}
           </p>
           
-          {/* Contact Details */}
-          <div className="mt-3 flex flex-wrap justify-center gap-x-4 gap-y-1 text-xs text-zinc-600">
-            <span className="flex items-center gap-1">
-              <MapPin className="h-3 w-3 text-zinc-400" />
-              {siteConfig.location}
-            </span>
-            <span className="flex items-center gap-1">
-              <Phone className="h-3 w-3 text-zinc-400" />
-              {siteConfig.phone}
-            </span>
-            <span className="flex items-center gap-1">
-              <Mail className="h-3 w-3 text-zinc-400" />
-              <a href={`mailto:${siteConfig.email}`} className="hover:underline">
+          {/* Contact Details (Plain text for ATS Parsing compliance) */}
+          <div className="mt-2 flex flex-wrap justify-center gap-x-3 gap-y-0.5 text-[11px] text-zinc-700">
+            <span>{siteConfig.location}</span>
+            <span>&bull;</span>
+            <span>{siteConfig.phone}</span>
+            <span>&bull;</span>
+            <span>
+              <a href={`mailto:${siteConfig.email}`} className="text-zinc-900 hover:underline">
                 {siteConfig.email}
               </a>
             </span>
-            <span className="flex items-center gap-1">
-              <Linkedin className="h-3 w-3 text-zinc-400" />
-              <a href={siteConfig.socials.linkedin} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            <span>&bull;</span>
+            <span>
+              <a href={siteConfig.socials.linkedin} target="_blank" rel="noopener noreferrer" className="text-zinc-900 hover:underline">
                 linkedin.com/in/{siteConfig.socials.linkedin.split("/in/")[1]?.replace("/", "") || "linkedin"}
               </a>
             </span>
-            <span className="flex items-center gap-1">
-              <Github className="h-3 w-3 text-zinc-400" />
-              <a href={siteConfig.socials.github} target="_blank" rel="noopener noreferrer" className="hover:underline">
+            <span>&bull;</span>
+            <span>
+              <a href={siteConfig.socials.github} target="_blank" rel="noopener noreferrer" className="text-zinc-900 hover:underline">
                 github.com/{siteConfig.githubUsername}
               </a>
             </span>
           </div>
         </header>
 
-        {/* CV Sections */}
-        <div className="mt-5 space-y-5 print:space-y-4">
+        {/* CV Content Section (Single Column for ATS ordering) */}
+        <div className="mt-4 space-y-4">
 
-          {/* Education */}
+          {/* Education Section */}
           <section>
-            <h2 className="border-b border-zinc-800 pb-0.5 text-sm font-bold uppercase tracking-wider text-zinc-950">
+            <h2 className="border-b border-zinc-900 pb-0.5 text-xs font-bold uppercase tracking-wider text-black">
               Education
             </h2>
-            <div className="mt-2 space-y-3">
+            <div className="mt-2 space-y-2">
               {education.map((edu, idx) => (
-                <div key={idx} className="flex justify-between text-xs">
-                  <div>
-                    <h3 className="font-bold text-zinc-900">{edu.institution}</h3>
-                    <p className="text-zinc-700">{edu.degree} &middot; {edu.field}</p>
-                    <p className="mt-0.5 text-[11px] text-zinc-500">{edu.description}</p>
+                <div key={idx} className="space-y-0.5">
+                  <div className="flex justify-between items-baseline font-bold text-black">
+                    <span className="text-[11.5px]">{edu.institution}</span>
+                    <span className="text-[10px] text-zinc-600 font-medium">{edu.period}</span>
                   </div>
-                  <div className="text-right font-medium text-zinc-600 whitespace-nowrap">
-                    {edu.period}
+                  <div className="flex justify-between items-baseline text-zinc-800 text-[11px]">
+                    <span className="italic">{edu.degree} &middot; {edu.field}</span>
                   </div>
+                  <p className="text-[10px] text-zinc-500 leading-normal">{edu.description}</p>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Experience */}
+          {/* Professional Experience Section */}
           <section>
-            <h2 className="border-b border-zinc-800 pb-0.5 text-sm font-bold uppercase tracking-wider text-zinc-950">
+            <h2 className="border-b border-zinc-900 pb-0.5 text-xs font-bold uppercase tracking-wider text-black">
               Experience & Leadership
             </h2>
-            <div className="mt-2 space-y-3">
+            <div className="mt-2 space-y-2">
               {experience.map((exp, idx) => (
-                <div key={idx} className="text-xs">
-                  <div className="flex justify-between">
-                    <h3 className="font-bold text-zinc-900">
-                      {exp.role} — <span className="font-semibold text-zinc-700">{exp.org}</span>
-                    </h3>
-                    <span className="font-medium text-zinc-600 whitespace-nowrap">{exp.period}</span>
+                <div key={idx} className="space-y-0.5">
+                  <div className="flex justify-between items-baseline font-bold text-black">
+                    <span className="text-[11.5px]">
+                      {exp.role} &mdash; <span className="font-semibold text-zinc-800">{exp.org}</span>
+                    </span>
+                    <span className="text-[10px] text-zinc-600 font-medium">{exp.period}</span>
                   </div>
-                  <ul className="mt-1 list-disc pl-4 space-y-0.5 text-[11px] text-zinc-600">
+                  <ul className="list-disc pl-4 space-y-0.5 text-[10.5px] text-zinc-700 leading-normal">
                     {exp.points.map((pt, pIdx) => (
                       <li key={pIdx}>{pt}</li>
                     ))}
@@ -101,99 +94,87 @@ export default function CVPage() {
             </div>
           </section>
 
-          {/* Projects */}
+          {/* Projects Section */}
           <section>
-            <h2 className="border-b border-zinc-800 pb-0.5 text-sm font-bold uppercase tracking-wider text-zinc-950">
-              Projects
+            <h2 className="border-b border-zinc-900 pb-0.5 text-xs font-bold uppercase tracking-wider text-black">
+              Selected Projects
             </h2>
-            <div className="mt-2 space-y-3">
+            <div className="mt-2 space-y-2.5">
               {projects.map((project, idx) => (
-                <div key={idx} className="text-xs">
-                  <div className="flex justify-between">
-                    <h3 className="font-bold text-zinc-900 flex items-center gap-1.5">
-                      {project.title}
-                      {project.github && (
-                        <a href={project.github} target="_blank" rel="noopener noreferrer" className="text-zinc-400 hover:text-zinc-600 print:hidden">
-                          <ExternalLink className="h-3 w-3" />
-                        </a>
-                      )}
-                    </h3>
-                    <span className="font-medium text-zinc-600 whitespace-nowrap">{project.period}</span>
+                <div key={idx} className="space-y-0.5">
+                  <div className="flex justify-between items-baseline font-bold text-black">
+                    <span className="text-[11.5px]">
+                      {project.title} <span className="text-[10px] font-normal text-zinc-500">({project.github ? "GitHub Repo Available" : ""})</span>
+                    </span>
+                    <span className="text-[10px] text-zinc-600 font-medium">{project.period}</span>
                   </div>
-                  <p className="text-[11px] text-zinc-700 mt-0.5">{project.description}</p>
-                  <p className="mt-1 text-[11px] text-zinc-600">
-                    <span className="font-semibold">Key Highlights:</span> {project.highlights.join("; ")}
-                  </p>
-                  <p className="mt-0.5 text-[10px] text-zinc-500 font-medium">
-                    Tech Stack: {project.tech.join(", ")}
-                  </p>
+                  <p className="text-[10.5px] text-zinc-700 leading-normal">{project.description}</p>
+                  <div className="text-[10px] text-zinc-600 leading-normal">
+                    <span className="font-bold text-zinc-800">Highlights:</span> {project.highlights.join(" | ")}
+                  </div>
+                  <div className="text-[9.5px] text-zinc-500 font-medium">
+                    Technologies: {project.tech.join(", ")}
+                  </div>
                 </div>
               ))}
             </div>
           </section>
 
-          {/* Research & Publications */}
+          {/* Research & Publications Section */}
           <section>
-            <h2 className="border-b border-zinc-800 pb-0.5 text-sm font-bold uppercase tracking-wider text-zinc-950">
+            <h2 className="border-b border-zinc-900 pb-0.5 text-xs font-bold uppercase tracking-wider text-black">
               Research & Publications
             </h2>
-            <div className="mt-2 text-xs">
-              <div className="flex justify-between">
-                <h3 className="font-bold text-zinc-900">
-                  {publication.title}
-                </h3>
-                <span className="font-medium text-zinc-600 whitespace-nowrap">
-                  {publication.postedDate.split("-")[0]}
-                </span>
+            <div className="mt-2 space-y-1">
+              <div className="flex justify-between items-baseline font-bold text-black">
+                <span className="text-[11.5px]">{publication.title}</span>
+                <span className="text-[10px] text-zinc-600 font-medium">{publication.postedDate.split("-")[0]}</span>
               </div>
-              <p className="text-zinc-700 text-[11px] font-medium italic mt-0.5">
+              <p className="text-[10.5px] text-zinc-800 italic leading-tight">
                 {publication.subtitle}
               </p>
-              <p className="text-zinc-600 text-[10px] mt-0.5">
-                Published on <span className="font-semibold">{publication.venue}</span> &middot; DOI:{" "}
-                <a href={publication.doiUrl} target="_blank" rel="noopener noreferrer" className="hover:underline text-blue-600 print:text-zinc-900 print:no-underline">
-                  {publication.doi}
-                </a>
+              <p className="text-[10px] text-zinc-600 leading-normal">
+                Published on <span className="font-semibold text-zinc-800">{publication.venue}</span> &middot; DOI: {publication.doi}
               </p>
-              <p className="text-[10px] text-zinc-500 mt-1 line-clamp-2 print:line-clamp-none">
-                <span className="font-semibold">Abstract:</span> {publication.abstract}
+              <p className="text-[9.5px] text-zinc-500 leading-normal">
+                <span className="font-bold text-zinc-700">Abstract:</span> {publication.abstract}
               </p>
             </div>
           </section>
 
-          {/* Skills, Certifications & Achievements */}
-          <section className="grid grid-cols-2 gap-4">
-            <div>
-              <h2 className="border-b border-zinc-800 pb-0.5 text-sm font-bold uppercase tracking-wider text-zinc-950">
-                Skills
-              </h2>
-              <div className="mt-2 space-y-1 text-xs">
-                {skillGroups.map((group, idx) => (
-                  <div key={idx} className="text-[11px]">
-                    <span className="font-semibold text-zinc-800">{group.name}: </span>
-                    <span className="text-zinc-600">{group.items.join(", ")}</span>
-                  </div>
-                ))}
-              </div>
+          {/* Skills Section */}
+          <section>
+            <h2 className="border-b border-zinc-900 pb-0.5 text-xs font-bold uppercase tracking-wider text-black">
+              Technical Skills & Interests
+            </h2>
+            <div className="mt-2 space-y-1 text-[10.5px] text-zinc-700">
+              {skillGroups.map((group, idx) => (
+                <div key={idx} className="flex">
+                  <span className="font-bold text-black min-w-[140px]">{group.name}:</span>
+                  <span>{group.items.join(", ")}</span>
+                </div>
+              ))}
             </div>
+          </section>
 
-            <div>
-              <h2 className="border-b border-zinc-800 pb-0.5 text-sm font-bold uppercase tracking-wider text-zinc-950">
-                Certifications & Awards
-              </h2>
-              <div className="mt-2 space-y-1.5 text-[11px] text-zinc-600">
-                {certifications.map((cert, idx) => (
-                  <div key={idx}>
-                    <span className="font-bold text-zinc-800">{cert.title}</span> &middot; {cert.issuer}
-                  </div>
-                ))}
-                {achievements.map((ach, idx) => (
-                  <div key={idx}>
-                    <span className="font-bold text-zinc-800">{ach.title}</span>
-                    <p className="text-[10px] text-zinc-500 leading-tight">{ach.description}</p>
-                  </div>
-                ))}
-              </div>
+          {/* Certifications & Achievements Section */}
+          <section>
+            <h2 className="border-b border-zinc-900 pb-0.5 text-xs font-bold uppercase tracking-wider text-black">
+              Certifications & Achievements
+            </h2>
+            <div className="mt-2 space-y-1 text-[10.5px] text-zinc-700">
+              {certifications.map((cert, idx) => (
+                <div key={idx} className="flex">
+                  <span className="font-bold text-black min-w-[140px]">{cert.issuer}:</span>
+                  <span>{cert.title} &mdash; <span className="text-zinc-500 text-[10px]">{cert.description}</span></span>
+                </div>
+              ))}
+              {achievements.map((ach, idx) => (
+                <div key={idx} className="flex">
+                  <span className="font-bold text-black min-w-[140px]">{ach.title}:</span>
+                  <span>{ach.description}</span>
+                </div>
+              ))}
             </div>
           </section>
 
