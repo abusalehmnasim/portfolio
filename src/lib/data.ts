@@ -99,6 +99,30 @@ export const experience = [
 
 export const projects = [
   {
+    slug: "daam-kemon",
+    title: "Daam Kemon",
+    description:
+      "A grocery price intelligence engine for Bangladesh. Live-scrapes Chaldal, Shwapno, and Othoba every 6 hours, normalizes messy listings using a tiered confidence-scoring matcher, and aggregates by item type and size to present a unified price-comparison view with a delivery-fee aware basket optimizer.",
+    tech: [
+      "Python",
+      "FastAPI",
+      "Next.js",
+      "Playwright",
+      "PostgreSQL",
+      "Tailwind CSS",
+    ],
+    highlights: [
+      "Live-scrapes multiple e-commerce stores with Playwright and Chromium",
+      "Unified messy Bangla/English listings via 5-tier confidence matcher",
+      "Basket optimizer computes optimal split across stores considering delivery fees",
+    ],
+    github: "https://github.com/abusalehmnasim/daam-kemon",
+    image: "/images/project-daam-kemon.png",
+    accent: "from-amber-500/20 via-orange-500/10 to-yellow-500/20",
+    status: "Active",
+    period: "May 2026 – ongoing",
+  },
+  {
     slug: "dhaka-restaurants",
     title: "Dhaka Restaurant Directory",
     description:
